@@ -1,52 +1,93 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import React from "react";
-import http from '../../../http';
+import axios from "axios";
+import swal from "sweetalert";
 
-
+// api/savesub
 
 
 function Subcategory()
 {
 
-    const[inputs,setInputs] = useState({});
+    const [categorylist, setCategorylist] = useState([]);
+    const [subcategoryInput, setSubcategory ] = useState({
+
+        category_id:'',
+        name:'',
+        remarks:'',
+        error_list:[],
+    });
+
+    const handleInput =(event)=>{
+        event.persist();
+        setSubcategory({...subcategoryInput,[event.target.name]:event.target.value});
+    }
+
+    useEffect(()=>{
+        axios.get(`api/categories`).then(res=>{
+            if(res.data.status ===200){
+                setCategorylist(res.data.categories);
+            }
+
+        });
+    },[]);
+
     
-    const handleChange = (event)=>{
-        const name = event.target.name;
-        const value = event.target.value;
-        setInputs(values=> ({...values,[name]:value}))
+
+    const submitSubcategory=(event)=>{
+        event.preventDefault();
+
+   
+const data ={
+    catid:subcategoryInput.category_id,
+    name:subcategoryInput.name,
+    remarks:subcategoryInput.remarks,
+}
+           
+        
+        
+        axios.post(`api/savesub`,data).then(res=>{
+
+        })
     }
-
-
-    const submitForm = () =>{
-        http.post('http://localhost:8000/api/savesub', inputs)
-            
-     
-    }
-
 
     return (
         <>
         <div>
             <h2>Add Subategories</h2>
+
+            <form onSubmit={submitSubcategory} encType="multipart/form-data">
+
             <div className="row">
                 <div className="col-sm-6 justify-content-center">
                     <div className="card p-4">
-                    <label> Name</label>
-                    <input type ="text" name="name" className="form-control mb-2" 
-                    value={inputs.name || ''}
-                    onChange={handleChange} 
-                    />
-                    <label> remarks</label>
-               <input type ="text" name="remarks" className="form-control mb-2" 
-                    value={inputs.remarks || ''}
-                    onChange={handleChange}
-                    
-                    /> 
+        
 
-                    <button type="button" onClick={submitForm} className="btn btn-info mt-2"> Save</button>
+                  <div className="form-group mb-3">
+                      <label>Select Category</label>
+                      <select name="category_id" onChange={handleInput} value={subcategoryInput.category_id}   className="form-control">
+                      <option>select Category</option>
+                          {
+                              categorylist.map((item)=>{
+                                  return(
+                                  <option value={item.id} key={item.id}>{item.name}</option>
+                                  )
+                              })
+                          }
+                            
+                      </select>
+                  </div>
+
+                    <label> Name</label>
+                    <input type ="text" name="name"  value={subcategoryInput.name} onChange={handleInput} className="form-control mb-2" required/>
+                    <label> remarks</label>
+                    <input type ="text" name="remarks" value={subcategoryInput.remarks} onChange={handleInput} className="form-control mb-2"/> 
+
+                    <button type="submit" className="btn btn-info mt-2"> Save</button>
                 </div>
             </div>
             </div>
+            </form>
         </div>
         </>
     );

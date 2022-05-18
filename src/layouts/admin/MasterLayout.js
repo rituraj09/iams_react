@@ -37,7 +37,7 @@ const MasterLayout = () => {
                                     )
                                 })
                             } 
-                            <Redirect to={{pathname: "/admin/dashboard", state:{from: "admin"}}}  />
+                            <Redirect from ={{pathname: "/admin/dashboard", state:{from: "admin"}}}  />
                         </Switch>
                     </main>
                     <Footer />

@@ -1,26 +1,57 @@
 import { useState } from "react";
 import React from "react";
-import http from '../../../http';
+import axios from "axios";
+import swal from "sweetalert";
+//import http from '../../../http';
 
 
 
 
 function Category()
+
 {
 
-    const[inputs,setInputs] = useState({});
+    const[catInputs,setCat] = useState({
+        catName:'',
+        error_list:[],
+    });
     
-    const handleChange = (event)=>{
-        const name = event.target.name;
-        const value = event.target.value;
-        setInputs(values=> ({...values,[name]:value}))
+    const handleInput = (event)=>{
+      event.persist();
+      setCat({...catInputs,[event.target.name]:event.target.value})
     }
 
 
-    const submitForm = () =>{
-        http.post('http://localhost:8000/api/savecat', inputs)
+    const submitCat = (event) =>{
+
+        event.preventDefault();
+        const data ={
+            name:catInputs.name,
+        }
+        axios.post(`api/savecat`, data).then(res =>{
+            if(res.data.status ===200)
+            {
+                swal("Success",res.data.massage,"Success");
+                document.getElementById('CAT_Form').reset();
+            }
+
+            else if(res.data.status === 400)
+            {
+                setCat({...catInputs, error_list:res.data.errors})
+            }
+
+           
+        });
             
      
+    }
+
+    var display_errors=[];
+    if(catInputs.error_list)
+    {
+        display_errors=[
+            catInputs.error_list.name,
+        ]
     }
 
 
@@ -28,18 +59,25 @@ function Category()
         <>
         <div>
             <h2>Add Categories</h2>
+            
+          
+                   
+                
+            
+            <form onSubmit={{submitCat}} id="CAT_Form">
             <div className="row">
                 <div className="col-sm-6 justify-content-center">
                     <div className="card p-4">
-                    <input type ="text" name="name" className="form-control mb-2" 
-                    value={inputs.name || ''}
-                    onChange={handleChange}
+                    <input type ="text" name="name" className="form-control mb-2"  value={catInputs.name} onChange={handleInput}
                     
                     />
-                    <button type="button" onClick={submitForm} className="btn btn-info mt-2"> Save</button>
+                    <button type="button" onClick={submitCat} className="btn btn-info mt-2"> Save</button>
+                    
                 </div>
+                
             </div>
             </div>
+            </form>
         </div>
         </>
     );
