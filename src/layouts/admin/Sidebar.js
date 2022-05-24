@@ -27,7 +27,17 @@ const Sidebar = () => {
                     </Link>
                     <Link  to="/admin/view" className="nav-link"> 
                     <div className="sb-nav-link-icon"> <FontAwesomeIcon icon={faCircleDot}></FontAwesomeIcon> </div> 
-                        view
+                        view Categories
+                    </Link>
+
+                    <Link  to="/admin/viewSub" className="nav-link"> 
+                    <div className="sb-nav-link-icon"> <FontAwesomeIcon icon={faCircleDot}></FontAwesomeIcon> </div> 
+                        view Sub Categories
+                    </Link>
+
+                    <Link  to="/admin/EntryForm" className="nav-link"> 
+                    <div className="sb-nav-link-icon"> <FontAwesomeIcon icon={faCircleDot}></FontAwesomeIcon> </div> 
+                        Entry Form
                     </Link>
                     
                     <div className="sb-sidenav-menu-heading">Data Entry</div>

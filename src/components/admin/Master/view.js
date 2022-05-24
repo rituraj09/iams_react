@@ -4,9 +4,11 @@ import axios from 'axios';
 
 function Viewcategory () {
 
+    
 
         const [loading, setLoading] = useState(true);
         const [categorylist, setCategorylist] = useState([]);
+        
 
         useEffect(()=>{
         axios.get(`api/categories`).then(res=>{
@@ -21,14 +23,14 @@ function Viewcategory () {
         });
     },[]);
 
-    var Viewcategory_HTMLTABLE ;
+    let Viewcategory_HTMLTABLE ;
     if(loading)
     {
         return <h4> Loading Category...... </h4>
     }
 
     else{
-        Viewcategory_HTMLTABLE =
+        Viewcategory_HTMLTABLE =[
 
         categorylist.map((item)=>
         {
@@ -37,12 +39,16 @@ function Viewcategory () {
                     <td>{item.id}</td>
                     <td> {item.name}</td>  
                     <td>{item.remarks}</td>
-                       
-                        
-                   
+                    <td>
+                        <Link to={`edit-category/${item.id}`} className="btn btn-success btn-sm">Edit</Link>
+                    </td>
+
+                    <td>
+                        <Link to={`delete-category/${item.id}`} className="btn btn-danger btn-sm">Delete</Link>
+                    </td>
                 </tr>
             )
-        })
+        })]
     }
 
 

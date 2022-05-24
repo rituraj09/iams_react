@@ -24,14 +24,14 @@ function Category()
 
     const submitCat = (event) =>{
 
-        event.preventDefault();
+        
         const data ={
             name:catInputs.name,
         }
         axios.post(`api/savecat`, data).then(res =>{
-            if(res.data.status ===200)
+            if(res.data.status === 200)
             {
-                swal("Success",res.data.massage,"Success");
+                swal('Success',res.data.message,"Success");
                 document.getElementById('CAT_Form').reset();
             }
 
@@ -46,13 +46,13 @@ function Category()
      
     }
 
-    var display_errors=[];
-    if(catInputs.error_list)
-    {
-        display_errors=[
-            catInputs.error_list.name,
-        ]
-    }
+    // var display_errors=[];
+    // if(catInputs.error_list)
+    // {
+    //     display_errors=[
+    //         catInputs.error_list.name,
+    //     ]
+    // }
 
 
     return (
