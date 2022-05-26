@@ -8,7 +8,7 @@ const Sidebar = () => {
             <div className="sb-sidenav-menu">
                 <div className="nav"> 
                  
-                    <Link  to="/admin" className="nav-link">
+                    <Link  to="/admin/dashboard" className="nav-link">
                     <div className="sb-nav-link-icon"> <FontAwesomeIcon icon={faTachometerAlt}></FontAwesomeIcon> </div>
                     <div></div>Dashboard
                     </Link>

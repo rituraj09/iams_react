@@ -29,7 +29,7 @@ function Navbar(props) {
         )
     }
     else {
-        history.push('/user');
+        history.push('/admin/dashboard');
     }
     return (
         <>

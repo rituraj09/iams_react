@@ -51,7 +51,7 @@ function Login() {
                     localStorage.setItem('auth_name', resp.data.username);
                     localStorage.setItem('auth_email', resp.data.email);
                    // swal('Success', resp.data.message, "success");
-                    history.push('/user');
+                    history.push('/admin/dashboard');
                 }
                 else if (resp.data.status === 401) {
                     setLogin({ ...loginInput, error_list: [] });

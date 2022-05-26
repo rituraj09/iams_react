@@ -1,9 +1,9 @@
 import React,{useState,useEffect} from "react";
 import axios from "axios";
 import swal from "sweetalert";
-import DatePicker from 'react-datepicker';
-import "react-datepicker/dist/react-datepicker.css";
-import 'bootstrap/dist/css/bootstrap.min.css';
+//import DatePicker from 'react-datepicker';
+//import "react-datepicker/dist/react-datepicker.css";
+//import 'bootstrap/dist/css/bootstrap.min.css';
  
 function EntryForm(){
 
