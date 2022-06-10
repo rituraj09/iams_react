@@ -1,7 +1,7 @@
 import React,{useState,useEffect} from "react";
 import { Link } from "react-router-dom";
 import axios from 'axios';
-
+import { MDBDataTable } from 'mdbreact';
 function Viewcategory () {
 
     
@@ -23,6 +23,9 @@ function Viewcategory () {
         });
     },[]);
 
+
+
+
     let Viewcategory_HTMLTABLE ;
     if(loading)
     {
@@ -34,6 +37,7 @@ function Viewcategory () {
 
         categorylist.map((item)=>
         {
+
             return(
                 <tr key={item.id}>
                     <td>{item.id}</td>
@@ -51,10 +55,74 @@ function Viewcategory () {
         })]
     }
 
+//     let datatable={
+
+        
+//         columns: [
+
+//             {
+//                 label: 'Id',
+//                 field: 'id',
+//                 sort: 'asc',
+//                 width: 100
+//               },
+//             {
+//               label: 'Name',
+//               field: 'name',
+//               sort: 'asc',
+//               width: 150
+//             },
+//             {
+//               label: 'Remarks',
+//               field: 'remarks',
+//               sort: 'asc',
+//               width: 270
+//             },
+           
+            
+//           ],
+//           rows: [
+//             categorylist.map((item)=>{
+                
+//             return(
+//                 <tr key={item.id}>
+//                     <td>{item.id}</td>
+//                     <td> {item.name}</td>  
+//                     <td>{item.remarks}</td>
+//                     </tr>
+// )
+
+//             }
+
+          
+//             // {
+//             //   id: '61',
+//             //   name: 'Tiger Nixon',
+//             //   remarks: 'System Architects',
+            
+//             // },
+//             // {
+//             //     id: '62',
+//             //   name: 'Garrett Winters',
+//             //   remarks: 'Accountant',
+//             // }
+            
+         
+  
+      
+//     };
 
 
-    return (
+//     // /////////////////////////////////////////////////////////////////
+
+   return (
+
+
+
+
        <div className="container px-4">
+
+          
            
         <div className="card mt-4">
             <div className="=card-header">
@@ -68,6 +136,7 @@ function Viewcategory () {
 </nav>
                 </h4>
             </div>
+
             <div className="card-body">
             <table class="table">
   <thead className="table-dark">
@@ -87,7 +156,8 @@ function Viewcategory () {
             </div>
 
         </div>
-       
+      
+
        </div>
     );
 }

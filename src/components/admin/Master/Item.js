@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import React from "react";
 import axios from "axios";
+import swal from "sweetalert";
 
 
 
@@ -67,6 +68,20 @@ const data ={
         
         axios.post(`api/saveitem`,data).then(res=>{
 
+            if(res.data.status === 200)
+            {
+                swal('Success',res.data.message,"Success");
+
+                setItem({
+                    subcategory_id:'',
+                    assettype:'',
+                    itemscode:'',
+                    name:'',
+                    approverate:'',
+                    remarks:'',
+                        })
+                
+            }
         })
     }
 

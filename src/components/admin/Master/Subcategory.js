@@ -4,8 +4,6 @@ import axios from "axios";
 import swal from "sweetalert";
 
 // api/savesub
-
-
 function Subcategory()
 {
 
@@ -47,7 +45,16 @@ const data ={
         
         
         axios.post(`api/savesub`,data).then(res=>{
+            if(res.data.status === 200)
+            {
+                swal('Success',res.data.message,"Success");
+              setSubcategory({
+                category_id:'',
+                name:'',
+                remarks:'',
 
+              })
+            }
         })
     }
 

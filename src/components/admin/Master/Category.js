@@ -28,11 +28,15 @@ function Category()
         const data ={
             name:catInputs.name,
         }
+
+
         axios.post(`api/savecat`, data).then(res =>{
             if(res.data.status === 200)
             {
                 swal('Success',res.data.message,"Success");
-                document.getElementById('CAT_Form').reset();
+
+                
+              
             }
 
             else if(res.data.status === 400)
@@ -58,26 +62,20 @@ function Category()
     return (
         <>
         <div>
+        <div className="container-fluid">
             <h2>Add Categories</h2>
-            
-          
-                   
-                
-            
+
             <form onSubmit={{submitCat}} id="CAT_Form">
             <div className="row">
                 <div className="col-sm-6 justify-content-center">
                     <div className="card p-4">
-                    <input type ="text" name="name" className="form-control mb-2"  value={catInputs.name} onChange={handleInput}
-                    
-                    />
-                    <button type="button" onClick={submitCat} className="btn btn-info mt-2"> Save</button>
-                    
-                </div>
-                
+                    <input type ="text" name="name" value={catInputs.name} onChange={handleInput}  className="form-control mb-2" />
+                </div>      
             </div>
             </div>
+            <button type="button" onClick={submitCat} className="btn btn-info mt-2"> Save</button> 
             </form>
+        </div>
         </div>
         </>
     );

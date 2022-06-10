@@ -14,6 +14,7 @@ function EntryForm(){
     const [subcategorylist, setSubategorylist] = useState([]);
     const [itemlist, setItemlist] = useState([]);
     const [templist, setTemplist] = useState([]);
+    const [assetlist, setAssetlist] = useState([]);
     const [ipadr,setIP] = useState('');
     ///////////////////////////////////////////////////////////////
     const token = localStorage.getItem('auth_token');
@@ -27,10 +28,7 @@ function EntryForm(){
         item_id:'',
         description:'',
         Quantity:'',
-
-     
-    
-      
+        asset_id: '',
     });
 
 
@@ -51,10 +49,6 @@ function EntryForm(){
         });
     },[]);
  
-
-
-
-   
 
     ////////////////////////////////Get category data//////////////////////////////////
         useEffect(()=>{
@@ -80,11 +74,10 @@ function EntryForm(){
     },[cat]);
 
 
-    //   ////////////////////////////////Get item data////////////////////////////////// 
+    /////////////////////////////////////Get item data////////////////////////////////// 
       let subcat=EntryfromInput.subcategory_id;
 
       
-  
       useEffect(()=>{
           axios.get(`api/itemslist/${subcat}`).then(res=>{
               if(res.data.status ===200){
@@ -94,11 +87,26 @@ function EntryForm(){
           });
       },[subcat]);
 
+
+        /////////////////////////////////////Get asset////////////////////////////////// 
+        let asset=EntryfromInput.subcategory_id;
+
+      
+        useEffect(()=>{
+            axios.get(`api/itemslist/`).then(res=>{
+                if(res.data.status ===200){
+                    setAssetlist(res.data.items);
+                }
+    
+            });
+        },[asset]);
+
+
+
+
+
        ////////////////////////////////////Get temp data////////////////////////////////// 
-
-
-  
-     
+   
 
     const submit=(event)=>{
         
@@ -129,7 +137,6 @@ function EntryForm(){
                     item_id:'',
                     description:'',
                     Quantity:'',})
-                    localStorage.setItem('list', "abcd");
     
             });
             }        
@@ -143,6 +150,8 @@ function EntryForm(){
             if(res.status === 200)
             {
                 setTemplist(res.data.temporders)
+
+                
             }
             
         
@@ -150,21 +159,17 @@ function EntryForm(){
         });
     },[ipadr,token]);
 
-    console.log("The ip: "  + ipadr);
 
+    let Viewcategory_HTMLTABLE; 
 
-    let Viewcategory_HTMLTABLE ;
-
-
-     
- 
         Viewcategory_HTMLTABLE =[
           
-            templist.map((items)=>
+        templist.map((items)=>
         {
             return(
+
+              
                 <tr key={items.id}>
-                    <td>{items.id}</td>
                     <td> {items.orderdate}</td>  
                     <td>{items.itemid}</td>
                     <td>{items.description}</td>
@@ -178,21 +183,27 @@ function EntryForm(){
                         <Link to={`delete-category/${items.id}`} className="btn btn-danger btn-sm">Delete</Link>
                     </td> 
                 </tr>
-            )
+)
         })]
     
+                        let ordersubmit;
+                        let deleteall;
+                        let saveasdraft;
 
-   
-    
+                          if (templist.length) {
+                            ordersubmit = [<Link to={`edit-category/`} className="btn btn-success btn-sm">Submit Order</Link>]
+                            deleteall = [<Link to={`edit-category/`} className="btn btn-success btn-sm">Save As Draft</Link>]
+                            saveasdraft = [<Link to={`edit-category/`} className="btn btn-success btn-sm"> Delete All</Link>]
+                           }
 
-      
- 
+
     return(
+
         <>
-        
+        <div className="container-fluid">
           <h2>Entry Form</h2> 
 
-          <h4>{ipadr}</h4>
+     
 
         <form onSubmit={submit}>
         <div className="row">
@@ -200,8 +211,8 @@ function EntryForm(){
         <div className="card p-4">
         <div className="form-group mb-3">
 
-        <label> Name</label>
-                    <input type ="text" name="mac"  value={EntryfromInput.mac} onChange={handleInput} className="form-control mb-2" required/>
+      
+                    <input type ="text" name="mac"  value={EntryfromInput.mac} onChange={handleInput} className="form-control mb-2" hidden/>
 
         <label>Select Date:</label>
         <input type="date" name="date" onChange={handleInput} value={EntryfromInput.date}></input>
@@ -236,7 +247,7 @@ function EntryForm(){
                       
                       <label>Select Item</label>
                   <select name="item_id" onChange={handleInput} value={EntryfromInput.item_id}   className="form-control">
-                      <option>select Subcategory</option>
+                      <option>select Item</option>
                           {
                               itemlist.map((items)=>{
                                   return(
@@ -246,6 +257,22 @@ function EntryForm(){
                           }
                             
                       </select>
+
+                      <label>Select Asset Type</label>
+                  <select name="asset_id" onChange={handleInput} value={EntryfromInput.asset_id}   className="form-control">
+                      <option>select Asset</option>
+                          {
+                              assetlist.map((items)=>{
+                                  return(
+                                  <option value={items.id} key={items.id}>{items.name}</option>
+                                  )
+                              })
+                          }
+                            
+                      </select>
+
+
+
 
                       <div className="form-group">
                 <label>Description</label>
@@ -261,16 +288,16 @@ function EntryForm(){
                  <br></br><br></br>
                  <button type="submit" className="btn btn-success btn-sm"> Add</button>
                  <br></br><br></br>
-                 <button type="clear" className="btn btn-danger btn-sm"> Clear</button>
                  
-
-
+                
         </div>
         </div>
         </div>
         </div>
         </div>   
   </form>
+
+
   <div className="container px-4">
            
            <div className="card mt-4">
@@ -284,29 +311,52 @@ function EntryForm(){
    
    </nav>
                    </h4>
+                </div>
+                <div className="card-body">
+                    <table className="table">
+                        <thead className="table-dark">
+                        <tr>
+                           
+                            <th>Date</th>
+                            <th>Item id</th>
+                            <th>Description</th>
+                            <th>Quantity</th>
+                            <th>Delete</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            {Viewcategory_HTMLTABLE}
+                        </tbody>
+                    </table> 
                </div>
-               <div className="card-body">
-               <table className="table">
-     <thead className="table-dark">
-       <tr>
-           <th>ID</th>
-           <th>Date</th>
-           <th>Item id</th>
-           <th>Description</th>
-           <th>Quantity</th>
-           <th>Delete</th>
-       </tr>
-     </thead>
-     <tbody>
-       {Viewcategory_HTMLTABLE}
-     </tbody>
-   </table>
-   
-               </div>
-   
+
+            
+                         
+                <div className="row">
+                    <div className="col-md-6">
+                           {ordersubmit}
+                    </div>
+                </div>
+
+                          
+                <div className="row">
+                    <div className="col-md-6">
+                           {deleteall}
+                    </div>
+                </div>
+
+                          
+                <div className="row">
+                    <div className="col-md-6">
+                           {saveasdraft}
+                    </div>
+                </div>
+    
            </div>
           
           </div>
+
+               </div>
           </>
 
     )
