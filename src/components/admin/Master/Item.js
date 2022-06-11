@@ -10,12 +10,13 @@ function Item()
 {
     const [categorylist, setCategorylist] = useState([]);
     const [subcategorylist, setSubategorylist] = useState([]);
+    const [assetlist, setAssetlist] = useState([]);
 
 
     const [itemInput, setItem ] = useState({
 
         subcategory_id:'',
-        assettype:'',
+        asset_id:'',
         itemscode:'',
         name:'',
         approverate:'',
@@ -39,6 +40,7 @@ function Item()
         });
     },[]);
 
+
     let cat=itemInput.category_id;
   
     useEffect(()=>{
@@ -50,12 +52,25 @@ function Item()
         });
     },[cat]);
 
+
+     /////////////////////////////////////Get asset////////////////////////////////// 
+     
+     useEffect(()=>{
+         axios.get(`api/assettypes-list/`).then(res=>{
+             if(res.data.status ===200){
+                 setAssetlist(res.data.assettypes);
+             }
+ 
+         });
+     },[]);
+
     
     const submitItem=(event)=>{
-        event.preventDefault();
-const data ={
+    event.preventDefault();
+
+    const data ={
     subcatid:itemInput.subcategory_id,
-    assettype:itemInput.assettype,
+    assettype:itemInput.asset_id,
     itemcode:itemInput.itemscode,
     name:itemInput.name,
     remarks:itemInput.remarks,
@@ -63,7 +78,7 @@ const data ={
 
 
 }
-           
+           console.log(itemInput.asset_id);
         
         
         axios.post(`api/saveitem`,data).then(res=>{
@@ -132,7 +147,17 @@ const data ={
 
 
                     <label> Asset Type *</label>
-               <input type ="text" name="assettype" className="form-control mb-2"  value={itemInput.assettype} onChange={handleInput} required /> 
+                    <select name="asset_id" onChange={handleInput} value={itemInput.asset_id}   className="form-control">
+                      <option>select Asset</option>
+                          {
+                              assetlist.map((items)=>{
+                                  return(
+                                  <option value={items.id} key={items.id}>{items.name}</option>
+                                  )
+                              })
+                          }
+                            
+                      </select>
 
                     <label> Item Code *</label>
                <input type ="text" name="itemscode" className="form-control mb-2"   value={itemInput.itemscode}  onChange={handleInput} required /> 

@@ -3,10 +3,6 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import swal from "sweetalert";
 
-
-//import DatePicker from 'react-datepicker';
-//import "react-datepicker/dist/react-datepicker.css";
-//import 'bootstrap/dist/css/bootstrap.min.css';
  
 function EntryForm(){
 
@@ -14,13 +10,14 @@ function EntryForm(){
     const [subcategorylist, setSubategorylist] = useState([]);
     const [itemlist, setItemlist] = useState([]);
     const [templist, setTemplist] = useState([]);
-    const [assetlist, setAssetlist] = useState([]);
+    const [orderInput, setOrder] = useState({
+        remarks:'',
+    });
     const [ipadr,setIP] = useState('');
     ///////////////////////////////////////////////////////////////
     const token = localStorage.getItem('auth_token');
 
     const[EntryfromInput, setEntryform]=useState({
-        date:'',
         ip:ipadr,
         mac:token,
         category_id:'',
@@ -35,7 +32,10 @@ function EntryForm(){
     const handleInput =(event)=>{
         event.persist();
         setEntryform({...EntryfromInput,[event.target.name]:event.target.value});
+        setOrder({...orderInput,[event.target.name]:event.target.value})
     }
+
+    
 
 
     ///////////////////////////////////get ip address//////////////////////////////////
@@ -88,22 +88,6 @@ function EntryForm(){
       },[subcat]);
 
 
-        /////////////////////////////////////Get asset////////////////////////////////// 
-        let asset=EntryfromInput.subcategory_id;
-
-      
-        useEffect(()=>{
-            axios.get(`api/itemslist/`).then(res=>{
-                if(res.data.status ===200){
-                    setAssetlist(res.data.items);
-                }
-    
-            });
-        },[asset]);
-
-
-
-
 
        ////////////////////////////////////Get temp data////////////////////////////////// 
    
@@ -114,7 +98,6 @@ function EntryForm(){
         const data = {
             token : EntryfromInput.mac ,
             ipaddress: ipadr,
-            orderdate: EntryfromInput.date,
             itemid: EntryfromInput.item_id,
             description: EntryfromInput.description,
             quantity: EntryfromInput.Quantity,
@@ -129,7 +112,6 @@ function EntryForm(){
                     setTemplist(res.data.temporders);
                     ///Rest From////
                     setEntryform({
-                    date:'',
                     ip:ipadr,
                     mac:token,
                     category_id:'',
@@ -143,6 +125,7 @@ function EntryForm(){
         })
     }
 
+    
 
     useEffect(()=>{
         axios.get(`api/order-temp-list/${ipadr}/${token}`).then(res=>{
@@ -153,7 +136,6 @@ function EntryForm(){
 
                 
             }
-            
         
 
         });
@@ -185,17 +167,32 @@ function EntryForm(){
                 </tr>
 )
         })]
+
+        const orders = (event)=>{
+            event.preventDefault()
+            const data1 = {
+                remarks : orderInput.remarks ,
+                
+            }
+            
+            axios.post(`api/create-order`, data1).then(res=>{
+    
+                 
+            })
+        }
     
                         let ordersubmit;
                         let deleteall;
                         let saveasdraft;
 
                           if (templist.length) {
-                            ordersubmit = [<Link to={`edit-category/`} className="btn btn-success btn-sm">Submit Order</Link>]
+                            ordersubmit = [<form onSubmit={orders}><button type="submit"  className="btn btn-success btn-sm">Submit Order</button></form>]
                             deleteall = [<Link to={`edit-category/`} className="btn btn-success btn-sm">Save As Draft</Link>]
                             saveasdraft = [<Link to={`edit-category/`} className="btn btn-success btn-sm"> Delete All</Link>]
                            }
 
+
+                           
 
     return(
 
@@ -213,9 +210,6 @@ function EntryForm(){
 
       
                     <input type ="text" name="mac"  value={EntryfromInput.mac} onChange={handleInput} className="form-control mb-2" hidden/>
-
-        <label>Select Date:</label>
-        <input type="date" name="date" onChange={handleInput} value={EntryfromInput.date}></input>
 
         <div className="form-group mb-3">
         <label>Select Category</label>
@@ -250,19 +244,6 @@ function EntryForm(){
                       <option>select Item</option>
                           {
                               itemlist.map((items)=>{
-                                  return(
-                                  <option value={items.id} key={items.id}>{items.name}</option>
-                                  )
-                              })
-                          }
-                            
-                      </select>
-
-                      <label>Select Asset Type</label>
-                  <select name="asset_id" onChange={handleInput} value={EntryfromInput.asset_id}   className="form-control">
-                      <option>select Asset</option>
-                          {
-                              assetlist.map((items)=>{
                                   return(
                                   <option value={items.id} key={items.id}>{items.name}</option>
                                   )
@@ -331,26 +312,30 @@ function EntryForm(){
                </div>
 
             
-                         
-                <div className="row">
-                    <div className="col-md-6">
+
+                <div className="form-group">
+                <label>Remarks</label>
+                 <textarea name="remarks" className="form-control" rows="3" onChange={handleInput} value={ orderInput.remarks} >
+
+                 </textarea>
+                 <div className="col-md-6">
                            {ordersubmit}
                     </div>
-                </div>
+                          <br></br>
 
-                          
-                <div className="row">
                     <div className="col-md-6">
                            {deleteall}
                     </div>
-                </div>
-
+              
+                    <br></br>
                           
-                <div className="row">
+                
                     <div className="col-md-6">
                            {saveasdraft}
                     </div>
-                </div>
+                 </div>
+               
+                 <button type="submit" onSubmit={orders} className="btn btn-success btn-sm">Submit Order</button>
     
            </div>
           
