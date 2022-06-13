@@ -13,7 +13,7 @@ function Vieworder(props){
 
     const[items, setitems] = useState([]);
     const[modalInfo, setModalInfo] = useState([]);
-    const[showModal, setShowModal] = useState(false);
+    const[showEdit, setShowEdit] = useState(false);
     const[itemInput, setItemInput] = useState([]);
     const[show, setShow] = useState(false);
     const handleClose=()=>setShow(false);
@@ -44,25 +44,19 @@ function Vieworder(props){
     useEffect(()=>{
     getItems()},[]);
 
-    const columns =[
-        {dataField: "name", text: "Items"},
-        {dataField: "description", text: "Desc"},
-        {dataField: "finalquanity", text: "Qty"},
-    ];
+    
 
 
-    const rowEvents = {
+    const clickEvent = {
         onClick:(e, row)=>{
-            setItemInput(row);
-            console.log(row);
-           // setModalInfo(row);
+            setItemInput(row); 
             toggleTrueFalse()
         }
     }
 
 
     const toggleTrueFalse=()=>{
-        setShowModal(handleShow);
+        setShowEdit(handleShow);
     };
     const handleInput = (event)=>{
         event.persist();
@@ -102,6 +96,20 @@ return(
     rowEvents={rowEvents}
 
     />
+     <table className="table">
+                                            <thead className="table-dark">
+                                                <tr>
+                                                    <th>Sl. No.</th>
+                                                    <th>Name</th> 
+                                                    <th>Description</th>
+                                                    <th>Qty</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {Viewcategory_HTMLTABLE}
+                                            </tbody>
+                                        </table>     
     {show ? <ModalContent/> : null}
     </>
 )
