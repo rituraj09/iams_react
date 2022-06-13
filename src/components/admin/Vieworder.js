@@ -11,7 +11,7 @@ import BootstrapTable from "react-bootstrap-table-next";
 
 function Vieworder(props){
 
-    const[items, setitems] = useState([]);
+    const[items, setitems] = useState([]); 
     const[modalInfo, setModalInfo] = useState([]);
     const[showModal, setShowModal] = useState(false);
     const[itemInput, setItemInput] = useState([]);
@@ -24,7 +24,7 @@ function Vieworder(props){
         try{ 
 
 
-            const data =  axios.get(`/api/getOrderItems/${id}`).then(res=>{
+             axios.get(`/api/getOrderItems/${id}`).then(res=>{
 
                 if(res.data.status===200){
                     setitems(res.data.orderitems);
@@ -41,8 +41,7 @@ function Vieworder(props){
         }
     };
 
-    useEffect(()=>{
-    getItems()},[]);
+    useEffect(()=>{getItems()},[]);
 
     const columns =[
         {dataField: "name", text: "Items"},
@@ -64,11 +63,11 @@ function Vieworder(props){
     const toggleTrueFalse=()=>{
         setShowModal(handleShow);
     };
-    const handleInput = (event)=>{
-        event.persist();
-        setItemInput({...itemInput, [event.target.name]: event.target.value});
-     
-      }
+      const handleInput = (event) => {
+        const name = event.target.name;
+        const value = event.target.value;
+        setItemInput(values => ({...values,[name]:value}))
+    }
     const ModalContent = ()=>{
         return(
            <>
@@ -79,9 +78,11 @@ function Vieworder(props){
         <Modal.Body>
 
                 <h1>{modalInfo.name}</h1>
-                <input type ="text" name="finalquanity" className="form-control mb-2"  value={itemInput.finalquanity} onChange={handleInput}/>
+                <input type ="text" name="finalquanity" className="form-control mb-2"  value={itemInput.finalquanity || ""} onChange={handleInput}/>
         </Modal.Body>
         <Modal.Footer>
+            
+        <button type="button"  className="btn btn-info mt-2"> Update</button>
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
