@@ -51,7 +51,7 @@ const data ={
     return (
         <>
         <div>
-            <h2>Add Subategories</h2>
+            <h2>Edit Subcategories</h2>
 
             <form onSubmit={submitSubcategory} encType="multipart/form-data">
 
@@ -60,20 +60,7 @@ const data ={
                     <div className="card p-4">
         
 
-                  <div className="form-group mb-3">
-                      <label>Select Category</label>
-                      <select name="category_id" onChange={handleInput} value={subcategoryInput.category_id}   className="form-control">
-                      <option>select Category</option>
-                          {
-                              categorylist.map((item)=>{
-                                  return(
-                                  <option value={item.id} key={item.id}>{item.name}</option>
-                                  )
-                              })
-                          }
-                            
-                      </select>
-                  </div>
+           
 
                     <label> Name</label>
                     <input type ="text" name="name"  value={subcategoryInput.name} onChange={handleInput} className="form-control mb-2" required/>
