@@ -24,7 +24,7 @@ function NazaratDashboard(){
     });
 },[]);
 
-console.log("hello"+setCategorylist);
+
 
 
 let Viewcategory_HTMLTABLE ;

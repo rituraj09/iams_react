@@ -15,7 +15,7 @@ import EntryForm from "../components/admin/Master/EntryForm";
 
 import NazaratDashboard from "../components/admin/nazaratDashboard";
 import Vieworder from "../components/admin/Vieworder";
-import PopupGfg from "../components/admin/Master/popup";
+import ModalDialog from "../components/admin/Master/popup";
 
 const routes =[
     {path: '/admin', exact: true, name:'Admin'},
@@ -32,7 +32,7 @@ const routes =[
 
     {path: '/admin/nazarat', exact: true, name:'NazaratDashboard', component : NazaratDashboard  },
     {path: '/admin/Vieworder/:id', exact: true, name:'Vieworder', component:  Vieworder   },
-    {path: '/admin/pop', exact: true, name:'PopupGfg', component : PopupGfg  },
+    {path: '/admin/pop', exact: true, name:'ModalDialog', component : ModalDialog  },
     
     
 
