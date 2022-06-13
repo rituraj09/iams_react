@@ -3,17 +3,16 @@ import React,{useState,useEffect} from "react";
 import { Link,useHistory } from "react-router-dom";
 import axios from 'axios';
 import swal from 'sweetalert';
-import { Modal, Button } from 'react-bootstrap';
-import BootstrapTable from "react-bootstrap-table-next";
+import { Modal, Button } from 'react-bootstrap'; 
 
 
 
 
 function Vieworder(props){
 
-    const[items, setitems] = useState([]); 
+    const[items, setitems] = useState([]);
     const[modalInfo, setModalInfo] = useState([]);
-    const[showEdit, setShowEdit] = useState(false);
+    const[showModal, setShowModal] = useState(false);
     const[itemInput, setItemInput] = useState([]);
     const[show, setShow] = useState(false);
     const handleClose=()=>setShow(false);
@@ -24,7 +23,7 @@ function Vieworder(props){
         try{ 
 
 
-             axios.get(`/api/getOrderItems/${id}`).then(res=>{
+            const data =  axios.get(`/api/getOrderItems/${id}`).then(res=>{
 
                 if(res.data.status===200){
                     setitems(res.data.orderitems);
@@ -41,27 +40,59 @@ function Vieworder(props){
         }
     };
 
-    useEffect(()=>{getItems()},[]);
+    useEffect(()=>{
+    getItems()},[]);
 
-    
+    let Viewcategory_HTMLTABLE; 
+
+    Viewcategory_HTMLTABLE =[
+      
+        items.map((i,index)=>
+    {
+        return(
+
+         
+            <tr key={i.id}>
+                 <td>{++index}</td>  
+                <td> {i.name}</td>  
+                <td>{i.description}</td> 
+                <td>{i.finalquanity}</td>
+
+                {
+                /* <td>
+                    <Link to={`edit-category/${item.id}`} className="btn btn-success btn-sm">Edit</Link>
+                </td>*/}
+
+                <td>
+                <Button variant="primary" onClick={handleShow}>
+    update Quantity
+  </Button>
+
+                </td> 
+            </tr>
+)
+    })]
 
 
-    const clickEvent = {
+
+    const rowEvents = {
         onClick:(e, row)=>{
-            setItemInput(row); 
+            setItemInput(row);
+            console.log(row);
+           // setModalInfo(row);
             toggleTrueFalse()
         }
     }
 
 
     const toggleTrueFalse=()=>{
-        setShowEdit(handleShow);
+        setShowModal(handleShow);
     };
-      const handleInput = (event) => {
-        const name = event.target.name;
-        const value = event.target.value;
-        setItemInput(values => ({...values,[name]:value}))
-    }
+    const handleInput = (event)=>{
+        event.persist();
+        setItemInput({...itemInput, [event.target.name]: event.target.value});
+     
+      }
     const ModalContent = ()=>{
         return(
            <>
@@ -72,11 +103,9 @@ function Vieworder(props){
         <Modal.Body>
 
                 <h1>{modalInfo.name}</h1>
-                <input type ="text" name="finalquanity" className="form-control mb-2"  value={itemInput.finalquanity || ""} onChange={handleInput}/>
+                <input type ="text" name="finalquanity" className="form-control mb-2"  value={itemInput.finalquanity} onChange={handleInput}/>
         </Modal.Body>
         <Modal.Footer>
-            
-        <button type="button"  className="btn btn-info mt-2"> Update</button>
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
@@ -90,28 +119,20 @@ function Vieworder(props){
 
 return(
     <>
-    <BootstrapTable
-    keyField="name"
-    data={items}
-    columns={columns}
-    rowEvents={rowEvents}
-
-    />
-     <table className="table">
-                                            <thead className="table-dark">
-                                                <tr>
-                                                    <th>Sl. No.</th>
-                                                    <th>Name</th> 
-                                                    <th>Description</th>
-                                                    <th>Qty</th>
-                                                    <th>Action</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                {Viewcategory_HTMLTABLE}
-                                            </tbody>
-                                        </table>     
-    {show ? <ModalContent/> : null}
+   <table className="table">
+                        <thead className="table-dark">
+                        <tr>
+                        <th>SL No</th>  
+                            <th>Name</th>  
+                            <th>Description</th> 
+                            <th>Quantity</th>
+                            <th>Delete</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            {Viewcategory_HTMLTABLE}
+                        </tbody>
+                    </table> 
     </>
 )
 
