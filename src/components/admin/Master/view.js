@@ -2,163 +2,97 @@ import React,{useState,useEffect} from "react";
 import { Link } from "react-router-dom";
 import axios from 'axios';
 import { MDBDataTable } from 'mdbreact';
-function Viewcategory () {
-
-    
-
+function Viewcategory () {  
         const [loading, setLoading] = useState(true);
-        const [categorylist, setCategorylist] = useState([]);
-        
+        const [categorylist, setCategorylist] = useState([]); 
 
         useEffect(()=>{
-        axios.get(`api/categories`).then(res=>{
-
+        axios.get(`api/categories`).then(res=>{ 
             if(res.status === 200)
             {
                 setCategorylist(res.data.categories)
-            }
-            
+            } 
             setLoading(false);
 
         });
-    },[]);
-
-
-
-
+    },[]); 
     let Viewcategory_HTMLTABLE ;
-    if(loading)
+    Viewcategory_HTMLTABLE =[ 
+    categorylist.map((item)=>
     {
-        return <h4> Loading Category...... </h4>
-    }
-
-    else{
-        Viewcategory_HTMLTABLE =[
-
-        categorylist.map((item)=>
+        if(loading)
         {
-
-            return(
+            return 
+            <tr>
+                <td colspan="5">
+                    Loading...
+                </td>
+            </tr>
+        } 
+        else{ 
+        return(
                 <tr key={item.id}>
                     <td>{item.id}</td>
-                    <td> {item.name}</td>  
-                    <td>{item.remarks}</td>
+                    <td> {item.name}</td>   
                     <td>
-                        <Link to={`edit-category/${item.id}`} className="btn btn-success btn-sm">Edit</Link>
-                    </td>
-
-                    <td>
-                        <Link to={`delete-category/${item.id}`} className="btn btn-danger btn-sm">Delete</Link>
+                        <Link to={`edit-category/${item.id}`} className="btn btn-success btn-sm">Edit</Link> 
+                        <Link to={`delete-category/${item.id}`} className="btn btn-danger btn-sm ml-2">Delete</Link>
                     </td>
                 </tr>
-            )
-        })]
-    }
-
-//     let datatable={
-
-        
-//         columns: [
-
-//             {
-//                 label: 'Id',
-//                 field: 'id',
-//                 sort: 'asc',
-//                 width: 100
-//               },
-//             {
-//               label: 'Name',
-//               field: 'name',
-//               sort: 'asc',
-//               width: 150
-//             },
-//             {
-//               label: 'Remarks',
-//               field: 'remarks',
-//               sort: 'asc',
-//               width: 270
-//             },
-           
-            
-//           ],
-//           rows: [
-//             categorylist.map((item)=>{
-                
-//             return(
-//                 <tr key={item.id}>
-//                     <td>{item.id}</td>
-//                     <td> {item.name}</td>  
-//                     <td>{item.remarks}</td>
-//                     </tr>
-// )
-
-//             }
-
-          
-//             // {
-//             //   id: '61',
-//             //   name: 'Tiger Nixon',
-//             //   remarks: 'System Architects',
-            
-//             // },
-//             // {
-//             //     id: '62',
-//             //   name: 'Garrett Winters',
-//             //   remarks: 'Accountant',
-//             // }
-            
-         
-  
-      
-//     };
-
-
-//     // /////////////////////////////////////////////////////////////////
+            ) 
+        }  
+    })]
 
    return (
-
-
-
-
-       <div className="container px-4">
-
-          
-           
-        <div className="card mt-4">
-            <div className="=card-header">
-                <h4> Category List
-                <Link to ="/admin/category" className="btn btn-primary btn-sm float-end">Add Category</Link>
-                <nav class="navbar navbar-light bg-light">
-
-    <input class="form-control form-inline mr-sm-2" type="search" placeholder="Search" aria-label="Search"></input>
-    
-
-</nav>
-                </h4>
+       <>
+    <nav aria-label="breadcrumb ">
+        <ol className="breadcrumb p-2">
+        <li className="breadcrumb-item"><Link  to="/admin/dashboard"  >Home</Link></li>
+        <li className="breadcrumb-item active" aria-current="page">Categories</li>
+        </ol>
+    </nav>
+    <div className="container-fluid ">
+        <div className="row">
+            <div className="col-md-6 mb-4">
+                <div className="card shadow mb-4">                                                     
+                    <div className="card-body"> 
+                        <ul className="nav nav-tabs" role="tablist">
+                            <li className="nav-item">
+                            <Link to ="/admin/category" className="nav-link"  data-toggle="tab"   role="tab" aria-controls="home">Add</Link>
+                            </li>
+                            <li className="nav-item">
+                            <Link  to="/admin/view" data-toggle="tab" className="nav-link active" role="tab" aria-controls="profile">View</Link>
+                        
+                            </li>
+                        
+                        </ul>
+                        <div className="tab-content">
+                            <div className="tab-pane active" id="home" role="tabpanel">
+                                <div className="row">
+                                    <div className="col-md-12 mt-2">  
+                                        <table className="table">
+                                            <thead className="table-dark">
+                                                <tr>
+                                                    <th>Sl. No.</th>
+                                                    <th>Name</th> 
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {Viewcategory_HTMLTABLE}
+                                            </tbody>
+                                        </table>     
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-
-            <div className="card-body">
-            <table class="table">
-  <thead className="table-dark">
-    <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Remarks</th>
-        <th>Edit</th>
-        <th>Delete</th>
-    </tr>
-  </thead>
-  <tbody>
-    {Viewcategory_HTMLTABLE}
-  </tbody>
-</table>
-
-            </div>
-
         </div>
-      
-
-       </div>
+    </div>    
+    
+       </>
     );
 }
 export default Viewcategory;

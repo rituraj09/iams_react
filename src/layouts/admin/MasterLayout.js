@@ -18,7 +18,7 @@ const MasterLayout = () => {
                     <Sidebar />
                 </div>
                 <div id="layoutSidenav_content">
-                    <main>
+                    <main className="main">
                         <Switch>
                             {
                                 routes.map((route, idx) => {
