@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import swal from "sweetalert";
 
+
+
  
 function EntryForm(){
 
@@ -172,11 +174,9 @@ function EntryForm(){
             event.preventDefault()
             const data1 = {
                 remarks : orderInput.remarks ,
-                
             }
             
             axios.post(`api/create-order`, data1).then(res=>{
-    
                  
             })
         }
