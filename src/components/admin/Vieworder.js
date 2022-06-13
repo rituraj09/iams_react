@@ -3,111 +3,142 @@ import React,{useState,useEffect} from "react";
 import { Link,useHistory } from "react-router-dom";
 import axios from 'axios';
 import swal from 'sweetalert';
-import { Modal, Button } from 'react-bootstrap';
-import BootstrapTable from "react-bootstrap-table-next";
-
 
 
 
 function Vieworder(props){
 
-    const[items, setitems] = useState([]); 
-    const[modalInfo, setModalInfo] = useState([]);
-    const[showModal, setShowModal] = useState(false);
-    const[itemInput, setItemInput] = useState([]);
-    const[show, setShow] = useState(false);
-    const handleClose=()=>setShow(false);
-    const handleShow=()=>setShow(true);
+    const history =useHistory();
+    const [loading, setLoading] = useState(true);
+    const [catInput, setCategory] =useState([]);
+
+
+    useEffect(()=>{
 
     const id= props.match.params.id; 
-    const getItems = async() => {
-        try{ 
-
-
-             axios.get(`/api/getOrderItems/${id}`).then(res=>{
-
-                if(res.data.status===200){
-                    setitems(res.data.orderitems);
-                }
     
-                else if(res.data.status===404)
-                {
-                    swal("Error",res.data.message,"error");     
-                } 
-            });
-        }
-        catch(e){
-                console.log(e);
-        }
-    };
+        axios.get(`/api/getOrderItems/${id}`).then(res=>{
 
-    useEffect(()=>{getItems()},[]);
+            if(res.data.status===200){
+                setCategory(res.data.orderitems);
+            }
 
-    const columns =[
-        {dataField: "name", text: "Items"},
-        {dataField: "description", text: "Desc"},
-        {dataField: "finalquanity", text: "Qty"},
-    ];
+            else if(res.data.status===404)
+            {
+                swal("Error",res.data.message,"error");     
+            }
+            setLoading(false);
+        });
+
+},[props.match.params.id, history]);
 
 
-    const rowEvents = {
-        onClick:(e, row)=>{
-            setItemInput(row);
-            console.log(row);
-           // setModalInfo(row);
-            toggleTrueFalse()
-        }
-    }
+///////////////////////////////////////////////////////////////////////////
+    
+       const handleDecrement = (item_id)=> {
+
+        setCategory(catInput=>
+            catInput.map((item)=>
+            item_id===item.id ? {...item, finalquanity: item.finalquanity - (item.finalquanity > 1 ? 1:0) }:item
+            )
+        );
+        updateFinalQty(item_id,"dec");
+       }
+
+       const handleIncrement = (item_id)=> {
+
+        setCategory(catInput=>
+            catInput.map((item)=>
+            item_id===item.id ? {...item, finalquanity: item.finalquanity + 1 }:item
+            )
+       
+            );
+            updateFinalQty(item_id,"inc");
+       }
+
+        
+       function updateFinalQty(item_id,scope){
+        axios.put(`api/updateOrderItem/${item_id}/${scope}`).then(res=>{
+
+            if(res.data.status===200){
+                swal("Success", res.data.message, "success");
+            }
+
+        });
+       }
+    
 
 
-    const toggleTrueFalse=()=>{
-        setShowModal(handleShow);
-    };
-      const handleInput = (event) => {
-        const name = event.target.name;
-        const value = event.target.value;
-        setItemInput(values => ({...values,[name]:value}))
-    }
-    const ModalContent = ()=>{
-        return(
-           <>
-           <Modal show = {show} onHide = {handleClose}>
-           <Modal.Header closeButton>
-          <Modal.Title>Update</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
+ 
 
-                <h1>{modalInfo.name}</h1>
-                <input type ="text" name="finalquanity" className="form-control mb-2"  value={itemInput.finalquanity || ""} onChange={handleInput}/>
-        </Modal.Body>
-        <Modal.Footer>
+
+
+    return(
+        <div className="container px-4">
+            <div className="card mt-4">
+                <div className="card-header">
+        <h2>View Order</h2>
+        <Link to ="/admin/nazarat" className=" btn btn-primary btn-sm float-end">Back</Link>
+        </div>
+               
             
-        <button type="button"  className="btn btn-info mt-2"> Update</button>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-          
-        </Modal.Footer>
+        
+        <form  id="CAT_Form">
+            
+       
+        </form>
 
-           </Modal>
-           </>
-        )
-    }
+        <div className="card-body">
+                    <table className="table">
+                        <thead className="table-dark">
+                        <tr>
+                        <th>SL No</th>  
+                            <th>Name</th>  
+                            <th>Description</th> 
+                            <th>Quantity</th>
+                            <th>Final Quantity</th>
+                        </tr>
+                        </thead>
+                        <tbody>
 
-return(
-    <>
-    <BootstrapTable
-    keyField="name"
-    data={items}
-    columns={columns}
-    rowEvents={rowEvents}
+                             {catInput.map((items,index)=> {
+                                 return(
 
-    />
-    {show ? <ModalContent/> : null}
-    </>
+             
+                      <tr key={items.id}>
+                     <td width="5%">{++index}</td>  
+                    <td width="10%"> {items.name}</td>  
+                    <td width="15%">{items.description}</td> 
+                    <td width="7%">{items.quantity}</td> 
+                    <td width="10%">
+                        <div className="input-group">
+                            <button type = "button" onClick={()=>handleDecrement(items.id)} className="input-group-text"> - </button>
+                            <div className="form-control text-center">{items.finalquanity}</div>
+                            <button type = "button" onClick={()=>handleIncrement(items.id)}  className="input-group-text"> + </button>
+                        </div>
+
+                    </td>
+                    </tr>
 )
+        })}
 
+                            
+                        </tbody>
+                    </table> 
+               </div>
+               <div>
+               
+               </div>
+    </div>
+    <div className="modal fade" id="#infoModal" tabindex="-1" role="dialog" aria-labelledby="mymodalLabel" aria-hidden="true">
+        
+    </div>
+
+
+  </div>
+
+    )
 
 }
 
-export default Vieworder
+export default Vieworder;
