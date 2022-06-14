@@ -32,10 +32,10 @@ function EditCategory(props){
             }
             setLoading(false);
 
-
-
         });
 },[props.match.params.id, history]);
+
+
 
     const handleInput =(event) =>{
         event.persist();

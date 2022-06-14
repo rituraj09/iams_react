@@ -18,7 +18,11 @@ function Subcategory()
 
     const handleInput =(event)=>{
         event.persist();
-        setSubcategory({...subcategoryInput,[event.target.name]:event.target.value});
+        const re = /^[A-z\b]+$/;
+        if (event.target.value === '' || re.test(event.target.value)){
+            setSubcategory({...subcategoryInput,[event.target.name]:event.target.value});
+        }
+        
     }
 
     useEffect(()=>{
@@ -77,7 +81,7 @@ const data ={
                           {
                               categorylist.map((item)=>{
                                   return(
-                                  <option value={item.id} key={item.id}>{item.name}</option>
+                                  <option value={item.id} key={item.id} >{item.name}</option>
                                   )
                               })
                           }
@@ -88,7 +92,7 @@ const data ={
                     <label> Name</label>
                     <input type ="text" name="name"  value={subcategoryInput.name} onChange={handleInput} className="form-control mb-2" required/>
                     <label> remarks</label>
-                    <input type ="text" name="remarks" value={subcategoryInput.remarks} onChange={handleInput} className="form-control mb-2"/> 
+                    <input type ="text" name="remarks" value={subcategoryInput.remarks} onChange={handleInput} className="form-control mb-2" required/> 
 
                     <button type="submit" className="btn btn-info mt-2"> Save</button>
                 </div>

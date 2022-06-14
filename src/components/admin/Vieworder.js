@@ -66,6 +66,17 @@ function Vieworder(props){
 
         });
        }
+       const id= props.match.params.id; 
+
+
+       const submitOrder =()=> {
+        axios.put(`api/updateOrderMaster/${id}`).then(res=>{
+            
+            if(res.data.status===200){
+                swal("Success", res.data.message, "success");
+            }
+        });
+       }
     
 
 
@@ -130,9 +141,7 @@ function Vieworder(props){
                
                </div>
     </div>
-    <div className="modal fade" id="#infoModal" tabindex="-1" role="dialog" aria-labelledby="mymodalLabel" aria-hidden="true">
-        
-    </div>
+    <button type = "button" onClick={()=>submitOrder()} className="btn btn-primary btn-sm float-end"> Place Order </button>
 
 
   </div>

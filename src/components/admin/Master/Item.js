@@ -25,10 +25,23 @@ function Item()
     });
     
 
-    const handleInput =(event)=>{
+  
+
+    const handleInput = (event)=>{
         event.persist();
-        setItem({...itemInput,[event.target.name]:event.target.value});
-    }
+        const re = /^[0-9\b]+$/;
+        if (event.target.value === '' || re.test(event.target.value)){
+            setItem({...itemInput.approverate,[event.target.name]:event.target.value});
+      }
+
+      const itemname = /^[A-z\b]+$/;
+        if (event.target.value === '' || itemname.test(event.target.value)){
+            setItem({...itemInput.name,[event.target.name]:event.target.value});
+      }
+      
+        
+      }
+  
     
   
     useEffect(()=>{
@@ -168,7 +181,7 @@ function Item()
 
                 
                 <label> Approve Rate *</label>
-               <input type ="text" name="approverate" className="form-control mb-2"  value={itemInput.rate} onChange={handleInput}  required/> 
+               <input type ="text" name="approverate" className="form-control mb-2"  value={itemInput.approverate} onChange={handleInput}  required/> 
 
                 <label> remarks</label>
                <input type ="text" name="remarks" className="form-control mb-2"     value={itemInput.remarks}  onChange={handleInput} required/> 

@@ -1,7 +1,8 @@
 import React,{useState,useEffect} from "react";
 import { Link } from "react-router-dom";
 import axios from 'axios';
-import { MDBDataTable } from 'mdbreact';
+import Table from 'react-bootstrap/Table';
+ 
 function Viewcategory () {
 
     
@@ -22,7 +23,6 @@ function Viewcategory () {
 
         });
     },[]);
-
 
 
 

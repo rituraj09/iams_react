@@ -18,7 +18,11 @@ function Category()
     
     const handleInput = (event)=>{
       event.persist();
-      setCat({...catInputs,[event.target.name]:event.target.value})
+      const re = /^[A-z\b]+$/;
+      if (event.target.value === '' || re.test(event.target.value)){
+        setCat({...catInputs,[event.target.name]:event.target.value})
+    }
+      
     }
 
 
@@ -65,11 +69,11 @@ function Category()
         <div className="container-fluid">
             <h2>Add Categories</h2>
 
-            <form onSubmit={{submitCat}} id="CAT_Form">
+            <form onSubmit={submitCat} >
             <div className="row">
                 <div className="col-sm-6 justify-content-center">
                     <div className="card p-4">
-                    <input type ="text" name="name" value={catInputs.name} onChange={handleInput}  className="form-control mb-2" />
+                    <input type ="text" name="name" value={catInputs.name} onChange={handleInput}  className="form-control mb-2"  required/>
                 </div>      
             </div>
             </div>
