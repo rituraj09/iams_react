@@ -17,6 +17,7 @@ function Viewcategory () {
         });
     },[]); 
     let Viewcategory_HTMLTABLE ;
+    let sl=0;
     Viewcategory_HTMLTABLE =[ 
     categorylist.map((item)=>
     {
@@ -32,7 +33,7 @@ function Viewcategory () {
         else{ 
         return(
                 <tr key={item.id}>
-                    <td>{item.id}</td>
+                    <td>{sl=sl+1}</td>
                     <td> {item.name}</td>   
                     <td>
                         <Link to={`edit-category/${item.id}`} className="btn btn-success btn-sm">Edit</Link> 
@@ -61,7 +62,7 @@ function Viewcategory () {
                             <Link to ="/admin/category" className="nav-link"  data-toggle="tab"   role="tab" aria-controls="home">Add</Link>
                             </li>
                             <li className="nav-item">
-                            <Link  to="/admin/view" data-toggle="tab" className="nav-link active" role="tab" aria-controls="profile">View</Link>
+                            <Link  to="/admin/view-category" data-toggle="tab" className="nav-link active" role="tab" aria-controls="profile">View</Link>
                         
                             </li>
                         

@@ -75,7 +75,7 @@ function EditCategory(props){
                                 <a   className="nav-link active"  data-toggle="tab"   role="tab" aria-controls="home">Edit</a>
                                 </li>
                                 <li className="nav-item">
-                                <Link  to="/admin/view" data-toggle="tab" className="nav-link" role="tab" aria-controls="profile">View</Link>
+                                <Link  to="/admin/view-category" data-toggle="tab" className="nav-link" role="tab" aria-controls="profile">View</Link>
                             
                                 </li>
                             
@@ -102,7 +102,7 @@ function EditCategory(props){
                                                                 <div className="col-md-12"> 
                                                                     <button type="submit"  className="btn btn-info btn-sm"> Update</button> 
     
-                                                                    <Link  to="/admin/view" className="btn btn-sm btn-danger ml-2"  >Cancel</Link>
+                                                                    <Link  to="/admin/view-category" className="btn btn-sm btn-danger ml-2"  >Cancel</Link>
                                                                 </div>    
                                                             </div>  
                                                         </div>

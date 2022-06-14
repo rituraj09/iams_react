@@ -70,7 +70,7 @@ function Category()
                                 <Link to ="/admin/category" className="nav-link active"  data-toggle="tab"   role="tab" aria-controls="home">Add</Link>
                                 </li>
                                 <li className="nav-item">
-                                <Link  to="/admin/view" data-toggle="tab" className="nav-link" role="tab" aria-controls="profile">View</Link>
+                                <Link  to="/admin/view-category" data-toggle="tab" className="nav-link" role="tab" aria-controls="profile">View</Link>
                               
                                 </li>
                             

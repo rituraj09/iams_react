@@ -1,13 +1,11 @@
-import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import React from "react";
-import axios from "axios";
-import swal from "sweetalert";
+import React,{useState,useEffect} from "react";
+import { Link,useHistory } from "react-router-dom";
+import axios from 'axios';
+import swal from 'sweetalert';
 
-// api/savesub
-function Subcategory()
+
+function EditSubCategory()
 {
-
     const [categorylist, setCategorylist] = useState([]);
     const [subcategoryInput, setSubcategory ] = useState({
 
@@ -34,34 +32,19 @@ function Subcategory()
     
 
     const submitSubcategory=(event)=>{
-        event.preventDefault();
-
-   
-const data ={
-    catid:subcategoryInput.category_id,
-    name:subcategoryInput.name,
-    remarks:subcategoryInput.remarks,
-}
-           
-        
-        
-        axios.post(`api/savesub`,data).then(res=>{
-            if(res.data.status === 200)
-            {
-                swal('Success',res.data.message,"Success");
-              setSubcategory({
-                category_id:'',
-                name:'',
-                remarks:'',
-
-              })
-            }
+        event.preventDefault(); 
+        const data ={
+            catid:subcategoryInput.category_id,
+            name:subcategoryInput.name,
+            remarks:subcategoryInput.remarks,
+        } 
+        axios.post(`api/savesub`,data).then(res=>{ 
         })
     }
 
     return (
-        <> 
-        <nav aria-label="breadcrumb ">
+        <>
+            <nav aria-label="breadcrumb ">
             <ol className="breadcrumb p-2">
             <li className="breadcrumb-item"><Link  to="/admin/dashboard"  >Home</Link></li>
             <li className="breadcrumb-item active" aria-current="page">Sub-Categories</li>
@@ -74,19 +57,17 @@ const data ={
                         <div className="card-body"> 
                             <ul className="nav nav-tabs" role="tablist">
                                 <li className="nav-item">
-                                <a href="#"  className="nav-link active"  data-toggle="tab"   role="tab" aria-controls="home">Add</a>
+                                <a   className="nav-link active"  data-toggle="tab"   role="tab" aria-controls="home">Edit</a>
                                 </li>
                                 <li className="nav-item">
                                 <Link  to="/admin/viewSub" data-toggle="tab" className="nav-link" role="tab" aria-controls="profile">View</Link>
-                              
-                                </li>
-                            
+                                </li> 
                             </ul>
                             <div className="tab-content">
                                 <div className="tab-pane active" id="home" role="tabpanel">
                                     <div className="row">
-                                        <div className="col-md-12 mt-2"> 
-                                            <form onSubmit={submitSubcategory} encType="multipart/form-data"> 
+                                        <div className="col-md-12 mt-2">                                         
+                                            <form onSubmit={submitSubcategory} encType="multipart/form-data" className="form-horizontal bucket-form">
                                                 <div className="form-group"> 
                                                     <div className="row">
                                                         <div className="col-md-3">
@@ -128,9 +109,8 @@ const data ={
                                                             <button type="submit" className="btn btn-info mt-2"> Save</button>
                                                         </div>
                                                     </div> 
-                                                </div> 
-                                                    
-                                            </form>
+                                                </div>  
+                                            </form>  
                                         </div>
                                     </div>
                                 </div>
@@ -139,8 +119,9 @@ const data ={
                     </div>
                 </div>
             </div>
-        </div>   
+        </div>  
         </>
     );
 }
-export default Subcategory
+
+export default EditSubCategory;
