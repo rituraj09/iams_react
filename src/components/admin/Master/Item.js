@@ -31,17 +31,24 @@ function Item()
         event.persist();
         const re = /^[0-9\b]+$/;
         if (event.target.value === '' || re.test(event.target.value)){
-            setItem({...itemInput.approverate,[event.target.name]:event.target.value});
+            setItem({...itemInput,[event.target.name]:event.target.value});
       }
 
       const itemname = /^[A-z\b]+$/;
         if (event.target.value === '' || itemname.test(event.target.value)){
             setItem({...itemInput.name,[event.target.name]:event.target.value});
       }
+
+      const sub = /^[0-9\b]+$/;
+      if (event.target.value ===  event.target.value){
+        setItem({...itemInput.subcategory_id,[event.target.name]:event.target.value});
+  }
+      
       
         
       }
-  
+
+
     
   
     useEffect(()=>{
@@ -148,9 +155,9 @@ function Item()
                   <select name="subcategory_id" onChange={handleInput} value={itemInput.subcategory_id}   className="form-control">
                       <option>select Subcategory</option>
                           {
-                              subcategorylist.map((items)=>{
+                              subcategorylist.map((item)=>{
                                   return(
-                                  <option value={items.id} key={items.id}>{items.name}</option>
+                                  <option value={item.id} key={item.id}>{item.name}</option>
                                   )
                               })
                           }

@@ -18,10 +18,10 @@ function Subcategory()
 
     const handleInput =(event)=>{
         event.persist();
-        const re = /^[A-z\b]+$/;
-        if (event.target.value === '' || re.test(event.target.value)){
+        // const re = /^[A-z\b]+$/;
+        // if (event.target.value === '' || re.test(event.target.value)){
             setSubcategory({...subcategoryInput,[event.target.name]:event.target.value});
-        }
+        // }
         
     }
 
