@@ -11,13 +11,15 @@ function Vieworder(props){
     const history =useHistory();
     const [loading, setLoading] = useState(true);
     const [catInput, setCategory] =useState([]);
+    const [orderDetails, setOrderDetails] =useState([]);
+    
 
 
     useEffect(()=>{
 
-    const id= props.match.params.id; 
-    
-        axios.get(`/api/getOrderItems/${id}`).then(res=>{
+    const ids= props.match.params.id; 
+ 
+        axios.get(`/api/getOrderItems/${ids}`).then(res=>{
 
             if(res.data.status===200){
                 setCategory(res.data.orderitems);
@@ -33,6 +35,29 @@ function Vieworder(props){
 },[props.match.params.id, history]);
 
 
+///////////////////////////////////////////////////////////////////////////
+
+
+    useEffect(()=>{
+
+        const ids= props.match.params.id; 
+     
+            axios.get(`api/orderById/${ids}`).then(res=>{
+    
+                if(res.data.status===200){
+                    setOrderDetails(res.data.ordermaster);
+                }
+    
+                else if(res.data.status===404)
+                {
+                    swal("Error",res.data.message,"error");     
+                }
+                setLoading(false);
+            });
+    
+    },[props.match.params.id, history]);
+    
+    
 ///////////////////////////////////////////////////////////////////////////
     
        const handleDecrement = (item_id)=> {
@@ -80,24 +105,50 @@ function Vieworder(props){
     
 
 
- 
-
-
-
     return(
         <div className="container px-4">
             <div className="card mt-4">
                 <div className="card-header">
         <h2>View Order</h2>
         <Link to ="/admin/viewReq" className=" btn btn-primary btn-sm float-end">Back</Link>
+
+        <div className="card-body">
+
+            </div>
+            <table className="table">
+
+            <thead className="table-green">
+                        <tr>
+            
+                            <th>Order Id</th> 
+                            <th>Date</th> 
+                            <th>Branch Name</th>  
+                            <th>Remarks</th> 
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                            {orderDetails.map((item)=>{
+                                return(
+                                    <tr>
+                                    <td>{item.orderno}</td>
+                                    <td>{item.orderdate}</td>
+                                    <td>{item.branchname}</td>
+                                    <td>{item.remarks}</td>
+                                    </tr>
+                                )
+                            })}
+                           
+                           
+                        </tbody>
+
+                </table>
+
+    
         </div>
                
             
-        
-        <form  id="CAT_Form">
-            
        
-        </form>
 
         <div className="card-body">
                     <table className="table">

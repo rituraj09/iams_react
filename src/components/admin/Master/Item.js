@@ -18,36 +18,6 @@ function Item()
         approverate:'',
         remarks:'',
         error_list:[],
-<<<<<<< HEAD
-    });
-    
-
-  
-
-    const handleInput = (event)=>{
-        event.persist();
-        const re = /^[0-9\b]+$/;
-        if (event.target.value === '' || re.test(event.target.value)){
-            setItem({...itemInput,[event.target.name]:event.target.value});
-      }
-
-      const itemname = /^[A-z\b]+$/;
-        if (event.target.value === '' || itemname.test(event.target.value)){
-            setItem({...itemInput.name,[event.target.name]:event.target.value});
-      }
-
-      const sub = /^[0-9\b]+$/;
-      if (event.target.value ===  event.target.value){
-        setItem({...itemInput.subcategory_id,[event.target.name]:event.target.value});
-  }
-      
-      
-        
-      }
-
-
-    
-=======
     }); 
     const handleInput =(event)=>{
         event.persist(); 
@@ -55,7 +25,6 @@ function Item()
        
  
     } 
->>>>>>> a0c4f45f687d91758167de0426056f72cc99b5d7
   
     useEffect(()=>{
         const getCategory= async ()=>{
@@ -153,53 +122,6 @@ function Item()
                                 <Link  to="/admin/view-items" data-toggle="tab" className="nav-link" role="tab" aria-controls="profile">View</Link>
                                 </li>
                             
-<<<<<<< HEAD
-                      </select>     
-                  </div>
-                  <label>Select Subcategory</label>
-                  <select name="subcategory_id" onChange={handleInput} value={itemInput.subcategory_id}   className="form-control">
-                      <option>select Subcategory</option>
-                          {
-                              subcategorylist.map((item)=>{
-                                  return(
-                                  <option value={item.id} key={item.id}>{item.name}</option>
-                                  )
-                              })
-                          }
-                            
-                      </select>
-
-
-
-                    <label> Asset Type *</label>
-                    <select name="asset_id" onChange={handleInput} value={itemInput.asset_id}   className="form-control">
-                      <option>select Asset</option>
-                          {
-                              assetlist.map((items)=>{
-                                  return(
-                                  <option value={items.id} key={items.id}>{items.name}</option>
-                                  )
-                              })
-                          }
-                            
-                      </select>
-
-                    <label> Item Code *</label>
-               <input type ="text" name="itemscode" className="form-control mb-2"   value={itemInput.itemscode}  onChange={handleInput} required /> 
-
-
-                    <label> Item Name *</label>
-                <input type ="text" name="name" className="form-control mb-2"       value={itemInput.name}     onChange={handleInput} required />
-
-                
-                <label> Approve Rate *</label>
-               <input type ="text" name="approverate" className="form-control mb-2"  value={itemInput.approverate} onChange={handleInput}  required/> 
-
-                <label> remarks</label>
-               <input type ="text" name="remarks" className="form-control mb-2"     value={itemInput.remarks}  onChange={handleInput} required/> 
-
-                    <button type="submit" className="btn btn-info mt-2"> Save</button>
-=======
                             </ul>
                             <div className="tab-content">
                                 <div className="tab-pane active" id="home" role="tabpanel">
@@ -314,7 +236,6 @@ function Item()
                             </div>
                         </div>
                     </div>
->>>>>>> a0c4f45f687d91758167de0426056f72cc99b5d7
                 </div>
             </div>
         </div>   

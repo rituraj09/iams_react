@@ -1,8 +1,12 @@
 import React,{useState,useEffect} from "react";
-import { Link } from "react-router-dom";
-import axios from 'axios';
+import { Link,useHistory } from "react-router-dom";
+import axios, { Axios } from 'axios';
 import { MDBDataTable } from 'mdbreact';
-function Viewcategory () {  
+import swal from 'sweetalert';
+
+
+function Viewcategory (props) {  
+    const history =useHistory();
         const [loading, setLoading] = useState(true);
         const [categorylist, setCategorylist] = useState([]); 
 
@@ -16,6 +20,35 @@ function Viewcategory () {
 
         });
     },[]); 
+
+
+    const DeleteCat=(id)=>{
+        categorylist.map((item)=>{
+            id=item.id;
+        })
+
+            axios.post(`api/deleteCat/${id}`).then(res=>{
+                
+                if(res.data.status===200){
+                    swal("Success", res.data.message, "success");
+                    axios.get(`api/categories`).then(res=>{ 
+                        if(res.status === 200)
+                        {
+                            setCategorylist(res.data.categories)
+                        } 
+                        setLoading(false);
+            
+                    });
+        
+                }
+            });
+
+    }
+
+
+
+
+    
     let Viewcategory_HTMLTABLE ;
     let sl=0;
     Viewcategory_HTMLTABLE =[ 
@@ -37,7 +70,7 @@ function Viewcategory () {
                     <td> {item.name}</td>   
                     <td>
                         <Link to={`edit-category/${item.id}`} className="btn btn-success btn-sm">Edit</Link> 
-                        <Link to={`delete-category/${item.id}`} className="btn btn-danger btn-sm ml-2">Delete</Link>
+                        <button type = "button" onClick={()=>DeleteCat()} className="btn btn-danger btn-sm ml-2"> Delete </button>
                     </td>
                 </tr>
             ) 

@@ -1,6 +1,8 @@
 import React,{useState,useEffect} from "react";
 import { Link } from "react-router-dom";
 import axios from 'axios'; 
+import swal from 'sweetalert';
+
 function Viewsub () { 
     const [loading, setLoading] = useState(true);
     const [categorylist, setCategorylist] = useState([]);
@@ -19,7 +21,7 @@ function Viewsub () {
             }   
             setLoading(false);
         });
-    },['']);  
+    },[]);  
    
     
             
@@ -35,6 +37,33 @@ function Viewsub () {
 
         });
     },[itemInput.category_id]); */
+
+
+    const DeleteCat=(id)=>{
+        subcategorylist.map((item)=>{
+            id=item.id;
+        })
+
+            axios.post(`api/delete-subcategory/${id}`).then(res=>{
+                
+                if(res.data.status===200){
+
+                    axios.get(`api/viewsubcategories/`).then(res=>{ 
+                        if(res.data.status ===200){
+                            setsubCategorylist(res.data.subcategories);
+                        }   
+                        setLoading(false);
+                    });
+
+
+                    swal("Success", res.data.message, "success");
+
+                }
+            });
+    }
+
+
+
     let sl=0;
         let Viewcategory_HTMLTABLE ; 
         Viewcategory_HTMLTABLE =[ 
@@ -57,7 +86,7 @@ function Viewsub () {
                         <td>{item.catname}</td> 
                         <td>
                             <Link to={`edit-subcategory/${item.id}`} className="btn btn-success btn-sm">Edit</Link> 
-                            <Link to={`delete-category/${item.id}`} className="btn btn-danger btn-sm ml-2">Delete</Link>
+                            <button type = "button" onClick={()=>DeleteCat()} className="btn btn-danger btn-sm ml-2"> Delete </button>
                         </td>
                     </tr>
                 ) 

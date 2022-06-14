@@ -4,9 +4,10 @@ import axios from 'axios';
 import swal from 'sweetalert';
 
 
-function EditSubCategory()
+function EditSubCategory(props)
 {
-    const [categorylist, setCategorylist] = useState([]);
+    const history =useHistory();
+    const [loading, setLoading] = useState(true);
     const [subcategoryInput, setSubcategory ] = useState({
 
         category_id:'',
@@ -15,30 +16,38 @@ function EditSubCategory()
         error_list:[],
     });
 
+
+    useEffect(()=>{
+
+        const id= props.match.params.id; 
+    
+        axios.get(`api/edit-subcategory/${id}`).then(res=>{ 
+            if(res.data.status ===200){
+                setSubcategory(res.data.subcategory);
+            }   
+            setLoading(false);
+        });
+    },[]);  
+
     const handleInput =(event)=>{
         event.persist();
         setSubcategory({...subcategoryInput,[event.target.name]:event.target.value});
     }
 
-    useEffect(()=>{
-        axios.get(`api/categories`).then(res=>{
-            if(res.data.status ===200){
-                setCategorylist(res.data.categories);
-            }
 
-        });
-    },[]);
 
     
 
     const submitSubcategory=(event)=>{
+        const id= props.match.params.id; 
         event.preventDefault(); 
         const data ={
             catid:subcategoryInput.category_id,
             name:subcategoryInput.name,
             remarks:subcategoryInput.remarks,
         } 
-        axios.post(`api/savesub`,data).then(res=>{ 
+        axios.put(`api/update-subcategory/${id}`,data).then(res=>{ 
+            swal("Success",res.data.message,"success");
         })
     }
 
@@ -73,18 +82,7 @@ function EditSubCategory()
                                                         <div className="col-md-3">
                                                             <label className="control-label">Category:</label><span className="text-danger">*</span> 
                                                         </div>
-                                                        <div className="col-md-12"> 
-                                                            <select name="category_id" onChange={handleInput} value={subcategoryInput.category_id}   className="form-control">
-                                                                <option>select Category</option>
-                                                                {
-                                                                    categorylist.map((item)=>{
-                                                                        return(
-                                                                        <option value={item.id} key={item.id}>{item.name}</option>
-                                                                        )
-                                                                    })
-                                                                }    
-                                                            </select>
-                                                        </div> 
+                                                 
                                                     </div>
                                                 </div>
                                                 <div className="form-group"> 

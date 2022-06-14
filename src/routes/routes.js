@@ -12,7 +12,7 @@ import Viewsub from "../components/admin/Master/SubcategoryView";
 import EditCategory from "../components/admin/Master/EditCategory";
 import EditSubCategory from "../components/admin/Master/SubCategoryEdit";
 import EntryForm from "../components/admin/Master/EntryForm";
-
+import viewItem from "../components/admin/Master/viewItem";
 import NazaratDashboard from "../components/admin/nazaratDashboard";
 import Vieworder from "../components/admin/Vieworder";
 import ModalDialog from "../components/admin/Master/popup";
@@ -31,7 +31,7 @@ const routes =[
 
 
     {path: '/admin/item', exact: true, name:'Item', component:  Item   },
-    {path: '/admin/view-items', exact: true, name:'Item', component:  Item   },
+    {path: '/admin/view-items', exact: true, name:'viewItem', component:  viewItem   },
 
 
     {path: '/admin/viewReq', exact: true, name:'NazaratDashboard', component : NazaratDashboard  },
