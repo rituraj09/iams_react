@@ -7,10 +7,11 @@ import swal from "sweetalert";
 function Item()
 {
     const [categorylist, setCategorylist] = useState([]);
+    const [categoryid, setCategoryid] = useState([]);
     const [subcategorylist, setSubategorylist] = useState([]);
     const [assetlist, setAssetlist] = useState([]); 
     const [itemInput, setItem ] = useState({ 
-        subcategory_id:'',
+        subcatid:'',
         asset_id:'',
         itemscode:'',
         name:'',
@@ -19,42 +20,51 @@ function Item()
         error_list:[],
     }); 
     const handleInput =(event)=>{
-        event.persist();
-        const re= /^[0-9\b,.]+$/;
-            if(event.target.value=='' || re.test(event.target.value)){
-            setItem({...itemInput.approverate,[event.target.name]:event.target.value});
-        }
+        event.persist(); 
+        setItem({...itemInput,[event.target.name]:event.target.value});
+       
  
-    }
-    
+    } 
   
     useEffect(()=>{
-        axios.get(`api/categories/`).then(res=>{
-            if(res.data.status ===200){
-                setCategorylist(res.data.categories);
-            }
-
-        });
+        const getCategory= async ()=>{
+            axios.get(`api/categories`).then(res=>{
+                if(res.data.status ===200){
+                    setCategorylist(res.data.categories);
+                } 
+            });
+          }
+          getCategory(); 
     },[]);
 
-
-    let cat=itemInput.category_id;
-  
-    useEffect(()=>{
-        axios.get(`api/subcatlist/${cat}`).then(res=>{
-            if(res.data.status ===200){
-                setSubategorylist(res.data.subcategories);
+    const handlecategory=(event)=>{
+        const getcategoryid= event.target.value;
+        setCategoryid(getcategoryid);
+        event.preventDefault();
+      }
+    
+      useEffect( ()=>{ 
+          if(categoryid.length>0)
+          {
+                const getSubCategory= async ()=>{
+                    axios.get(`api/subcatlist/${categoryid}`).then(res=>{
+                        if(res.data.status ===200){
+                            setSubategorylist(res.data.subcategories);
+                        }
+            
+                    }); 
             }
-
-        });
-    },[cat]); 
+            getSubCategory();
+          }
+            
+    
+      },[categoryid]); 
      
      useEffect(()=>{
          axios.get(`api/assettypes-list/`).then(res=>{
              if(res.data.status ===200){
                  setAssetlist(res.data.assettypes);
-             }
- 
+             } 
          });
      },[]);
 
@@ -63,18 +73,15 @@ function Item()
     event.preventDefault();
 
     const data ={
-    subcatid:itemInput.subcategory_id,
-    assettype:itemInput.asset_id,
-    itemcode:itemInput.itemscode,
-    name:itemInput.name,
-    remarks:itemInput.remarks,
-    approverate:itemInput.approverate,
-
-
-}
-           console.log(itemInput.asset_id);
-        
-        
+            subcatid:itemInput.subcategory_id,
+            assettype:itemInput.asset_id,
+            itemcode:itemInput.itemscode,
+            name:itemInput.name,
+            remarks:itemInput.remarks,
+            approverate:itemInput.approverate, 
+        }
+        console.log(itemInput);  
+        debugger;
         axios.post(`api/saveitem`,data).then(res=>{
 
             if(res.data.status === 200)
@@ -127,7 +134,7 @@ function Item()
                                                             <label className="control-label">Category:</label><span className="text-danger">*</span> 
                                                         </div>
                                                         <div className="col-md-12"> 
-                                                        <select name="category_id" onChange={handleInput} value={itemInput.category_id}   className="form-control">
+                                                        <select name="category_id" onChange={(e)=>handlecategory(e)} value={itemInput.category_id}   className="form-control">
                                                                 <option>select Category</option>
                                                                 {
                                                                     categorylist.map((item)=>{

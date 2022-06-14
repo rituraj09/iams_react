@@ -12,6 +12,7 @@ const Sidebar = () => {
                     <div className="sb-nav-link-icon"> <FontAwesomeIcon icon={faTachometerAlt}></FontAwesomeIcon> </div>
                     <div></div>Dashboard
                     </Link>
+                    {/* Nazarat User */}
                     <div className="sb-sidenav-menu-heading">Masters</div>
                     <Link  to="/admin/category" className="nav-link"> 
                     <div className="sb-nav-link-icon"> <FontAwesomeIcon icon={faCircleDot}></FontAwesomeIcon></div>
@@ -28,9 +29,9 @@ const Sidebar = () => {
                     
                     
                     <div className="sb-sidenav-menu-heading">Data Entry</div>
-                    <Link  to="/admin/EntryForm" className="nav-link"> 
+                    <Link  to="/admin/viewReq" className="nav-link"> 
                     <div className="sb-nav-link-icon"> <FontAwesomeIcon icon={faCirclePlus}></FontAwesomeIcon> </div> 
-                       Requisition
+                       View Orders
                     </Link>
                   
                     <div className="sb-sidenav-menu-heading">Reports</div>

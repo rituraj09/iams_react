@@ -4,211 +4,110 @@ import { Link,useHistory } from "react-router-dom";
 import axios from 'axios';
 import swal from 'sweetalert';
 import { Modal, Button } from 'react-bootstrap';
+import BootstrapTable from "react-bootstrap-table-next";
+
+
 
 
 function Vieworder(props){
-    const [show, setShow] = useState(false);
 
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
-
-    const history =useHistory();
-    const [loading, setLoading] = useState(true);
-    const [catInput, setCategory] =useState({});
-    const [itemlist, setitemlist] =useState([]);
-    const[catInputs,setCat] = useState({
-        catName:'',
-        error_list:[],
-    });
-    // const [error, setError]=useState([]);
-
-
-    useEffect(()=>{
+    const[items, setitems] = useState([]); 
+    const[modalInfo, setModalInfo] = useState([]);
+    const[showModal, setShowModal] = useState(false);
+    const[itemInput, setItemInput] = useState([]);
+    const[show, setShow] = useState(false);
+    const handleClose=()=>setShow(false);
+    const handleShow=()=>setShow(true);
 
     const id= props.match.params.id; 
+    const getItems = async() => {
+        try{ 
+
+
+             axios.get(`/api/getOrderItems/${id}`).then(res=>{
+
+                if(res.data.status===200){
+                    setitems(res.data.orderitems);
+                }
     
-        axios.get(`/api/getOrderItems/${id}`).then(res=>{
-
-            if(res.data.status===200){
-                setCategory(res.data.orderitems);
-            }
-
-            else if(res.data.status===404)
-            {
-                swal("Error",res.data.message,"error");     
-            }
-            setLoading(false);
-        });
-
-},[props.match.params.id, history]);
-///////////////////////////////////////////////////////////////////////////
-
-const handleInput = (event)=>{
-    event.persist();
-    setCat({...catInputs,[event.target.name]:event.target.value})
-  }
-
-  const submitCat = (event) =>{
-    event.preventDefault();
-        
-    const data ={
-        finalquanity:catInputs.finalquanity,
-    }
-    const id= props.match.params.id; 
-
-    axios.post(`api/updateOrderItem/${id}`, data).then(res =>{
-        if(res.data.status === 200)
-        {
-            swal('Success',res.data.message,"Success");
-
-            
-          
+                else if(res.data.status===404)
+                {
+                    swal("Error",res.data.message,"error");     
+                } 
+            });
         }
-
-        else if(res.data.status === 400)
-        {
-            setCat({...catInputs, error_list:res.data.errors})
+        catch(e){
+                console.log(e);
         }
+    };
 
-       
-    });
-        
- 
-}
+    useEffect(()=>{getItems()},[]);
 
-///////////////////////////////////////////////////////////////////////////
-    
-    //     const updateCategory = (event)=>{
-
-    //     event.preventDefault();
-
-    //     const orderno=props.match.params.id;
-    //     const data =catInput;
-
-    //     axios.put(`api/getOrderItems/${orderno}`,data).then(res=>{
-
-    //         if(res.data.status===200){
-    //             swal("Success",res.data.massage,"success");
-
-    //         }
-
-    //     });
-    // }
+    const columns =[
+        {dataField: "name", text: "Items"},
+        {dataField: "description", text: "Desc"},
+        {dataField: "finalquanity", text: "Qty"},
+    ];
 
 
-    if(loading)
-    {
-        return <h4> Loading...... </h4>
+    const rowEvents = {
+        onClick:(e, row)=>{
+            setItemInput(row);
+            console.log(row);
+           // setModalInfo(row);
+            toggleTrueFalse()
+        }
     }
 
-    let Viewcategory_HTMLTABLE; 
 
-        Viewcategory_HTMLTABLE =[
-          
-            catInput.map((items,index)=>
-        {
-            return(
-
-             
-                <tr key={items.id}>
-                     <td>{++index}</td>  
-                    <td> {items.name}</td>  
-                    <td>{items.description}</td> 
-                    <td>{items.finalquanity}</td>
-  
-                    {
-                    /* <td>
-                        <Link to={`edit-category/${item.id}`} className="btn btn-success btn-sm">Edit</Link>
-                    </td>*/}
-
-                    <td>
-                    <Button variant="primary" onClick={handleShow}>
-        update Quantity
-      </Button>
-
-                    </td> 
-                </tr>
-)
-        })]
- 
-
-
-
-    return(
-        <div className="container px-4">
-            <div className="card mt-4">
-                <div className="card-header">
-        <h2>View Order</h2>
-        <Link to ="/admin/nazarat" className=" btn btn-primary btn-sm float-end">Back</Link>
-        </div>
-               
-            
-        
-        <form  id="CAT_Form">
-            
-       
-        </form>
-
-        <div className="card-body">
-                    <table className="table">
-                        <thead className="table-dark">
-                        <tr>
-                        <th>SL No</th>  
-                            <th>Name</th>  
-                            <th>Description</th> 
-                            <th>Quantity</th>
-                            <th>Delete</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                            {Viewcategory_HTMLTABLE}
-                        </tbody>
-                    </table> 
-               </div>
-               <div>
-               
-               </div>
-    </div>
-    <div className="modal fade" id="#infoModal" tabindex="-1" role="dialog" aria-labelledby="mymodalLabel" aria-hidden="true">
-        
-    </div>
-   <>
-   <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
+    const toggleTrueFalse=()=>{
+        setShowModal(handleShow);
+    };
+      const handleInput = (event) => {
+        const name = event.target.name;
+        const value = event.target.value;
+        setItemInput(values => ({...values,[name]:value}))
+    }
+    const ModalContent = ()=>{
+        return(
+           <>
+           <Modal show = {show} onHide = {handleClose}>
+           <Modal.Header closeButton>
           <Modal.Title>Update</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-        <form  id="CAT_Form" onSubmit={{submitCat}}>
-        <div className="row">
-            <div className="col-sm-6 justify-content-center">
-                <div className="card p-4">
-                <input type ="text" name="finalquanity" className="form-control mb-2"  value={catInputs.finalquanity} onChange={handleInput}/>
-                <button type="submit"  className="btn btn-info mt-2"> Save</button>
-                
-            </div>
-            
-        </div>
-        </div>
-       
-        </form>
 
-
-
+                <h1>{modalInfo.name}</h1>
+                <input type ="text" name="finalquanity" className="form-control mb-2"  value={itemInput.finalquanity || ""} onChange={handleInput}/>
         </Modal.Body>
         <Modal.Footer>
+            
+        <button type="button"  className="btn btn-info mt-2"> Update</button>
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
           
         </Modal.Footer>
-      </Modal>
-   </>
 
+           </Modal>
+           </>
+        )
+    }
 
-  </div>
+return(
+    <>
+    <BootstrapTable className="table"
+    keyField="name"
+    data={items}
+    columns={columns}
+    rowEvents={rowEvents}
 
-    )
+    />
+    {show ? <ModalContent/> : null}
+    </>
+)
+
 
 }
 
-export default Vieworder;
+export default Vieworder

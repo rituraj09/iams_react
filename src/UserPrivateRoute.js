@@ -12,9 +12,18 @@ function UserPrivateRoute({ ...rest }) {
     const [loading, setloading] = useState(true);
     useEffect(() => {
         axios.get('/api/checkingAuth').then(res => {
-            if (res.status === 200) {
-                setAuthenticated(true);
-                setloading(false);
+            if (res.status === 200) {  
+                const role = localStorage.getItem('auth_role')
+                if(role==3)
+                { 
+                    setAuthenticated(true);
+                    setloading(false); 
+                }
+                else
+                {
+                    swal("Unauthorized", "You are un-authorized", "warning");
+                    history.push('/');
+                }
             }
         });
         return () => {

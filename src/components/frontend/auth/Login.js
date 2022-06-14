@@ -50,8 +50,18 @@ function Login() {
                     localStorage.setItem('auth_token', resp.data.token);
                     localStorage.setItem('auth_name', resp.data.username);
                     localStorage.setItem('auth_email', resp.data.email);
+                    localStorage.setItem('auth_id', resp.data.id);
+                    localStorage.setItem('auth_role', resp.data.role);
                    // swal('Success', resp.data.message, "success");
+                   if(resp.data.role===1 || resp.data.role===2)
+                   {
                     history.push('/admin/dashboard');
+                   }
+                   else
+                   {
+                    history.push('/user/home');
+                   }
+                  
                 }
                 else if (resp.data.status === 401) {
                     setLogin({ ...loginInput, error_list: [] });
@@ -148,4 +158,4 @@ function Login() {
         </>
     )
 }
-export default Login;
+export default Login

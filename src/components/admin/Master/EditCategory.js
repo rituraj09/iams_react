@@ -32,10 +32,10 @@ function EditCategory(props){
             }
             setLoading(false);
 
-
-
         });
 },[props.match.params.id, history]);
+
+
 
     const handleInput =(event) =>{
         event.persist();
@@ -50,7 +50,7 @@ function EditCategory(props){
         axios.put(`api/update-category/${category_id}`,data).then(res=>{
 
             if(res.data.status===200){
-                swal("Success",res.data.massage,"success");
+                swal("Success",res.data.message,"success");
 
             }
 

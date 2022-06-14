@@ -33,13 +33,12 @@ const routes =[
     {path: '/admin/item', exact: true, name:'Item', component:  Item   },
     {path: '/admin/view-items', exact: true, name:'Item', component:  Item   },
 
-    {path: '/admin/EntryForm', exact: true, name:'EntryForm', component:  EntryForm   },
 
-    {path: '/admin/nazarat', exact: true, name:'NazaratDashboard', component : NazaratDashboard  },
-    {path: '/admin/Vieworder/:id', exact: true, name:'Vieworder', component:  Vieworder   },
-    {path: '/admin/pop', exact: true, name:'ModalDialog', component : ModalDialog  },
+    {path: '/admin/viewReq', exact: true, name:'NazaratDashboard', component : NazaratDashboard  },
+    {path: '/admin/Vieworder/:id', exact: true, name:'Vieworder', component:  Vieworder   }, 
     
     
+    {path: '/user/EntryForm', exact: true, name:'EntryForm', component:  EntryForm   },
 
 
     {path: '/user', exact: true, name:'User'},

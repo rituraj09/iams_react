@@ -33,7 +33,16 @@ function EntryForm(){
 
     const handleInput =(event)=>{
         event.persist();
-        setEntryform({...EntryfromInput,[event.target.name]:event.target.value});
+       
+
+        const re = /^[0-9\b]+$/;
+        if (event.target.value === '' || re.test(event.target.value)){
+            setEntryform({...EntryfromInput.Quantity,[event.target.name]:event.target.value});
+      }
+
+
+
+
         setOrder({...orderInput,[event.target.name]:event.target.value})
     }
 
@@ -264,7 +273,7 @@ function EntryForm(){
 
                  <div className="form-group col-md-2">
                 <label>Quantity</label>
-                <input type="number" name="Quantity" className="form-control" onChange={handleInput} value={EntryfromInput.Quantity} ></input>
+                <input type="text" name="Quantity" className="form-control" onChange={handleInput} value={EntryfromInput.Quantity} ></input>
                  </div>
                  <br></br><br></br>
                  <button type="submit" className="btn btn-success btn-sm"> Add</button>
@@ -335,8 +344,7 @@ function EntryForm(){
                     </div>
                  </div>
                
-                 <button type="submit" onSubmit={orders} className="btn btn-success btn-sm">Submit Order</button>
-    
+              
            </div>
           
           </div>
