@@ -55,43 +55,70 @@ function EditCategory(props){
             }
 
         });
-    }
-
-    console.log("Hellow"+props.match.params.id);
-
-    if(loading)
-    {
-        return <h4> Loading Category...... </h4>
-    }
+    }  
 
     return(
-        <div className="container px-4">
-            <div className="card mt-4">
-                <div className="card-header">
-        <h2>Edit Category</h2>
-        <Link to ="/admin/view" className=" btn btn-primary btn-sm float-end">Back</Link>
-        </div>
-               
-            
-        
-        <form onSubmit={updateCategory} id="CAT_Form">
-        <div className="row">
-            <div className="col-sm-6 justify-content-center">
-                <div className="card p-4">
-                <input type ="text" name="name" className="form-control mb-2"  value={catInput.name} onChange={handleInput}
-                
-                />
-                <button type="submit"  className="btn btn-info mt-2"> Save</button>
-                
-            </div>
-            
-        </div>
-        </div>
-       
-        </form>
-    </div>
-  </div>
+        <>
+        <nav aria-label="breadcrumb ">
+            <ol className="breadcrumb p-2">
+            <li className="breadcrumb-item"><Link  to="/admin/dashboard"  >Home</Link></li>
+            <li className="breadcrumb-item active" aria-current="page">Categories</li>
+            </ol>
+        </nav>
+        <div className="container-fluid ">
+            <div className="row">
+                <div className="col-md-6 mb-4">
+                    <div className="card shadow mb-4">                                                     
+                        <div className="card-body"> 
+                            <ul className="nav nav-tabs" role="tablist">
+                                <li className="nav-item">
+                                <a   className="nav-link active"  data-toggle="tab"   role="tab" aria-controls="home">Edit</a>
+                                </li>
+                                <li className="nav-item">
+                                <Link  to="/admin/view-category" data-toggle="tab" className="nav-link" role="tab" aria-controls="profile">View</Link>
+                            
+                                </li>
+                            
+                            </ul>
+                            <div className="tab-content">
+                                <div className="tab-pane active" id="home" role="tabpanel">
+                                    <div className="row">
+                                        <div className="col-md-12 mt-2"> 
+                                        
+                                                    <form  onSubmit={updateCategory} id="CAT_Form" className="form-horizontal bucket-form">
+                                                        <div className="form-group"> 
+                                                            <div className="row">
+                                                            <div className="col-md-3">
+                                                            <label className="control-label">Category Name :</label><span className="text-danger">*</span>
+                                                            </div>
+                                                                <div className="col-md-12">
+                                                                <input type ="text" name="name" className="form-control mb-2"  value={catInput.name} onChange={handleInput}    />
 
+                                                                </div>    
+                                                            </div>   
+                                                        </div> 
+                                                        <div className="form-group"> 
+                                                            <div className="row">
+                                                                <div className="col-md-12"> 
+                                                                    <button type="submit"  className="btn btn-info btn-sm"> Update</button> 
+    
+                                                                    <Link  to="/admin/view-category" className="btn btn-sm btn-danger ml-2"  >Cancel</Link>
+                                                                </div>    
+                                                            </div>  
+                                                        </div>
+                                                        
+                                                    
+                                                    </form>  
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>  
+</>
     )
 
 }

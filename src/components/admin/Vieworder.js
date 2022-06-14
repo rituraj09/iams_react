@@ -89,7 +89,7 @@ function Vieworder(props){
             <div className="card mt-4">
                 <div className="card-header">
         <h2>View Order</h2>
-        <Link to ="/admin/nazarat" className=" btn btn-primary btn-sm float-end">Back</Link>
+        <Link to ="/admin/viewReq" className=" btn btn-primary btn-sm float-end">Back</Link>
         </div>
                
             
@@ -104,7 +104,9 @@ function Vieworder(props){
                         <thead className="table-dark">
                         <tr>
                         <th>SL No</th>  
-                            <th>Name</th>  
+                            <th>Category</th> 
+                            <th>Sub-Category</th> 
+                            <th>Item</th>  
                             <th>Description</th> 
                             <th>Quantity</th>
                             <th>Final Quantity</th>
@@ -117,9 +119,11 @@ function Vieworder(props){
 
              
                       <tr key={items.id}>
-                     <td width="5%">{++index}</td>  
-                    <td width="10%"> {items.name}</td>  
-                    <td width="15%">{items.description}</td> 
+                     <td  >{++index}</td>  
+                    <td  > {items.catname}</td>  
+                    <td  > {items.subcatname}</td>  
+                    <td  > {items.itemname}</td>  
+                    <td >{items.description}</td> 
                     <td width="7%">{items.quantity}</td> 
                     <td width="10%">
                         <div className="input-group">

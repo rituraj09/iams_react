@@ -12,8 +12,17 @@ function AdminPrivateRoute({ ...rest }) {
     useEffect(() => {
         axios.get('/api/checkingAuth').then(res => {
             if (res.status === 200) {
-                setAuthenticated(true);
-                setloading(false);
+                const role = localStorage.getItem('auth_role')
+                if(role==1)
+                { 
+                    setAuthenticated(true);
+                    setloading(false); 
+                }
+                else
+                {
+                    swal("Unauthorized", "You are un-authorized", "warning");
+                    history.push('/user/home');
+                }
             }
         });
         return () => {

@@ -1,0 +1,43 @@
+<div className="container px-4">
+       <div className="card mt-4">
+       <div className="=card-header">
+                <h4> Subcategory List
+                <Link to ="/admin/subcategory" className="btn btn-primary btn-sm float-end">Add Subcategory</Link>
+                <nav class="navbar navbar-light bg-light">
+        <input class="form-control form-inline mr-sm-2" type="search" placeholder="Search" aria-label="Search"></input>
+        </nav>
+                </h4>
+            </div>
+            <div className="form-group mb-3">
+                      <label>Select Category</label>
+   
+                      <select name="category_id" onChange={handleInput} value={itemInput.category_id}   className="form-control">
+                      <option>select Category</option>
+                          {
+                              categorylist.map((item)=>{
+                                  return(
+                                  <option value={item.id} key={item.id}>{item.name}</option>
+                                  )
+                              })
+                          }
+                            
+                      </select>     
+                  </div>
+            <div className="card-body">
+            <table class="table">
+                <thead className="table-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Remarks</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {Viewcategory_HTMLTABLE}
+                </tbody>
+            </table>
+</div>
+</div>
+</div>

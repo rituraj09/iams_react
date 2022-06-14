@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import React from "react";
 import axios from "axios";
 import swal from "sweetalert";
@@ -52,35 +53,68 @@ function Category()
         });
             
      
-    }
-
-    // var display_errors=[];
-    // if(catInputs.error_list)
-    // {
-    //     display_errors=[
-    //         catInputs.error_list.name,
-    //     ]
-    // }
+    } 
 
 
     return (
-        <>
-        <div>
-        <div className="container-fluid">
-            <h2>Add Categories</h2>
-
-            <form onSubmit={submitCat} >
+        <>  
+        <nav aria-label="breadcrumb ">
+            <ol className="breadcrumb p-2">
+            <li className="breadcrumb-item"><Link  to="/admin/dashboard"  >Home</Link></li>
+            <li className="breadcrumb-item active" aria-current="page">Categories</li>
+            </ol>
+        </nav>
+        <div className="container-fluid ">
             <div className="row">
-                <div className="col-sm-6 justify-content-center">
-                    <div className="card p-4">
-                    <input type ="text" name="name" value={catInputs.name} onChange={handleInput}  className="form-control mb-2"  required/>
-                </div>      
+                <div className="col-md-6 mb-4">
+                    <div className="card shadow mb-4">                                                     
+                        <div className="card-body"> 
+                            <ul className="nav nav-tabs" role="tablist">
+                                <li className="nav-item">
+                                <Link to ="/admin/category" className="nav-link active"  data-toggle="tab"   role="tab" aria-controls="home">Add</Link>
+                                </li>
+                                <li className="nav-item">
+                                <Link  to="/admin/view-category" data-toggle="tab" className="nav-link" role="tab" aria-controls="profile">View</Link>
+                              
+                                </li>
+                            
+                            </ul>
+                            <div className="tab-content">
+                                <div className="tab-pane active" id="home" role="tabpanel">
+                                    <div className="row">
+                                        <div className="col-md-12 mt-2"> 
+                                        
+                                                    <form onSubmit={{submitCat}} id="CAT_Form" className="form-horizontal bucket-form">
+                                                        <div className="form-group"> 
+                                                            <div className="row">
+                                                            <div className="col-md-3">
+                                                            <label className="control-label">Category Name :</label><span className="text-danger">*</span>
+                                                            </div>
+                                                                <div className="col-md-12">
+                                                                    <input type ="text" name="name" value={catInputs.name} onChange={handleInput}  className="form-control mb-2" />
+                                                                </div>    
+                                                            </div>   
+                                                        </div> 
+                                                        <div className="form-group"> 
+                                                            <div className="row">
+                                                                <div className="col-md-12"> 
+                                                                    <button type="button" onClick={submitCat} className="btn btn-sm btn-success "> Save</button> 
+                                                                    <a href="#" className="btn btn-sm btn-danger ml-2">Cancel</a>
+                                                                </div>    
+                                                            </div>  
+                                                        </div>
+                                                        
+                                                    
+                                                    </form>  
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            </div>
-            <button type="button" onClick={submitCat} className="btn btn-info mt-2"> Save</button> 
-            </form>
-        </div>
-        </div>
+        </div>   
         </>
     );
 }
