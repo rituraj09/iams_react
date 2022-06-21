@@ -2,6 +2,7 @@ import React,{useState,useEffect} from "react";
 import { Link } from "react-router-dom";
 import axios from 'axios';
 import Table from 'react-bootstrap/Table';
+import swal from 'sweetalert';
 
 
 
@@ -12,11 +13,11 @@ import Table from 'react-bootstrap/Table';
     
 
     useEffect(()=>{
-        axios.get(`api/itemslistById`).then(res=>{
+        axios.get(`api/viewitems`).then(res=>{
 
             if(res.status === 200)
             {
-                setItemlist(res.data.categories)
+                setItemlist(res.data.items)
             }
             
             setLoading(false);
@@ -24,69 +25,103 @@ import Table from 'react-bootstrap/Table';
         });
     },[]);
 
+    const DeleteCat=(id)=>{
+        itemList.map((item)=>{
+            id=item.id;
+        })
+
+            axios.put(`api/delete-item/${id}`).then(res=>{
+                
+                if(res.data.status===200){
+
+                    axios.get(`api/viewitems/`).then(res=>{ 
+                        if(res.data.status ===200){
+                            setItemlist(res.data.items);
+                        }   
+                        setLoading(false);
+                    });
+
+
+                    swal("Success", res.data.message, "success");
+
+                }
+            });
+    }
+
     
 return(
+    <>
+    <nav aria-label="breadcrumb ">
+          <ol className="breadcrumb p-2">
+          <li className="breadcrumb-item"><Link  to="/admin/dashboard"  >Home</Link></li>
+          <li className="breadcrumb-item active" aria-current="page">Items</li>
+          </ol>
+      </nav>
+      <div className="container-fluid ">
+          <div className="row">
+              <div className="col-md-6 mb-4">
+                  <div className="card shadow mb-4">                                                     
+                      <div className="card-body"> 
+                          <ul className="nav nav-tabs" role="tablist">
+                              <li className="nav-item">
+                              <Link to ="/admin/item" className="nav-link"  data-toggle="tab"   role="tab" aria-controls="home">Add</Link>
+                              </li>
+                              <li className="nav-item">
+                              <a  href="#" data-toggle="tab" className="nav-link active" role="tab" aria-controls="profile">View</a>
+                          
+                              </li>
+                          
+                          </ul>
+                          <div className="tab-content">
+                              <div className="tab-pane active" id="home" role="tabpanel">
+                                  <div className="row">
+                                      <div className="col-md-12 mt-2">  
+                                          <table className="table">
+                                              <thead className="table-dark">
+                                                  <tr>
+                                                      <th>ID</th>
+                                                      <th>Item-Name</th> 
+                                                      <th>Item-code</th> 
+                                                      <th>Sub-Category</th>
+                                                      <th>Category</th> 
+                                                      <th>Remarks</th>
+                                                      <th>Approve-Rate</th> 
+                                                      <th>Action</th> 
+                                                  </tr>
+                                              </thead>
+                                              <tbody>
+                                              {itemList.map((item, index)=>{
+                                return(
+                                    <tr>
+                                    <td>{++index}</td>
+                                    <td>{item.name}</td>
+                                    <td>{item.itemcode}</td>
+                                    <td>{item.subcatname}</td>
+                                    <td>{item.catname}</td>
+                                    <td>{item.remarks}</td>
+                                    <td>{item.approverate}</td>
+                                    <td>
+                                    <Link to={`edit-item/${item.id}`} className="btn btn-success btn-sm">Edit</Link> 
+                            <button type = "button" onClick={()=>DeleteCat()} className="btn btn-danger btn-sm ml-2"> Delete </button>
+                                    </td>
+                                    </tr>
+                                )
+                            })}
+                                                  
+                                              </tbody>
+                                          </table>    
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div> 
+ </>
+);
 
-    <div className="container px-4">
-    <div className="card mt-4">
-        <div className="card-header">
-<h2>View Order</h2>
-<Link to ="/admin/viewReq" className=" btn btn-primary btn-sm float-end">Back</Link>
-</div>
-       
-    
 
-
-<div className="card-body">
-            <table className="table">
-                <thead className="table-dark">
-                <tr>
-                <th>SL No</th>  
-                    <th>Category</th> 
-                    <th>Sub-Category</th> 
-                    <th>Item</th>  
-                    <th>Description</th> 
-                    <th>Quantity</th>
-                    <th>Final Quantity</th>
-                </tr>
-                </thead>
-                <tbody>
-
-                     {itemList.map((items,index)=> {
-                         return(
-
-     
-              <tr key={items.id}>
-             <td  >{++index}</td>  
-            <td  > {items.name}</td>  
-            <td  > {items.subcatname}</td>  
-            <td  > {items.itemname}</td>  
-            <td >{items.description}</td> 
-            <td width="7%">{items.quantity}</td> 
-            <td width="10%">
-                <div className="input-group">
-                  
-                </div>
-
-            </td>
-            </tr>
-)
-})}
-
-                    
-                </tbody>
-            </table> 
-       </div>
-       <div>
-       
-       </div>
-</div>
-
-
-
-</div>
-
-
-)
 }
  export default ViewItem;

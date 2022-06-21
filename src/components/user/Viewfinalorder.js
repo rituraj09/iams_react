@@ -3,10 +3,12 @@ import React,{useState,useEffect} from "react";
 import { Link,useHistory } from "react-router-dom";
 import axios from 'axios';
 import swal from 'sweetalert';
+import { Modal, Button } from 'react-bootstrap';
+import BootstrapTable from "react-bootstrap-table-next";
 
 
 
-function Vieworder(props){
+function Viewfinalorder(props){
 
     const history =useHistory();
     const [loading, setLoading] = useState(true);
@@ -110,8 +112,8 @@ function Vieworder(props){
             <div className="card mt-4">
                 <div className="card-header">
         <h2>View Order</h2>
-        <Link to ="/admin/viewReq" className=" btn btn-primary btn-sm float-end">Back</Link>
-
+        <Link to ="/user/viewfinalorder" className=" btn btn-primary btn-sm float-end">Back</Link>
+        <Link to= "abc.html">Link</Link>
         <div className="card-body">
 
             </div>
@@ -160,7 +162,7 @@ function Vieworder(props){
                             <th>Item</th>  
                             <th>Description</th> 
                             <th>Quantity</th>
-                            <th>Final Quantity</th>
+                            
                         </tr>
                         </thead>
                         <tbody>
@@ -176,14 +178,7 @@ function Vieworder(props){
                     <td  > {items.itemname}</td>  
                     <td >{items.description}</td> 
                     <td width="">{items.quantity}</td> 
-                    <td width="">
-                        <div className="input-group">
-                            <button type = "button" onClick={()=>handleDecrement(items.id)} className="input-group-text"> - </button>
-                            <div className="form-control text-center">{items.finalquanity}</div>
-                            <button type = "button" onClick={()=>handleIncrement(items.id)}  className="input-group-text"> + </button>
-                        </div>
-
-                    </td>
+                 
                     </tr>
 )
         })}
@@ -196,13 +191,14 @@ function Vieworder(props){
                
                </div>
     </div>
-    <button type = "button" onClick={()=>submitOrder()} className="btn btn-primary btn-sm float-end"> Place Order </button>
+    
 
 
   </div>
 
     )
 
+
 }
 
-export default Vieworder;
+export default Viewfinalorder;

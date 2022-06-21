@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import React from "react";
 import axios from "axios";
+import { useForm } from "react-hook-form";
 import swal from "sweetalert";
 //import http from '../../../http';
 
@@ -16,7 +17,10 @@ function Category()
         catName:'',
         error_list:[],
     });
+
+    // const { register, handleSubmit, formState: { errors } } = useForm();
     
+
     const handleInput = (event)=>{
       event.persist();
       const re = /^[A-z\b]+$/;
@@ -47,6 +51,7 @@ function Category()
             else if(res.data.status === 400)
             {
                 setCat({...catInputs, error_list:res.data.errors})
+                swal('Error',"Error");
             }
 
            
@@ -84,21 +89,27 @@ function Category()
                                     <div className="row">
                                         <div className="col-md-12 mt-2"> 
                                         
-                                                    <form onSubmit={{submitCat}} id="CAT_Form" className="form-horizontal bucket-form">
+                                                    <form onSubmit={(submitCat)} id="CAT_Form" className="form-horizontal bucket-form">
                                                         <div className="form-group"> 
                                                             <div className="row">
                                                             <div className="col-md-3">
                                                             <label className="control-label">Category Name :</label><span className="text-danger">*</span>
                                                             </div>
                                                                 <div className="col-md-12">
-                                                                    <input type ="text" name="name" value={catInputs.name} onChange={handleInput}  className="form-control mb-2" />
+                                                                    <input  placeholder='Category Name'  type ="text" name="name" value={catInputs.name} onChange={handleInput}  className="form-control mb-2" 
+                                                                    
+                                                                    
+                                                                    // {...register("CategoryName", { required: true, maxLength: 10 })}
+                                                                    />
+                                                                    {/* {errors.CategoryName && <p>Category Name is not valid</p>} */}
+                                                                    
                                                                 </div>    
                                                             </div>   
                                                         </div> 
                                                         <div className="form-group"> 
                                                             <div className="row">
                                                                 <div className="col-md-12"> 
-                                                                    <button type="button" onClick={submitCat} className="btn btn-sm btn-success "> Save</button> 
+                                                                    <button type="button" onClick={(submitCat)} className="btn btn-sm btn-success "> Save</button> 
                                                                     <a href="#" className="btn btn-sm btn-danger ml-2">Cancel</a>
                                                                 </div>    
                                                             </div>  

@@ -34,19 +34,9 @@ function EntryForm(){
     const handleInput =(event)=>{
         event.persist();
        
-
-        const re = /^[0-9\b]+$/;
-        if (event.target.value === '' || re.test(event.target.value)){
-            setEntryform({...EntryfromInput.Quantity,[event.target.name]:event.target.value});
-      }
-
-
-
-
-        setOrder({...orderInput,[event.target.name]:event.target.value})
+            setEntryform({...EntryfromInput,[event.target.name]:event.target.value});
+            setOrder({...orderInput,[event.target.name]:event.target.value})
     }
-
-    
 
 
     ///////////////////////////////////get ip address//////////////////////////////////
@@ -191,23 +181,20 @@ function EntryForm(){
         }
     
                         let ordersubmit;
-                        let deleteall;
-                        let saveasdraft;
+                        // let deleteall;
+                        // let saveasdraft;
 
                           if (templist.length) {
                             ordersubmit = [<form onSubmit={orders}><button type="submit"  className="btn btn-success btn-sm">Submit Order</button></form>]
-                            deleteall = [<Link to={`edit-category/`} className="btn btn-success btn-sm">Save As Draft</Link>]
-                            saveasdraft = [<Link to={`edit-category/`} className="btn btn-success btn-sm"> Delete All</Link>]
+                            // deleteall = [<Link to={`edit-category/`} className="btn btn-success btn-sm">Save As Draft</Link>]
+                            // saveasdraft = [<Link to={`edit-category/`} className="btn btn-success btn-sm"> Delete All</Link>]
                            }
-
-
-                           
-
+                        
     return(
 
         <>
         <div className="container-fluid">
-          <h2>Entry Form</h2> 
+          <h2>Requisition Form</h2> 
 
      
 
@@ -292,7 +279,7 @@ function EntryForm(){
            
            <div className="card mt-4">
                <div className="=card-header">
-                   <h4> Category List
+                   <h4> Cart
                   
                    <nav className="navbar navbar-light bg-light">
    
@@ -333,14 +320,14 @@ function EntryForm(){
                           <br></br>
 
                     <div className="col-md-6">
-                           {deleteall}
+                           {/* {deleteall} */}
                     </div>
               
                     <br></br>
                           
                 
                     <div className="col-md-6">
-                           {saveasdraft}
+                           {/* {saveasdraft} */}
                     </div>
                  </div>
                

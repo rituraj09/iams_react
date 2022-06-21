@@ -4,7 +4,7 @@ import React from "react";
 import axios from "axios";
 import swal from "sweetalert"; 
 
-function Item()
+function ItemTest()
 {
     const [categorylist, setCategorylist] = useState([]);
     const [categoryid, setCategoryid] = useState([]);
@@ -247,4 +247,4 @@ function Item()
     );
                         
                         }
-export default Item;
+export default ItemTest;

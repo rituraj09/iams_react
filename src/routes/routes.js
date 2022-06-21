@@ -15,7 +15,11 @@ import EntryForm from "../components/admin/Master/EntryForm";
 import viewItem from "../components/admin/Master/viewItem";
 import NazaratDashboard from "../components/admin/nazaratDashboard";
 import Vieworder from "../components/admin/Vieworder";
+import itemEdit from "../components/admin/Master/itemEdit";
+import ApprovedOrder from "../components/user/approved_order";
 import ModalDialog from "../components/admin/Master/popup";
+import Viewfinalorder from "../components/user/Viewfinalorder";
+import ItemTest from "../components/admin/Master/itemtest";
 
 const routes =[
     {path: '/admin', exact: true, name:'Admin'},
@@ -32,10 +36,12 @@ const routes =[
 
     {path: '/admin/item', exact: true, name:'Item', component:  Item   },
     {path: '/admin/view-items', exact: true, name:'viewItem', component:  viewItem   },
+    {path: '/admin/itemtest', exact: true, name:'ItemTest', component:  ItemTest   },
 
 
     {path: '/admin/viewReq', exact: true, name:'NazaratDashboard', component : NazaratDashboard  },
     {path: '/admin/Vieworder/:id', exact: true, name:'Vieworder', component:  Vieworder   }, 
+    {path: '/admin/edit-item/:id', exact: true, name:'itemEdit', component:  itemEdit   }, 
     
     
     {path: '/user/EntryForm', exact: true, name:'EntryForm', component:  EntryForm   },
@@ -43,9 +49,11 @@ const routes =[
 
     {path: '/user', exact: true, name:'User'},
     {path: '/user/home', exact: true, name:'Home', component : Home },
+    {path: '/user/approved-order', exact: true, name:'ApprovedOrder', component : ApprovedOrder },
     {path: '/user/addDomain', exact: true, name:'AddDomain', component : AddDomain     },
     {path: '/user/profile', exact: true, name:'UserProfile', component:  UserProfile   },
     {path: '/user/services', exact: true, name:'Services', component : Services     },
+    {path: '/user/Viewfinalorder/:id', exact: true, name:'Viewfinalorder', component : Viewfinalorder     },
     
 ]; 
 
