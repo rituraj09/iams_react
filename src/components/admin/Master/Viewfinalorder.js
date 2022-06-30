@@ -9,17 +9,17 @@ import { useReactToPrint  } from "react-to-print";
 
 
 
-function Viewfinalorder(props){
+function ViewfinalorderAdmin(props){
 
     const history =useHistory();
     const [loading, setLoading] = useState(true);
     const [catInput, setCategory] =useState([]);
     const [orderDetails, setOrderDetails] =useState([]);
+    const [printInfo, setprintinfo] = useState([]);
 
     // /////////////////////Modal Control//////////////////////
 
     const [show, setShow] = useState(false);
-
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
@@ -76,6 +76,66 @@ function Viewfinalorder(props){
     
     },[props.match.params.id, history]);
     
+    
+///////////////////////////////////////////////////////////////////////////
+
+
+const handleInput =(event)=>{
+    event.persist();
+        setprintinfo({...printInfo,[event.target.name]:event.target.value});
+    
+}
+
+
+
+const submitPrintinfo=(event)=>{
+    event.preventDefault();
+
+
+const data ={
+catid:printInfo.category_id,
+name:printInfo.name,
+remarks:printInfo.remarks,
+}
+       
+    
+    
+    axios.post(`api/savesub`,data).then(res=>{
+        if(res.data.status === 200)
+        {
+            swal('Success',res.data.message,"Success");
+          setprintinfo({
+            category_id:'',
+            name:'',
+            remarks:'',
+
+          })
+        }
+    })
+}
+
+
+///////////////////////////////////////////////////////////////////////////
+
+// useEffect(()=>{
+
+//     const ids= props.match.params.id; 
+ 
+//         axios.put(`/api/OrderMaster-edit-final/${ids}`).then(res=>{
+
+//             if(res.data.status===200){
+//                 setprintinfo(res.data.orderitems);
+//             }
+
+//             else if(res.data.status===404)
+//             {
+//                 swal("Error",res.data.message,"error");     
+//             }
+//             setLoading(false);
+//         });
+
+// },[props.match.params.id, history]);
+
     
 ///////////////////////////////////////////////////////////////////////////
     
@@ -157,7 +217,7 @@ function Viewfinalorder(props){
                                     <td>{item.branchname}</td>
                                     <td>{item.remarks}</td>
                                     <td>
-                        <Link to={`/user/orderpdf/${item.id}`} className="btn btn-success btn-sm">Print</Link>
+                        <Link to={`/admin/orderpdf/${item.id}`} className="btn btn-success btn-sm">Print</Link>
                     </td>
                                     </tr>
                                 )
@@ -216,172 +276,6 @@ function Viewfinalorder(props){
 
 
 
-    <Button variant="primary" onClick={() => setShow(true)}>
-        Custom Width Modal
-      </Button>
-
-      <Modal
-        show={show}
-        onHide={() => setShow(false)}
-        dialogClassName="modal-dialog"
-        aria-labelledby="example-custom-modal-styling-title"
-      >
-        <Modal.Header closeButton>
-          <Modal.Title id="example-custom-modal-styling-title">
-            Custom Modal Styling
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <p>
-            Ipsum molestiae natus adipisci modi eligendi? Debitis amet quae unde
-            commodi aspernatur enim, consectetur. Cumque deleniti temporibus
-            ipsam atque a dolores quisquam quisquam adipisci possimus
-            laboriosam. Quibusdam facilis doloribus debitis! Sit quasi quod
-            accusamus eos quod. Ab quos consequuntur eaque quo rem! Mollitia
-            reiciendis porro quo magni incidunt dolore amet atque facilis ipsum
-            deleniti rem!      Ipsum molestiae natus adipisci modi eligendi? Debitis amet quae unde
-            commodi aspernatur enim, consectetur. Cumque deleniti temporibus
-            ipsam atque a dolores quisquam quisquam adipisci possimus
-            laboriosam. Quibusdam facilis doloribus debitis! Sit quasi quod
-            accusamus eos quod. Ab quos consequuntur eaque quo rem! Mollitia
-            reiciendis porro quo magni incidunt dolore amet atque facilis ipsum
-            deleniti rem!
-          </p>
-        </Modal.Body>
-      </Modal>
-
-
-
-
-
-
-    
-    {/* <Button variant="primary" onClick={handleShow}>
-        Launch demo modal
-      </Button>
-
-      <Modal show={show} onHide={handleClose}
-      
-      dialogClassName="modal-90w"
-      >
-        <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-
-        <Link to ="/user/approved-order" className=" btn btn-primary btn-sm float-end">Back</Link>
-
-        
-
-
-<button onClick={handlePrint} className="print__button">  Print </button> 
-
-   
-    <div  className="card mt-4">
-        <div className="card-header">
-
-
-<div ref={componentRef}>
-<div  className="card-body">
-
-   
-    <table className="table">
-
-    <thead className="table-green">
-                <tr>
-    
-                    <th>Order Id</th> 
-                    <th>Date</th> 
-                    <th>Branch Name</th>  
-                    <th>Remarks</th> 
-                    
-                </tr>
-                </thead>
-
-                <tbody>
-                    {orderDetails.map((item)=>{
-                        return(
-                            <tr>
-                                
-                            <td>{item.orderno}</td>
-                            <td>{item.orderdate}</td>
-                            <td>{item.branchname}</td>
-                            <td>{item.remarks}</td>
-                            </tr>
-                        )
-                    })}
-                   
-                   
-                </tbody>
-
-        </table>
-
-
-</div>
-       
-    
-
-
-<div  className="card-body">
-            <table className="table">
-                <thead className="table">
-                <tr>
-                <th>SL No</th>  
-                    <th>Category</th> 
-                    <th>Sub-Category</th> 
-                    <th>Item</th>  
-                    <th>Description</th> 
-                    <th>Quantity</th>
-                    
-                </tr>
-                </thead>
-                <tbody>
-
-                     {catInput.map((items,index)=> {
-                         return(
-
-              <tr key={items.id}>
-             <td  >{++index}</td>  
-            <td  > {items.catname}</td>  
-            <td  > {items.subcatname}</td>  
-            <td  > {items.itemname}</td>  
-            <td >{items.description}</td> 
-            <td width="">{items.quantity}</td> 
-         
-            </tr>
-)
-})}
-
-                    
-                </tbody>
-            </table> 
-       </div>
-
-       </div>
-      
-</div>
-
-</div>
-
-
-
-
-
-
-            
-            
-         </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={handleClose}>
-            Save Changes
-          </Button>
-        </Modal.Footer>
-      </Modal> */}
-
-
   </div>
 
     )
@@ -389,4 +283,4 @@ function Viewfinalorder(props){
 
 }
 
-export default Viewfinalorder;
+export default ViewfinalorderAdmin;

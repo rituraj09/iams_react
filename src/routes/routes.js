@@ -20,6 +20,12 @@ import ApprovedOrder from "../components/user/approved_order";
 import ModalDialog from "../components/admin/Master/popup";
 import Viewfinalorder from "../components/user/Viewfinalorder";
 import ItemTest from "../components/admin/Master/itemtest";
+import Orderpdf from "../components/user/orderpdf";
+import StockEntry from "../components/admin/stockEntry";
+import { Modal } from "../components/admin/printModal";
+import ApprovedOrderAdmin from "../components/admin/Master/approved_order"
+import ViewfinalorderAdmin from "../components/admin/Master/Viewfinalorder";
+import OrderpdfAdmin from "../components/admin/Master/orderpdf";
 
 const routes =[
     {path: '/admin', exact: true, name:'Admin'},
@@ -32,18 +38,20 @@ const routes =[
     {path: '/admin/subcategory', exact: true, name:'Subcategory', component:  Subcategory   },
     {path: '/admin/viewsub', exact: true, name:'Viewsub', component:  Viewsub   },
     {path: '/admin/edit-subcategory/:id', exact: true, name:'EditSubCategory', component:  EditSubCategory   },
-
-
     {path: '/admin/item', exact: true, name:'Item', component:  Item   },
     {path: '/admin/view-items', exact: true, name:'viewItem', component:  viewItem   },
     {path: '/admin/itemtest', exact: true, name:'ItemTest', component:  ItemTest   },
+    {path: '/admin/stockentry', exact: true, name:'StockEntry', component:  StockEntry   },
+    {path: '/admin/print', exact: true, name:'Modal', component:  Modal   },
+    {path: '/admin/approvedorder', exact: true, name:'ApprovedOrderAdmin', component:  ApprovedOrderAdmin   },
+    {path: '/admin/Viewfinalorder/:id', exact: true, name:'ViewfinalorderAdmin', component : ViewfinalorderAdmin     },
+    {path: '/admin/orderpdf/:id', exact: true, name:'OrderpdfAdmin', component : OrderpdfAdmin     },
+
 
 
     {path: '/admin/viewReq', exact: true, name:'NazaratDashboard', component : NazaratDashboard  },
     {path: '/admin/Vieworder/:id', exact: true, name:'Vieworder', component:  Vieworder   }, 
     {path: '/admin/edit-item/:id', exact: true, name:'itemEdit', component:  itemEdit   }, 
-    
-    
     {path: '/user/EntryForm', exact: true, name:'EntryForm', component:  EntryForm   },
 
 
@@ -54,6 +62,7 @@ const routes =[
     {path: '/user/profile', exact: true, name:'UserProfile', component:  UserProfile   },
     {path: '/user/services', exact: true, name:'Services', component : Services     },
     {path: '/user/Viewfinalorder/:id', exact: true, name:'Viewfinalorder', component : Viewfinalorder     },
+    {path: '/user/orderpdf/:id', exact: true, name:'Orderpdf', component : Orderpdf     },
     
 ]; 
 

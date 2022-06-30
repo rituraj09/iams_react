@@ -25,11 +25,24 @@ import swal from 'sweetalert';
         });
     },[]);
 
+
+
+
     const DeleteCat=(id)=>{
+
         itemList.map((item)=>{
             id=item.id;
         })
 
+        swal({
+            title: "Are you sure?",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+          })
+          .then((willDelete) => {
+            if (willDelete) {
+              
             axios.put(`api/delete-item/${id}`).then(res=>{
                 
                 if(res.data.status===200){
@@ -46,6 +59,13 @@ import swal from 'sweetalert';
 
                 }
             });
+            } 
+          });
+
+
+
+        
+
     }
 
     
@@ -75,7 +95,7 @@ return(
                           <div className="tab-content">
                               <div className="tab-pane active" id="home" role="tabpanel">
                                   <div className="row">
-                                      <div className="col-md-12 mt-2">  
+                                      <div className="col-md-12 mt-3">  
                                           <table className="table">
                                               <thead className="table-dark">
                                                   <tr>
@@ -86,7 +106,9 @@ return(
                                                       <th>Category</th> 
                                                       <th>Remarks</th>
                                                       <th>Approve-Rate</th> 
+                                                      
                                                       <th>Action</th> 
+                                                      <th></th> 
                                                   </tr>
                                               </thead>
                                               <tbody>
@@ -100,10 +122,16 @@ return(
                                     <td>{item.catname}</td>
                                     <td>{item.remarks}</td>
                                     <td>{item.approverate}</td>
+                                    
                                     <td>
                                     <Link to={`edit-item/${item.id}`} className="btn btn-success btn-sm">Edit</Link> 
-                            <button type = "button" onClick={()=>DeleteCat()} className="btn btn-danger btn-sm ml-2"> Delete </button>
+                                 
                                     </td>
+
+                                    <td>   <button type = "button" onClick={()=>DeleteCat()} className="btn btn-danger btn-sm ml-2"> Delete </button></td>
+                                 
+                                   
+                                  
                                     </tr>
                                 )
                             })}

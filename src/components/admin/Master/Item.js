@@ -81,7 +81,7 @@ function Item()
             approverate:itemInput.approverate, 
         }
         console.log(itemInput);  
-        debugger;
+    
         axios.post(`api/saveitem`,data).then(res=>{
 
             if(res.data.status === 200)

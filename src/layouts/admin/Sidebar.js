@@ -28,16 +28,25 @@ const Sidebar = () => {
                     </Link>
                     
                     
-                    <div className="sb-sidenav-menu-heading">Data Entry</div>
+                    <div className="sb-sidenav-menu-heading">Manage Orders</div>
+
                     <Link  to="/admin/viewReq" className="nav-link"> 
                     <div className="sb-nav-link-icon"> <FontAwesomeIcon icon={faCirclePlus}></FontAwesomeIcon> </div> 
                        View Orders
                     </Link>
+
+                    <Link  to="/admin/approvedorder" className="nav-link"> 
+                    <div className="sb-nav-link-icon"> <FontAwesomeIcon icon={faCirclePlus}></FontAwesomeIcon> </div> 
+                       View Approved Orders
+                    </Link>
+
+
+                    
                   
-                    <div className="sb-sidenav-menu-heading">Reports</div>
-                    <Link  to="#" className="nav-link"> 
+                    <div className="sb-sidenav-menu-heading">Manage Stocks</div>
+                    <Link  to="/admin/stockentry" className="nav-link"> 
                     <div className="sb-nav-link-icon"> <FontAwesomeIcon icon={faNotesMedical}></FontAwesomeIcon> </div> 
-                       Daily Report
+                       Stock Entry
                     </Link>
                    
                 </div>

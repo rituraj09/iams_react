@@ -42,6 +42,7 @@ function EditCategory(props){
         setCategory({...catInput, [event.target.name]: event.target.value});
     }
     
+    
     const updateCategory = (event)=>{
         event.preventDefault();
 
@@ -56,6 +57,12 @@ function EditCategory(props){
 
         });
     }  
+
+
+
+
+
+
 
     return(
         <>

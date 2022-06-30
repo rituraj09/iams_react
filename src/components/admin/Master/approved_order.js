@@ -3,7 +3,7 @@ import { Link,useHistory } from "react-router-dom";
 import axios from 'axios';
 import swal from 'sweetalert';
 
-export default function ApprovedOrder(props) {
+export default function ApprovedOrderAdmin(props) {
 
     const [loading, setLoading] = useState(true);
     const [categorylist, setCategorylist] = useState();

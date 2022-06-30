@@ -27,7 +27,7 @@ function Viewcategory (props) {
             id=item.id;
         })
 
-            axios.post(`api/deleteCat/${id}`).then(res=>{
+            axios.put(`api/deleteCat/${id}`).then(res=>{
                 
                 if(res.data.status===200){
                     swal("Success", res.data.message, "success");
