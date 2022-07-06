@@ -183,9 +183,9 @@ function Item()
                                                             <select name="asset_id" onChange={handleInput} value={itemInput.asset_id}   className="form-select">   
                                                             <option>select Asset</option>
                                                             {
-                                                                assetlist.map((itemss)=>{
+                                                                assetlist.map((items)=>{
                                                                     return(
-                                                                    <option value={itemss.id} key={itemss.id}>{itemss.name}</option>
+                                                                    <option value={items.id} key={items.id}>{items.name}</option>
                                                                     )
                                                                 })
                                                             }   
