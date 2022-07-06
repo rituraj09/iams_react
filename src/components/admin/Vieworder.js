@@ -4,8 +4,10 @@ import { Link,useHistory } from "react-router-dom";
 import axios from 'axios';
 import swal from 'sweetalert';
 import { Modal, Button, Form } from 'react-bootstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCalendarAlt } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCalendarAlt, faW } from '@fortawesome/free-solid-svg-icons';
+import { fas } from '@fortawesome/free-solid-svg-icons';
+import {faUserEdit, faSave, faCoffee,   } from '@fortawesome/free-solid-svg-icons';
 
 
 function Vieworder(props){
@@ -146,13 +148,16 @@ useEffect(()=>{
 // ////////////////////////////////////////////////
 
    
-
+   
        const submitOrder =()=> {
+        axios.post(`api/initialstock/${id}`)
         axios.put(`api/updateOrderMaster/${id}`).then(res=>{
             
             if(res.data.status===200){
+                
                 swal("Success", res.data.message, "success");
                 history.push('/admin/viewReq');
+              
             }
         });
        }
@@ -181,49 +186,40 @@ useEffect(()=>{
 
 
     return(
-        <div className="container px-4">
-            <div className="card mt-4">
-                <div className="card-header">
-        <h2>View Order</h2>
-        <Link to ="/admin/viewReq" className=" btn btn-primary btn-sm float-end">Back</Link>
+        <>
+        <nav aria-label="breadcrumb ">
+        <ol className="breadcrumb p-2">
+        <li className="breadcrumb-item"><Link  to="/admin/dashboard"  >Home</Link></li>
+        <li className="breadcrumb-item"><Link  to="/admin/viewReq"  >View Orders</Link></li>
+        <li className="breadcrumb-item active" aria-current="page">Ordered Items</li>
+        </ol>
+    </nav>
 
-        <div className="card-body">
-
-            </div>
-            <table className="table">
-
-            <thead className="table-green">
-                        <tr>
+        <div className="container px-2">
             
-                            <th>Order Id</th> 
-                            <th>Date</th> 
-                            <th>Branch Name</th>  
-                            <th>Remarks</th> 
-                        </tr>
-                        </thead>
-
-                        <tbody>
-                            {orderDetails.map((item)=>{
-                                return(
-                                    <tr>
-                                    <td>{item.orderno}</td>
-                                    <td>{item.orderdate}</td>
-                                    <td>{item.branchname}</td>
-                                    <td>{item.remarks}</td>
-                                    </tr>
-                                )
-                            })}
-                           
-                           
-                        </tbody>
-
-                </table>
-
-    
+        <div className="card-header">
+            <h4 className="text-center"> Order By Branch
+            <Link to ="/admin/viewReq" className=" btn btn-primary btn-sm float-end">Back</Link>
+            </h4>
         </div>
-               
-            
-       
+        <div className="card-body">
+        {orderDetails.map((item)=>{
+        return(<>
+        
+        <ul class="col-3">
+        
+  <li class="list-group-item">order ID: {item.orderno}</li>
+  <li class="list-group-item">Branch Name: {item.branchname}</li>
+  <li class="list-group-item">Remarks: {item.remarks}</li>
+  <li class="list-group-item">Date: {item.actualdate}</li>
+</ul>
+
+
+</>
+     )
+    })}
+
+</div>
 
         <div className="card-body">
                     <table className="table">
@@ -275,26 +271,32 @@ useEffect(()=>{
                <div>
                
                </div>
-    </div>
-    <button type = "button" onClick={()=>submitOrder()} className="btn btn-primary btn-sm float-end"> Place Order </button>
-
-
-    <Button variant="primary" onClick={handleShow}>
-        Launch demo modal
+               <Button variant="primary"className="btn btn-primary btn-sm float-right" onClick={handleShow}>
+        Place Order
       </Button>
+    </div>
+
+    
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
+          <Modal.Title>Billing Info</Modal.Title>
         </Modal.Header>
         <Modal.Body>
+
           <Form onSubmit={placeOrder}>
+
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
               <Form.Label>Order No</Form.Label>
+              <Form.Group className="input-group"  >
               <Form.Control  name="orderNo" onChange={handleInput} value={billInput.orderNo}
                 type="Text"
                 autoFocus
               />
+                <span className="input-group-text">
+                <FontAwesomeIcon icon={faUserEdit} />
+                </span>
+                </Form.Group>
             </Form.Group>
 
             <Form.Group
@@ -329,23 +331,24 @@ useEffect(()=>{
 
             
            
-          <Button type="submit" variant="primary" onClick={handleClose}>
-            Place Order
-          </Button>
+          <Button type="submit" className="btn btn-primary float-right btn-lg" variant="primary" onClick={submitOrder}>
+        
+            <span className="badge">
+            <FontAwesomeIcon icon={faSave}></FontAwesomeIcon>
+            </span>
 
+            Place Order
+            
+          </Button>
           </Form>
         </Modal.Body>
-        <Modal.Footer>
-        <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-        </Modal.Footer>
+      
         
       </Modal>
 
 
-  </div>
 
+  </>
     )
 
 }

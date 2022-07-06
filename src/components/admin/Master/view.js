@@ -55,33 +55,33 @@ function Viewcategory () {
         })]
     }
 
-//     let datatable={
+    let datatable={
 
         
-//         columns: [
+        columns: [
 
-//             {
-//                 label: 'Id',
-//                 field: 'id',
-//                 sort: 'asc',
-//                 width: 100
-//               },
-//             {
-//               label: 'Name',
-//               field: 'name',
-//               sort: 'asc',
-//               width: 150
-//             },
-//             {
-//               label: 'Remarks',
-//               field: 'remarks',
-//               sort: 'asc',
-//               width: 270
-//             },
+            {
+                label: 'Id',
+                field: 'id',
+                sort: 'asc',
+                width: 100
+              },
+            {
+              label: 'Name',
+              field: 'name',
+              sort: 'asc',
+              width: 150
+            },
+            {
+              label: 'Remarks',
+              field: 'remarks',
+              sort: 'asc',
+              width: 270
+            },
            
             
-//           ],
-//           rows: [
+          ],
+          rows: [
 //             categorylist.map((item)=>{
                 
 //             return(
@@ -90,27 +90,26 @@ function Viewcategory () {
 //                     <td> {item.name}</td>  
 //                     <td>{item.remarks}</td>
 //                     </tr>
-// )
+// ))
 
-//             }
+//             },
 
           
-//             // {
-//             //   id: '61',
-//             //   name: 'Tiger Nixon',
-//             //   remarks: 'System Architects',
+            {
+              id: '61',
+              name: 'Tiger Nixon',
+              remarks: 'System Architects',
             
-//             // },
-//             // {
-//             //     id: '62',
-//             //   name: 'Garrett Winters',
-//             //   remarks: 'Accountant',
-//             // }
+            },
+            {
+                id: '62',
+              name: 'Garrett Winters',
+              remarks: 'Accountant',
+            },
             
          
   
-      
-//     };
+        ]}
 
 
 //     // /////////////////////////////////////////////////////////////////

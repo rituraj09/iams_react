@@ -9,7 +9,7 @@ import BootstrapTable from "react-bootstrap-table-next";
 
 
 
-function Vieworder(props){
+function Vieworderold(props){
 
     const[items, setitems] = useState([]); 
     const[modalInfo, setModalInfo] = useState([]);
@@ -110,4 +110,4 @@ return(
 
 }
 
-export default Vieworder
+export default Vieworderold

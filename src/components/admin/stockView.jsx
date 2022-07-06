@@ -1,4 +1,3 @@
-/* eslint-disable no-restricted-globals */
 import React,{useState,useEffect,useRef} from "react";
 import { Link,useHistory } from "react-router-dom";
 import axios from 'axios';
@@ -6,20 +5,17 @@ import swal from 'sweetalert';
 import { Modal, Button } from 'react-bootstrap';
 import { useReactToPrint  } from "react-to-print";
 
-
-
-
-function ViewfinalorderAdmin(props){
-
+function StockView(props) {
+   
     const history =useHistory();
     const [loading, setLoading] = useState(true);
     const [catInput, setCategory] =useState([]);
     const [orderDetails, setOrderDetails] =useState([]);
-    const [printInfo, setprintinfo] = useState([]);
 
     // /////////////////////Modal Control//////////////////////
 
     const [show, setShow] = useState(false);
+
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
@@ -38,10 +34,10 @@ function ViewfinalorderAdmin(props){
 
     const ids= props.match.params.id; 
  
-        axios.get(`api/getOrderItems/${ids}`).then(res=>{
+        axios.get(`/api/getStockToUpdate/${ids}`).then(res=>{
 
             if(res.data.status===200){
-                setCategory(res.data.orderitems);
+                setCategory(res.data.stockmasters);
             }
 
             else if(res.data.status===404)
@@ -78,98 +74,7 @@ function ViewfinalorderAdmin(props){
     
     
 ///////////////////////////////////////////////////////////////////////////
-
-
-const handleInput =(event)=>{
-    event.persist();
-        setprintinfo({...printInfo,[event.target.name]:event.target.value});
     
-}
-
-
-
-const submitPrintinfo=(event)=>{
-    event.preventDefault();
-
-
-const data ={
-catid:printInfo.category_id,
-name:printInfo.name,
-remarks:printInfo.remarks,
-}
-       
-    
-    
-    axios.post(`api/savesub`,data).then(res=>{
-        if(res.data.status === 200)
-        {
-            swal('Success',res.data.message,"Success");
-          setprintinfo({
-            category_id:'',
-            name:'',
-            remarks:'',
-
-          })
-        }
-    })
-}
-
-
-///////////////////////////////////////////////////////////////////////////
-
-// useEffect(()=>{
-
-//     const ids= props.match.params.id; 
- 
-//         axios.put(`/api/OrderMaster-edit-final/${ids}`).then(res=>{
-
-//             if(res.data.status===200){
-//                 setprintinfo(res.data.orderitems);
-//             }
-
-//             else if(res.data.status===404)
-//             {
-//                 swal("Error",res.data.message,"error");     
-//             }
-//             setLoading(false);
-//         });
-
-// },[props.match.params.id, history]);
-
-    
-///////////////////////////////////////////////////////////////////////////
-    
-       const handleDecrement = (item_id)=> {
-
-        setCategory(catInput=>
-            catInput.map((item)=>
-            item_id===item.id ? {...item, finalquanity: item.finalquanity - (item.finalquanity > 1 ? 1:0) }:item
-            )
-        );
-        updateFinalQty(item_id,"dec");
-       }
-
-       const handleIncrement = (item_id)=> {
-
-        setCategory(catInput=>
-            catInput.map((item)=>
-            item_id===item.id ? {...item, finalquanity: item.finalquanity + 1 }:item
-            )
-       
-            );
-            updateFinalQty(item_id,"inc");
-       }
-
-        
-       function updateFinalQty(item_id,scope){
-        axios.put(`api/updateOrderItem/${item_id}/${scope}`).then(res=>{
-
-            if(res.data.status===200){
-                swal("Success", res.data.message, "success");
-            }
-
-        });
-       }
        const id= props.match.params.id; 
 
 
@@ -217,7 +122,7 @@ remarks:printInfo.remarks,
                                     <td>{item.branchname}</td>
                                     <td>{item.remarks}</td>
                                     <td>
-                        <Link to={`/admin/orderpdf/${item.id}`} className="btn btn-success btn-sm">Print</Link>
+                        <Link to={`/user/orderpdf/${item.id}`} className="btn btn-success btn-sm">Print</Link>
                     </td>
                                     </tr>
                                 )
@@ -239,11 +144,10 @@ remarks:printInfo.remarks,
                         <thead className="table-dark">
                         <tr>
                         <th>SL No</th>  
-                            <th>Category</th> 
-                            <th>Sub-Category</th> 
-                            <th>Item</th>  
-                            <th>Description</th> 
-                            <th>Quantity</th>
+                            <th>Item Name</th> 
+                            <th>Description</th>
+                            <th>Quantity-In</th> 
+                            <th></th>
                             
                         </tr>
                         </thead>
@@ -255,10 +159,10 @@ remarks:printInfo.remarks,
              
                       <tr key={items.id}>
                      <td  >{++index}</td>  
-                    <td  > {items.catname}</td>  
-                    <td  > {items.subcatname}</td>  
                     <td  > {items.itemname}</td>  
-                    <td >{items.description}</td> 
+                    <td  > {items.description}</td>  
+                    <td  > {items.quantity_in}</td>  
+                    <td ></td> 
                     <td width="">{items.quantity}</td> 
                  
                     </tr>
@@ -273,14 +177,9 @@ remarks:printInfo.remarks,
                
                </div>
     </div>
-
-
-
   </div>
 
     )
-
-
 }
 
-export default ViewfinalorderAdmin;
+export default StockView

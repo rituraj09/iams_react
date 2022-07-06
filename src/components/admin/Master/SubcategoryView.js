@@ -44,7 +44,18 @@ function Viewsub () {
             id=item.id;
         })
 
-            axios.post(`api/delete-subcategory/${id}`).then(res=>{
+        
+        swal({
+            title: "Are you sure?",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+          })
+
+          .then((willDelete) => {
+            if (willDelete) {
+
+            axios.put(`api/delete-subcategory/${id}`).then(res=>{
                 
                 if(res.data.status===200){
 
@@ -60,6 +71,8 @@ function Viewsub () {
 
                 }
             });
+        }
+    });
     }
 
 

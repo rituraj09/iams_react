@@ -58,25 +58,27 @@ else{
 /////////////////////////////////////////////////////////////////////////
 
 return (
+    <>
+      <nav aria-label="breadcrumb ">
+        <ol className="breadcrumb p-2">
+        <li className="breadcrumb-item"><Link  to="/admin/dashboard"  >Home</Link></li>
+        <li className="breadcrumb-item active" aria-current="page">View Orders</li>
+        </ol>
+    </nav>
 
    <div className="container px-4">
 
       
        
     <div className="card mt-4">
-        <div className="=card-header">
-            <h4> Order By Branch
-            <nav class="navbar navbar-light bg-light">
-
-<input class="form-control form-inline mr-sm-2" type="search" placeholder="Search" aria-label="Search"></input>
-
-
-</nav>
+        <div className="card-header">
+            <h4 className="text-center"> Order By Branch
+    
             </h4>
         </div>
 
         <div className="card-body">
-        <table class="table">
+        <table class="table table-striped">
 <thead className="table-dark">
 <tr>
     <th>ID</th>
@@ -96,6 +98,7 @@ return (
   
 
    </div>
+   </>
 );
     
 

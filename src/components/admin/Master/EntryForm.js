@@ -69,7 +69,9 @@ function EntryForm(){
         axios.get(`api/subcatlist/${cat}`).then(res=>{
             if(res.data.status ===200){
                 setSubategorylist(res.data.subcategories);
+
             }
+            
 
         });
     },[cat]);
@@ -77,6 +79,7 @@ function EntryForm(){
 
     /////////////////////////////////////Get item data////////////////////////////////// 
       let subcat=EntryfromInput.subcategory_id;
+      
 
       
       useEffect(()=>{
@@ -84,10 +87,12 @@ function EntryForm(){
               if(res.data.status ===200){
                   setItemlist(res.data.items);
               }
+              else {
+                itemlist = '';
+            }
   
           });
       },[subcat]);
-
 
 
        ////////////////////////////////////Get temp data////////////////////////////////// 
@@ -192,22 +197,18 @@ function EntryForm(){
                         
     return(
 
-        <>
-        <div className="container-fluid">
-          <h2>Requisition Form</h2> 
-
      
-
+        <div className="container-fluid">
+            <div className="row">
+            <div className="col-md-4">
+          <h2>Requisition Form</h2> 
         <form onSubmit={submit}>
-        <div className="row">
-        <div className="col-sm-6 justify-content-center">
-        <div className="card p-4">
-        <div className="form-group mb-3">
+        <div className="card">
+        <div className="card p-3">
+        <div className="form-group mb-1">
 
       
-                    <input type ="text" name="mac"  value={EntryfromInput.mac} onChange={handleInput} className="form-control mb-2" hidden/>
-
-        <div className="form-group mb-3">
+                    <input type ="text" name="mac"  value={EntryfromInput.mac} onChange={handleInput} className="form-control" hidden/>
         <label>Select Category</label>
    
                       <select name="category_id" onChange={handleInput} value={EntryfromInput.category_id}   className="form-control">
@@ -239,9 +240,9 @@ function EntryForm(){
                   <select name="item_id" onChange={handleInput} value={EntryfromInput.item_id}   className="form-control">
                       <option>select Item</option>
                           {
-                              itemlist.map((items)=>{
+                              itemlist.map((itemss)=>{
                                   return(
-                                  <option value={items.id} key={items.id}>{items.name}</option>
+                                  <option value={itemss.id} key={itemss.id}>{itemss.name}</option>
                                   )
                               })
                           }
@@ -251,14 +252,14 @@ function EntryForm(){
 
 
 
-                      <div className="form-group">
+                    
                 <label>Description</label>
                  <textarea name="description" className="form-control" rows="3" onChange={handleInput} value={EntryfromInput.description} >
 
                  </textarea>
-                 </div>
+              
 
-                 <div className="form-group col-md-2">
+                 <div className="form-group col-md-2 mt-3">
                 <label>Quantity</label>
                 <input type="text" name="Quantity" className="form-control" onChange={handleInput} value={EntryfromInput.Quantity} ></input>
                  </div>
@@ -267,26 +268,21 @@ function EntryForm(){
                  <br></br><br></br>
                  
                 
+      
         </div>
         </div>
         </div>
-        </div>
-        </div>   
+   
+        
   </form>
+  </div>  
 
-
-  <div className="container px-4">
-           
-           <div className="card mt-4">
-               <div className="=card-header">
+  <div className="col-md-8">
+  
+           <div className="card ">
+               <div className="card-header">
                    <h4> Cart
-                  
-                   <nav className="navbar navbar-light bg-light">
-   
-       <input className="form-control form-inline mr-sm-2" type="search" placeholder="Search" aria-label="Search"></input>
-       
-   
-   </nav>
+
                    </h4>
                 </div>
                 <div className="card-body">
@@ -309,12 +305,12 @@ function EntryForm(){
 
             
 
-                <div className="form-group">
+                <div className="col-md-6">
                 <label>Remarks</label>
                  <textarea name="remarks" className="form-control" rows="3" onChange={handleInput} value={ orderInput.remarks} >
 
                  </textarea>
-                 <div className="col-md-6">
+                 <div className="col-md-6 mt-3 ">
                            {ordersubmit}
                     </div>
                           <br></br>
@@ -334,10 +330,12 @@ function EntryForm(){
               
            </div>
           
+          
           </div>
-
                </div>
-          </>
+               </div>
+            
+         
 
     )
 

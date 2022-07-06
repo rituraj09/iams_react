@@ -78,8 +78,8 @@ return(
           </ol>
       </nav>
       <div className="container-fluid ">
-          <div className="row">
-              <div className="col-md-6 mb-4">
+          <div>
+              <div className="col-md-9 mb-4">
                   <div className="card shadow mb-4">                                                     
                       <div className="card-body"> 
                           <ul className="nav nav-tabs" role="tablist">
@@ -87,16 +87,18 @@ return(
                               <Link to ="/admin/item" className="nav-link"  data-toggle="tab"   role="tab" aria-controls="home">Add</Link>
                               </li>
                               <li className="nav-item">
-                              <a  href="#" data-toggle="tab" className="nav-link active" role="tab" aria-controls="profile">View</a>
+                              <Link data-toggle="tab" className="nav-link active" role="tab" aria-controls="profile">View</Link>
                           
                               </li>
                           
                           </ul>
+
+
                           <div className="tab-content">
                               <div className="tab-pane active" id="home" role="tabpanel">
                                   <div className="row">
-                                      <div className="col-md-12 mt-3">  
-                                          <table className="table">
+                                      <div className="col-md-13 mt-3">  
+                                          <table className="table table-bordered">
                                               <thead className="table-dark">
                                                   <tr>
                                                       <th>ID</th>
@@ -108,7 +110,7 @@ return(
                                                       <th>Approve-Rate</th> 
                                                       
                                                       <th>Action</th> 
-                                                      <th></th> 
+                                                     
                                                   </tr>
                                               </thead>
                                               <tbody>
@@ -125,10 +127,10 @@ return(
                                     
                                     <td>
                                     <Link to={`edit-item/${item.id}`} className="btn btn-success btn-sm">Edit</Link> 
-                                 
+                                    <button type = "button" onClick={()=>DeleteCat()} className="btn btn-danger btn-sm ml-2"> Delete </button>
                                     </td>
 
-                                    <td>   <button type = "button" onClick={()=>DeleteCat()} className="btn btn-danger btn-sm ml-2"> Delete </button></td>
+                                    
                                  
                                    
                                   

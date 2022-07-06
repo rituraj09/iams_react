@@ -3,12 +3,15 @@ import { Link,useHistory } from "react-router-dom";
 import axios, { Axios } from 'axios';
 import { MDBDataTable } from 'mdbreact';
 import swal from 'sweetalert';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSearch, faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 
 
 function Viewcategory (props) {  
     const history =useHistory();
         const [loading, setLoading] = useState(true);
-        const [categorylist, setCategorylist] = useState([]); 
+        const [categorylist, setCategorylist] = useState([]);
+        const [searchTerm, setSearchTerm] = useState(''); 
 
         useEffect(()=>{
         axios.get(`api/categories`).then(res=>{ 
@@ -22,10 +25,21 @@ function Viewcategory (props) {
     },[]); 
 
 
+
+
     const DeleteCat=(id)=>{
-        categorylist.map((item)=>{
-            id=item.id;
-        })
+      
+
+
+        swal({
+            title: "Are you sure?",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+          })
+
+          .then((willDelete) => {
+            if (willDelete) {
 
             axios.put(`api/deleteCat/${id}`).then(res=>{
                 
@@ -39,10 +53,11 @@ function Viewcategory (props) {
                         setLoading(false);
             
                     });
-        
+                    swal("Success", res.data.message, "success");
                 }
             });
-
+        }
+    });
     }
 
 
@@ -52,7 +67,15 @@ function Viewcategory (props) {
     let Viewcategory_HTMLTABLE ;
     let sl=0;
     Viewcategory_HTMLTABLE =[ 
-    categorylist.map((item)=>
+    categorylist.filter((item)=>{
+        if(searchTerm==""){
+            return item
+        }
+        else if(item.name.toLowerCase().includes(searchTerm.toLowerCase())){
+            return item.name
+        }
+
+    }).map((item)=>
     {
         if(loading)
         {
@@ -69,8 +92,10 @@ function Viewcategory (props) {
                     <td>{sl=sl+1}</td>
                     <td> {item.name}</td>   
                     <td>
-                        <Link to={`edit-category/${item.id}`} className="btn btn-success btn-sm">Edit</Link> 
-                        <button type = "button" onClick={()=>DeleteCat()} className="btn btn-danger btn-sm ml-2"> Delete </button>
+                        <Link to={`edit-category/${item.id}`} className="btn btn-success btn-sm"><FontAwesomeIcon icon={faEdit}></FontAwesomeIcon></Link> 
+                    </td>
+                    <td>
+                    <button type = "button" onClick={()=>DeleteCat(item.id)} className="btn btn-danger btn-sm ml-2"> <FontAwesomeIcon icon={faTrash}></FontAwesomeIcon> </button>
                     </td>
                 </tr>
             ) 
@@ -101,15 +126,23 @@ function Viewcategory (props) {
                         
                         </ul>
                         <div className="tab-content">
+
+
+<div class="input-group flex-nowrap mt-4">
+  <span class="input-group-text" id="addon-wrapping"><FontAwesomeIcon icon={faSearch}/></span>
+  <input type="search" class="form-control form-control-lg " placeholder="Type your keywords here..."  onChange={event=>{setSearchTerm(event.target.value)}}></input>
+</div>
+
                             <div className="tab-pane active" id="home" role="tabpanel">
                                 <div className="row">
-                                    <div className="col-md-12 mt-2">  
+                                    <div className=" mt-2">  
                                         <table className="table">
                                             <thead className="table-dark">
                                                 <tr>
                                                     <th>Sl. No.</th>
                                                     <th>Name</th> 
-                                                    <th>Action</th>
+                                                    <th>Edit</th>
+                                                    <th>Delete</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
