@@ -16,14 +16,14 @@ function Item()
         itemscode:'',
         name:'',
         approverate:'',
+        initalStock:'',
         remarks:'',
         error_list:[],
     }); 
+
     const handleInput =(event)=>{
         event.persist(); 
         setItem({...itemInput,[event.target.name]:event.target.value});
-       
- 
     } 
   
     useEffect(()=>{
@@ -78,7 +78,8 @@ function Item()
             itemcode:itemInput.itemscode,
             name:itemInput.name,
             remarks:itemInput.remarks,
-            approverate:itemInput.approverate, 
+            approverate:itemInput.approverate,
+            quantity:itemInput.initalStock, 
         }
         console.log(itemInput);  
     
@@ -86,7 +87,7 @@ function Item()
 
             if(res.data.status === 200)
             {
-                swal('Success',res.data.message,"Success");
+                swal('Success',res.data.message,'success');
 
                 setItem({
                     subcategory_id:'',
@@ -94,6 +95,7 @@ function Item()
                     itemscode:'',
                     name:'',
                     approverate:'',
+                    initalStock:'',
                     remarks:'',
                         })
                 
@@ -101,6 +103,9 @@ function Item()
 
             else if(res.data.status ===409){
                 swal('Error', res.data.message,"warning");
+            }
+            else if(res.data.status ===400){
+                swal('Check Input Data', "Error");
             }
         })
     }
@@ -144,8 +149,8 @@ function Item()
                                                       
 
                                                         <div className="col-md-3">
-                                                        <label className="form=label">Category:</label><span className="text-danger">*</span>  
-                                                        <div className="col-sm-10">
+                                                        <label className="form=label font-weight-bold">Category:</label><span className="text-danger font-weight-bold">*</span>  
+                                                        
                                                         <select name="category_id" onChange={(e)=>handlecategory(e)} value={itemInput.category_id}   className="form-select">
                                                                 <option>select Category</option>
                                                                 {
@@ -156,12 +161,12 @@ function Item()
                                                                     })
                                                                 }    
                                                             </select>
-                                                            </div>
+                                                           
                                                         </div> 
 
 
                                                         <div className="col-md-3">
-                                                            <label className="control-label">Sub-Category:</label><span className="text-danger">*</span> 
+                                                            <label className="control-label font-weight-bold">Sub-Category:</label><span className="text-danger font-weight-bold">*</span> 
 
                                                         
 
@@ -178,8 +183,8 @@ function Item()
                                                             </select>
                                                             </div>
 
-                                                            <div className="col-md-3">
-                                                            <label className="control-label">Asset Type:</label><span className="text-danger">*</span> 
+                                                            <div className="col-md-3"> 
+                                                            <label className="control-label font-weight-bold">Asset Type:</label><span className="text-danger font-weight-bold">*</span> 
                                                             <select name="asset_id" onChange={handleInput} value={itemInput.asset_id}   className="form-select">   
                                                             <option>select Asset</option>
                                                             {
@@ -193,13 +198,13 @@ function Item()
                                                         </div> 
 
                                                         <div className="col-md-4">  
-                                                            <label className="control-label"> Item Code :</label><span className="text-danger">*</span> 
+                                                            <label className="control-label font-weight-bold"> Item Code :</label><span className="text-danger font-weight-bold">*</span> 
                                                         <input type ="text" name="itemscode" className="form-control mb-2"   value={itemInput.itemscode}  onChange={handleInput} required /> 
                                                         </div>
 
                                    
                                                         <div className="col-md-4">   
-                                                            <label className="control-label">Item Name: </label><span className="text-danger">*</span> 
+                                                            <label className="control-label font-weight-bold">Item Name: </label><span className="text-danger font-weight-bold">*</span> 
                                                             <input type ="text" name="name" className="form-control mb-2"  value={itemInput.name}     onChange={handleInput} required />
                                                         </div> 
                                                     
@@ -207,18 +212,25 @@ function Item()
                                                
                                                   
                                                         <div className="col-md-2">   
-                                                            <label className="control-label">Approve Rate: </label><span className="text-danger">*</span> 
+                                                            <label className="control-label font-weight-bold">Approve Rate: </label><span className="text-danger font-weight-bold">*</span> 
                                                    
                                                         <input type ="text" name="approverate" className="form-control mb-2"  value={itemInput.approverate} onChange={handleInput}  required/> 
+                                                        </div> 
+
+                                                        
+                                                        <div className="col-md-2">   
+                                                            <label className="control-label font-weight-bold">Inital Stock: </label><span className="text-danger font-weight-bold">*</span> 
+                                                   
+                                                        <input type ="text" name="initalStock" className="form-control mb-2"  value={itemInput.initalStock} onChange={handleInput}  required/> 
                                                         </div> 
                                                  
                                              
                                                 
                                                 
                                                         <div className="col-md-6">   
-                                                            <label className="control-label">Description: </label><span className="text-danger">*</span> 
-                                                        </div>
-                                                        <div className="col-md-12"> 
+                                                            <label className="control-label font-weight-bold">Description: </label><span className="text-danger font-weight-bold">*</span> 
+                                                       
+                                                       
                                                              <textarea type ="text" name="remarks" className="form-control mb-2"  rows="5"   value={itemInput.remarks}  onChange={handleInput} required/> 
                                                         </div> 
 

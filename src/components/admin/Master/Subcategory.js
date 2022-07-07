@@ -52,13 +52,16 @@ const data ={
         axios.post(`api/savesub`,data).then(res=>{
             if(res.data.status === 200)
             {
-                swal('Success',res.data.message,"Success");
+                swal('Success',res.data.message,'success');
               setSubcategory({
                 category_id:'',
                 name:'',
                 remarks:'',
 
               })
+            }
+            else if(res.data.status ===409){
+                swal('Error', res.data.message,'error')
             }
         })
     }

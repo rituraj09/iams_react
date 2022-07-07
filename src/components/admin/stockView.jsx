@@ -51,12 +51,14 @@ function StockView(props) {
 
 
 ///////////////////////////////////////////////////////////////////////////
-
+    useEffect(()=>{
+       
+    })
 
     useEffect(()=>{
 
         const ids= props.match.params.id; 
-     
+        axios.get(`api/check-stock-submit/${ids}`)
             axios.get(`api/orderById/${ids}`).then(res=>{
     
                 if(res.data.status===200){
@@ -86,6 +88,46 @@ function StockView(props) {
             }
         });
        }
+    let getid = (id)=>{
+        let orderid = id;
+console.log(orderid+"tabledd");
+    }
+
+ let stockdetails = [
+    
+    catInput.map((items,index)=> {
+                               let status;
+                               let button;
+        if (items.status=="2") {
+            status = <>Pending</>;
+            button =  <Link to={`Editstockdata/${items.id}`} className="btn btn-success btn-sm">Entry/Edit</Link> 
+
+        }
+        else if (items.status == "1"){
+            status = <>Completed</>
+        }
+    
+         return(
+               
+
+<tr key={items.id}>
+<td  >{++index}</td>  
+<td  > {items.itemname}</td>  
+<td  > {items.description}</td>  
+<td  > {items.quantity_in}</td> 
+<td  > {items.supply_on}</td> 
+<td  > {items.supplierrate}</td> 
+<td  > {items.cgst}</td> 
+<td  > {items.sgst}</td> 
+<td  > {items.billno}</td> 
+<td  > {items.billdate}</td> 
+<td  > {status}</td> 
+<td> {button}  </td>       
+</tr>
+)
+}) 
+ ]
+
     
 
 
@@ -120,10 +162,8 @@ function StockView(props) {
                                     <td>{item.orderno}</td>
                                     <td>{item.orderdate}</td>
                                     <td>{item.branchname}</td>
-                                    <td>{item.remarks}</td>
-                                    <td>
-                        <Link to={`/user/orderpdf/${item.id}`} className="btn btn-success btn-sm">Print</Link>
-                    </td>
+                                    <td>{item.remarks}</td>   
+                                      
                                     </tr>
                                 )
                             })}
@@ -147,27 +187,20 @@ function StockView(props) {
                             <th>Item Name</th> 
                             <th>Description</th>
                             <th>Quantity-In</th> 
-                            <th></th>
+                            <th>Supply-On</th>
+                            <th>Supply-Rate</th>
+                            <th>CGST</th>
+                            <th>SGST</th>
+                            <th>Bill-No.</th>
+                            <th>Bill-Date</th>
+                            <th>Status</th>
+                            <th>Action</th>
                             
                         </tr>
                         </thead>
                         <tbody>
-
-                             {catInput.map((items,index)=> {
-                                 return(
-
-             
-                      <tr key={items.id}>
-                     <td  >{++index}</td>  
-                    <td  > {items.itemname}</td>  
-                    <td  > {items.description}</td>  
-                    <td  > {items.quantity_in}</td>  
-                    <td ></td> 
-                    <td width="">{items.quantity}</td> 
-                 
-                    </tr>
-)
-        })}
+                            
+                            {stockdetails}
 
                             
                         </tbody>

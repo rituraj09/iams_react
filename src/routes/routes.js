@@ -28,6 +28,7 @@ import ViewfinalorderAdmin from "../components/admin/Master/Viewfinalorder";
 import OrderpdfAdmin from "../components/admin/Master/orderpdf";
 import StockView from "../components/admin/stockView";
 import Vieworderold from "../components/admin/vieworder_old";
+import Editstockdata from "../components/admin/Editstockdata";
 
 const routes =[
     {path: '/admin', exact: true, name:'Admin'},
@@ -49,6 +50,7 @@ const routes =[
     {path: '/admin/Viewfinalorder/:id', exact: true, name:'ViewfinalorderAdmin', component : ViewfinalorderAdmin     },
     {path: '/admin/orderpdf/:id', exact: true, name:'OrderpdfAdmin', component : OrderpdfAdmin     },
     {path: '/admin/StockView/:id', exact: true, name:'StockView', component : StockView     },
+    {path: '/admin/StockView/Editstockdata/:id', exact: true, name:'Editstockdata', component : Editstockdata     },
     {path: '/admin/pop', exact: true, name:'ModalDialog', component : ModalDialog     },
     {path: '/admin/Vieworderold', exact: true, name:'Vieworderold', component : Vieworderold     },
 

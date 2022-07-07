@@ -6,9 +6,6 @@ import { useForm } from "react-hook-form";
 import swal from "sweetalert";
 //import http from '../../../http';
 
-
-
-
 function Category()
 
 {
@@ -60,6 +57,13 @@ function Category()
      
     } 
 
+    const clear = ()=>{
+        setCat({
+            name:'',
+        })
+    }
+
+
 
     return (
         <>  
@@ -110,12 +114,11 @@ function Category()
                                                             <div className="row">
                                                                 <div className="col-md-12"> 
                                                                     <button type="button" onClick={(submitCat)} className="btn btn-sm btn-success "> Save</button> 
-                                                                    <a href="#" className="btn btn-sm btn-danger ml-2">Cancel</a>
+                                                                    <button type="button" onClick={(clear)} className="btn btn-sm btn-danger ml-2 "> Cancel</button> 
+                                                                   
                                                                 </div>    
                                                             </div>  
                                                         </div>
-                                                        
-                                                    
                                                     </form>  
                                         </div>
                                     </div>
