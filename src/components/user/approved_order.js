@@ -65,7 +65,7 @@ return (
        
     <div className="card mt-4">
         <div className="=card-header">
-            <h4> Order By Branch
+            <h4> Approved Orders
             <nav class="navbar navbar-light bg-light">
 
 <input class="form-control form-inline mr-sm-2" type="search" placeholder="Search" aria-label="Search"></input>

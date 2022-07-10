@@ -135,7 +135,7 @@ console.log(orderid+"tabledd");
         <div className="container px-4">
             <div className="card mt-4">
                 <div className="card-header">
-        <h2>View Order</h2>
+        <h2>Pending Stock Entry</h2>
         <Link to ="/user/viewfinalorder" className=" btn btn-primary btn-sm float-end">Back</Link>
         
       
@@ -151,7 +151,7 @@ console.log(orderid+"tabledd");
                             <th>Date</th> 
                             <th>Branch Name</th>  
                             <th>Remarks</th> 
-                            <th>Action</th> 
+                           
                         </tr>
                         </thead>
 

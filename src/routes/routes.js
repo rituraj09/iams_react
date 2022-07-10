@@ -29,10 +29,13 @@ import OrderpdfAdmin from "../components/admin/Master/orderpdf";
 import StockView from "../components/admin/stockView";
 import Vieworderold from "../components/admin/vieworder_old";
 import Editstockdata from "../components/admin/Editstockdata";
+import AdminDashboard from "../components/administrator/Dashboard";
+import Register from "../components/frontend/auth/Register";
 
 const routes =[
     {path: '/admin', exact: true, name:'Admin'},
     {path: '/admin/dashboard', exact: true, name:'Dashboard', component : Dashboard     },
+    {path: '/Register', exact: true, name:'Register', component : Register     },
     {path: '/admin/profile', exact: true, name:'Profile', component:  Profile   },
     {path: '/admin/category', exact: true, name:'Category', component:  Category   },
     {path: '/admin/view-category', exact: true, name:'CategoryView', component:  CategoryView   },
@@ -70,6 +73,9 @@ const routes =[
     {path: '/user/services', exact: true, name:'Services', component : Services     },
     {path: '/user/Viewfinalorder/:id', exact: true, name:'Viewfinalorder', component : Viewfinalorder     },
     {path: '/user/orderpdf/:id', exact: true, name:'Orderpdf', component : Orderpdf     },
+
+    {path: '/administrator', exact: true, name:'administrator'},
+    {path: '/administrator/Dashboard', exact: true, name:'AdminDashboard', component : AdminDashboard },
     
 ]; 
 

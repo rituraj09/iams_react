@@ -1,7 +1,6 @@
 import React,{useState,useEffect} from "react";
 import { Link,useHistory } from "react-router-dom";
 import axios, { Axios } from 'axios';
-import { MDBDataTable } from 'mdbreact';
 import swal from 'sweetalert';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
@@ -79,12 +78,13 @@ function Viewcategory (props) {
     {
         if(loading)
         {
-            return 
+            return (
             <tr>
                 <td colspan="5">
                     Loading...
                 </td>
             </tr>
+            )
         } 
         else{ 
         return(

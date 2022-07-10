@@ -119,7 +119,7 @@ function Item()
             <nav aria-label=" ">
             
             <ol className="breadcrumb p-3">
-            <li className="breadcrumb-item"><Link  to="/admin/dashboard"  >Home</Link></li>
+            <li className="breadcrumb-item"><Link  to="/admin/dashboard"> Home</Link></li>
             <li className="breadcrumb-item active" aria-current="page">Items</li>
             
             </ol>
@@ -130,7 +130,7 @@ function Item()
 
         <div className="container-fluid ">
             <div className="row">
-                <div className="col-md-10 mb-4">
+                <div className="col-md-8">
                     <div className="card shadow mb-4">                                                     
                         <div className="card-body"> 
                             <ul className="nav nav-tabs" role="tablist">
@@ -141,7 +141,7 @@ function Item()
                                 <Link  to="/admin/view-items" data-toggle="tab" className="nav-link" role="tab" aria-controls="profile">View</Link>
                                 </li>
                             </ul>
-                            <div class="row g-3">
+                            
                               
                             <form onSubmit={submitItem} encType="multipart/form-data" className="row g-3">
                                                
@@ -218,16 +218,16 @@ function Item()
                                                         </div> 
 
                                                         
-                                                        <div className="col-md-2">   
+                                                        <div className="col-3">   
                                                             <label className="control-label font-weight-bold">Inital Stock: </label><span className="text-danger font-weight-bold">*</span> 
                                                    
                                                         <input type ="text" name="initalStock" className="form-control mb-2"  value={itemInput.initalStock} onChange={handleInput}  required/> 
                                                         </div> 
                                                  
                                              
+                                                            
                                                 
-                                                
-                                                        <div className="col-md-6">   
+                                                        <div className="col-md-10">   
                                                             <label className="control-label font-weight-bold">Description: </label><span className="text-danger font-weight-bold">*</span> 
                                                        
                                                        
@@ -241,7 +241,7 @@ function Item()
                                              
                                </form>
                             
-                        </div>
+                       
                     </div>
                 </div>
             </div>

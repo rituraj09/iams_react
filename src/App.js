@@ -5,6 +5,7 @@ import Login from "./components/frontend/auth/Login";
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
 import AdminPrivateRoute from './AdminPrivateRoute'
 import UserPrivateRoute from './UserPrivateRoute'
+import AdministratorPrivateRoute from "./AdministratorPrivateRoute";
 
 
 
@@ -35,6 +36,7 @@ function App() {
           </Route>
           <AdminPrivateRoute path="/admin" name="Admin" />
           <UserPrivateRoute path="/user" name="User" />
+          <AdministratorPrivateRoute path="/administrator" name="administrator"></AdministratorPrivateRoute>
         </Switch>
       </Router>
     </div>

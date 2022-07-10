@@ -2,12 +2,16 @@ import React,{useState,useEffect} from "react";
 import { Link } from "react-router-dom";
 import axios from 'axios'; 
 import swal from 'sweetalert';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSearch, faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
+
 
 function Viewsub () { 
     const [loading, setLoading] = useState(true);
     const [categorylist, setCategorylist] = useState([]);
     const [subcategorylist, setsubCategorylist] = useState([]);
     const [itemInput, setItem ] = useState([]); 
+    const [searchTerm, setSearchTerm] = useState(''); 
    
          
     const handleInput =(event)=>{
@@ -80,26 +84,42 @@ function Viewsub () {
     let sl=0;
         let Viewcategory_HTMLTABLE ; 
         Viewcategory_HTMLTABLE =[ 
-        subcategorylist.map((item)=>
+        subcategorylist.filter((item)=>
         {
-            if(loading)
-            {
-                return 
-                <tr>
-                    <td colspan="5">
-                        Loading...
-                    </td>
-                </tr>
-            } 
-            else{ 
+            if(searchTerm==""){
+                return item
+            }
+            else if(item.name.toLowerCase().includes(searchTerm.toLowerCase())){
+                return item.name
+            }
+            else if(item.catname.toLowerCase().includes(searchTerm.toLowerCase())){
+                return item.catname
+            }
+        })
+         
+        .reverse().map((item)=>{ 
+                if(loading)
+                {
+                    return (
+                    <tr>
+                        <td colspan="5">
+                            Loading...
+                        </td>
+                    </tr>
+                    )
+                }
+                else{
             return(
                     <tr key={item.id}>
                         <td>{sl=sl+1}</td>
                         <td> {item.name}</td>  
                         <td>{item.catname}</td> 
                         <td>
-                            <Link to={`edit-subcategory/${item.id}`} className="btn btn-success btn-sm">Edit</Link> 
-                            <button type = "button" onClick={()=>DeleteCat()} className="btn btn-danger btn-sm ml-2"> Delete </button>
+                            <Link to={`edit-subcategory/${item.id}`} className="btn btn-success btn-sm"><FontAwesomeIcon icon={faEdit}></FontAwesomeIcon></Link> 
+                           
+                        </td>
+                        <td>
+                        <button type = "button" onClick={()=>DeleteCat(item.id)} className="btn btn-danger btn-sm ml-2"> <FontAwesomeIcon icon={faTrash}></FontAwesomeIcon> </button>
                         </td>
                     </tr>
                 ) 
@@ -130,6 +150,11 @@ function Viewsub () {
                                 
                                 </ul>
                                 <div className="tab-content">
+                                    
+<div class="input-group flex-nowrap mt-4">
+  <span class="input-group-text" id="addon-wrapping"><FontAwesomeIcon icon={faSearch}/></span>
+  <input type="search" class="form-control form-control-lg " placeholder="Type your keywords here..."  onChange={event=>{setSearchTerm(event.target.value)}}></input>
+</div>
                                     <div className="tab-pane active" id="home" role="tabpanel">
                                         <div className="row">
                                             <div className="col-md-12 mt-2">  
@@ -139,7 +164,8 @@ function Viewsub () {
                                                             <th>ID</th>
                                                             <th>Sub-Category</th>
                                                             <th>Category</th> 
-                                                            <th>Action</th> 
+                                                            <th>Edit</th> 
+                                                            <th>Delete</th> 
                                                         </tr>
                                                     </thead>
                                                     <tbody>

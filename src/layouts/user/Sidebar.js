@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleDot, faTachometerAlt,faCirclePlus,faNotesMedical } from '@fortawesome/free-solid-svg-icons'
 
 const Sidebar = () => {
+    const name = localStorage.getItem('auth_name')
     return (
         <nav className="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
             <div className="sb-sidenav-menu">
@@ -37,7 +38,7 @@ const Sidebar = () => {
             </div>
             <div className="sb-sidenav-footer">
                 <div className="small">Logged in as:</div>
-                Basic User
+                {name}
             </div>
         </nav>
     )

@@ -20,12 +20,11 @@ function Category()
 
     const handleInput = (event)=>{
       event.persist();
-      const re = /^[A-z\b]+$/;
-      if (event.target.value === '' || re.test(event.target.value)){
+
         setCat({...catInputs,[event.target.name]:event.target.value})
     }
       
-    }
+
 
 
     const submitCat = (event) =>{

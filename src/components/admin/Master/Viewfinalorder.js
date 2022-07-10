@@ -189,13 +189,57 @@ remarks:printInfo.remarks,
             <div className="card mt-4">
                 <div className="card-header">
         <h2>View Order</h2>
-        <Link to ="/user/viewfinalorder" className=" btn btn-primary btn-sm float-end">Back</Link>
+        <Link to ="/admin/viewfinalorder" className=" btn btn-primary btn-sm float-end">Back</Link>
         
-      
-        <div className="card-body">
+      <div className="row">
+    
 
-            </div>
-            <table className="table">
+            <div className="col-lg-4 col-6">
+            <div className="card-body">
+        {orderDetails.map((item)=>{
+        return(<>
+        
+        <ul >
+        <li className="text-center">Order Details</li>    
+  <li class="list-group-item">Order ID: {item.orderno}</li>
+  <li class="list-group-item">Branch Name: {item.branchname}</li>
+  <li class="list-group-item">Remarks: {item.remarks}</li>
+  <li class="list-group-item">Date: {item.actualdate}</li>
+</ul>
+
+
+</>
+     )
+    })}
+
+</div>
+</div>
+
+<div className="col-xl-3 col-md-8">
+        {orderDetails.map((item)=>{
+        return(<>
+        
+        <ul class="mt-3">
+
+    <li className="text-center">Billing Details:</li>  
+  <li class="list-group-item">Order No: {item.actual_orderno}</li>
+  <li class="list-group-item">Billing Date: {item.actual_orderdate}</li>
+  <li class="list-group-item">Supplier Name: {item.supplier}</li>
+  <li class="list-group-item">Signed By: {item.signed_by}</li>
+</ul>
+
+
+</>
+     )
+    })}
+
+</div>
+</div>
+</div>
+
+
+
+            {/* <table className="table">
 
             <thead className="table-green">
                         <tr>
@@ -226,16 +270,16 @@ remarks:printInfo.remarks,
                            
                         </tbody>
 
-                </table>
+                </table> */}
 
     
-        </div>
+       
                
             
        
 
         <div className="card-body">
-                    <table className="table">
+                    <table class="table table-striped">
                         <thead className="table-dark">
                         <tr>
                         <th>SL No</th>  

@@ -58,9 +58,13 @@ function Home() {
                    {
                     history.push('/admin/dashboard');
                    }
-                   else
+                   else if(resp.data.role===3)
                    {
                     history.push('/user/home');
+                   }
+                   else if(resp.data.role===4)
+                   {
+                    history.push('/administrator/Dashboard');
                    }
                   
                 }

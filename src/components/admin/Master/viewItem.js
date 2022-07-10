@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import axios from 'axios';
 import Table from 'react-bootstrap/Table';
 import swal from 'sweetalert';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSearch, faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 
 
 
@@ -10,6 +12,7 @@ import swal from 'sweetalert';
 
     const [loading, setLoading] = useState(true);
     const [itemList, setItemlist] = useState([]);
+    const [searchTerm, setSearchTerm] = useState(''); 
     
 
     useEffect(()=>{
@@ -46,7 +49,7 @@ import swal from 'sweetalert';
             axios.put(`api/delete-item/${id}`).then(res=>{
                 
                 if(res.data.status===200){
-
+                    swal("Success", res.data.message, "success");
                     axios.get(`api/viewitems/`).then(res=>{ 
                         if(res.data.status ===200){
                             setItemlist(res.data.items);
@@ -95,6 +98,10 @@ return(
 
 
                           <div className="tab-content">
+                          <div class="input-group flex-nowrap mt-4">
+  <span class="input-group-text" id="addon-wrapping"><FontAwesomeIcon icon={faSearch}/></span>
+  <input type="search" class="form-control form-control-lg " placeholder="Type your keywords here..."  onChange={event=>{setSearchTerm(event.target.value)}}></input>
+</div>
                               <div className="tab-pane active" id="home" role="tabpanel">
                                   <div className="row">
                                       <div className="col-md-13 mt-3">  
@@ -108,13 +115,29 @@ return(
                                                       <th>Category</th> 
                                                       <th>Remarks</th>
                                                       <th>Approve-Rate</th> 
+                                                      <th>Quantity-in</th> 
                                                       
-                                                      <th>Action</th> 
+                                                      <th>Edit</th> 
+                                                      <th>Delete</th> 
                                                      
                                                   </tr>
                                               </thead>
                                               <tbody>
-                                              {itemList.map((item, index)=>{
+
+
+                                              {itemList.filter((item)=>{
+        if(searchTerm==""){
+            return item
+        }
+        else if(item.name.toLowerCase().includes(searchTerm.toLowerCase())){
+            return item.name
+        }
+
+    })
+                                              
+                                              
+                                              
+                                              .map((item, index)=>{
                                 return(
                                     <tr>
                                     <td>{++index}</td>
@@ -124,12 +147,14 @@ return(
                                     <td>{item.catname}</td>
                                     <td>{item.remarks}</td>
                                     <td>{item.approverate}</td>
+                                    <td>{item.quantity_in}</td>
                                     
                                     <td>
-                                    <Link to={`edit-item/${item.id}`} className="btn btn-success btn-sm">Edit</Link> 
-                                    <button type = "button" onClick={()=>DeleteCat()} className="btn btn-danger btn-sm ml-2"> Delete </button>
+                                    <Link to={`edit-item/${item.id}`} className="btn btn-success btn-sm"><FontAwesomeIcon icon={faEdit}></FontAwesomeIcon></Link> 
                                     </td>
-
+                                    <td>
+                                    <button type = "button" onClick={()=>DeleteCat(item.id)} className="btn btn-danger btn-sm ml-2"> <FontAwesomeIcon icon={faTrash}></FontAwesomeIcon> </button>
+                                    </td>
                                     
                                  
                                    

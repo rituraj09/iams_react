@@ -3,8 +3,6 @@ import { Link } from "react-router-dom"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleDot, faTachometerAlt,faCirclePlus,faNotesMedical } from '@fortawesome/free-solid-svg-icons'
 const Sidebar = () => {
-
-    const name = localStorage.getItem('auth_name')
     return (
         <nav className="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
             <div className="sb-sidenav-menu">
@@ -34,7 +32,7 @@ const Sidebar = () => {
 
                     <Link  to="/admin/viewReq" className="nav-link"> 
                     <div className="sb-nav-link-icon"> <FontAwesomeIcon icon={faCirclePlus}></FontAwesomeIcon> </div> 
-                       View Pending Orders
+                       View Orders
                     </Link>
 
                     <Link  to="/admin/approvedorder" className="nav-link"> 
@@ -55,7 +53,7 @@ const Sidebar = () => {
             </div>
             <div className="sb-sidenav-footer">
                 <div className="small">Logged in as:</div>
-                {name}
+                Admin User
             </div>
         </nav>
     )

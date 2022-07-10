@@ -64,8 +64,8 @@ return (
       
        
     <div className="card mt-4">
-        <div className="=card-header">
-            <h4> Order By Branch
+        <div className="card-header">
+            <h4  className="text-center"> Order By Branch (Approved)
             <nav class="navbar navbar-light bg-light">
 
 <input class="form-control form-inline mr-sm-2" type="search" placeholder="Search" aria-label="Search"></input>
@@ -76,7 +76,7 @@ return (
         </div>
 
         <div className="card-body">
-        <table class="table">
+        <table class="table table-striped">
 <thead className="table-dark">
 <tr>
     <th>ID</th>
