@@ -130,7 +130,7 @@ else{
     return (
         <>
             <Helmet>
-                <title>IAMS | {name} | Home</title>
+                <title>IAMS | {name} </title>
             </Helmet>
             <h4>Hi, {name}</h4>
 

@@ -1,5 +1,5 @@
 import React,{useState,useEffect} from "react";
-import { Link } from "react-router-dom";
+import { Link,useHistory } from "react-router-dom";
 import axios from "axios";
 import swal from "sweetalert";
 
@@ -7,6 +7,7 @@ import swal from "sweetalert";
 
  
 function EntryForm(){
+    const history =useHistory();
     const [loading, setLoading] = useState(true);
     const [categorylist, setCategorylist] = useState([]);
     const [subcategorylist, setSubategorylist] = useState([]);
@@ -138,6 +139,7 @@ function EntryForm(){
 
             if(res.status === 200)
             {
+                
                 setTemplist(res.data.temporders)
 
                 
@@ -204,13 +206,25 @@ function EntryForm(){
 )
         })]
 
+
+
         const orders = (event)=>{
             event.preventDefault()
-            const data1 = {
+            const data = {
                 remarks : orderInput.remarks ,
             }
             
-            axios.post(`api/create-order`, data1).then(res=>{
+
+            axios.post(`api/create-order`, data).then(res=>{
+
+                if(res.data.status === 200){
+                    swal("Success", res.data.message, "success");
+                    history.push(`/user/PendingOrders`)
+                }
+                else if(res.data.status === 500)
+                {
+                    swal("Error", "error");
+                }
                  
             })
         }
