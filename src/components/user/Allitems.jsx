@@ -7,7 +7,7 @@ import { faSearch, faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 
 
 
- function ViewItem() {
+ function Allitems() {
 
     const [loading, setLoading] = useState(true);
     const [itemList, setItemlist] = useState([]);
@@ -67,7 +67,7 @@ return(
     <>
     <nav aria-label="breadcrumb ">
           <ol className="breadcrumb p-2">
-          <li className="breadcrumb-item"><Link  to="/admin/dashboard"  >Home</Link></li>
+          <li className="breadcrumb-item"><Link  to="/user/home"  >Home</Link></li>
           <li className="breadcrumb-item active" aria-current="page">Items</li>
           </ol>
       </nav>
@@ -77,9 +77,7 @@ return(
                   <div className="card shadow mb-4">                                                     
                       <div className="card-body"> 
                           <ul className="nav nav-tabs" role="tablist">
-                              <li className="nav-item">
-                              <Link to ="/admin/item" className="nav-link"  data-toggle="tab"   role="tab" aria-controls="home">Add</Link>
-                              </li>
+                              
                               <li className="nav-item">
                               <Link data-toggle="tab" className="nav-link active" role="tab" aria-controls="profile">View</Link>
                           
@@ -105,9 +103,9 @@ return(
                                                       <th>Sub-Category</th>
                                                       <th>Category</th> 
                                                       <th>Remarks</th>
-                                                      <th>Approve-Rate</th>    
-                                                      <th>Edit</th> 
-                                                      <th>Delete</th> 
+                                                      <th>Approve-Rate</th> 
+                                                      <th>Quantity-in</th> 
+                                                   
                                                      
                                                   </tr>
                                               </thead>
@@ -145,14 +143,9 @@ return(
                                     <td>{item.catname}</td>
                                     <td>{item.remarks}</td>
                                     <td>{item.approverate}</td>
-                              
+                                    <td>{item.quantity_in}</td>
                                     
-                                    <td>
-                                    <Link to={`edit-item/${item.id}`} className="btn btn-success btn-sm"><FontAwesomeIcon icon={faEdit}></FontAwesomeIcon></Link> 
-                                    </td>
-                                    <td>
-                                    <button type = "button" onClick={()=>DeleteCat(item.id)} className="btn btn-danger btn-sm ml-2"> <FontAwesomeIcon icon={faTrash}></FontAwesomeIcon> </button>
-                                    </td>
+                                  
                                     
                                  
                                    
@@ -177,4 +170,4 @@ return(
 
 
 }
- export default ViewItem;
+ export default Allitems;

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import React from "react";
 import axios from "axios";
 import swal from "sweetalert"; 
@@ -7,11 +7,12 @@ import { BsFillTrashFill,BsSave2Fill } from "react-icons/bs";
 
 function Item()
 {
+    const history = useHistory;
     const [categorylist, setCategorylist] = useState([]);
     const [categoryid, setCategoryid] = useState([]);
     const [subcategorylist, setSubategorylist] = useState([]);
     const [assetlist, setAssetlist] = useState([]); 
-    const [itemInput, setItem ] = useState({ 
+    const [itemInput, setItem ] = useState({
         subcatid:'',
         asset_id:'',
         itemscode:'',
@@ -19,7 +20,7 @@ function Item()
         approverate:'',
         initalStock:'',
         remarks:'',
-        error_list:[],
+        error_list:[""],
     }); 
 
     const handleInput =(event)=>{
@@ -80,7 +81,7 @@ function Item()
             name:itemInput.name,
             remarks:itemInput.remarks,
             approverate:itemInput.approverate,
-            quantity:itemInput.initalStock, 
+            quantity:0, 
         }
         console.log(itemInput);  
     
@@ -88,8 +89,9 @@ function Item()
 
             if(res.data.status === 200)
             {
+                
                 swal('Success',res.data.message,'success');
-
+                history.push(`/admin/view-items`)   
                 setItem({
                     subcategory_id:'',
                     assettype:'',
@@ -99,7 +101,6 @@ function Item()
                     initalStock:'',
                     remarks:'',
                         })
-                
             }
 
             else if(res.data.status ===409){
@@ -121,7 +122,8 @@ function Item()
             approverate:'',
             initalStock:'',
             remarks:'',
-            error_list:[],
+            error_list:[""],
+            
         })
     }
  
@@ -236,11 +238,11 @@ function Item()
                                                         </div> 
 
                                                         
-                                                        <div className="col-3">   
+                                                        {/* <div className="col-3">   
                                                             <label className="control-label font-weight-bold">Inital Stock: </label><span className="text-danger font-weight-bold">*</span> 
                                                             <div><span className="text-danger">{itemInput.error_list.assettype}</span></div>
                                                         <input type ="text" name="initalStock" className="form-control mb-2"  value={itemInput.initalStock} onChange={handleInput}  required/> 
-                                                        </div> 
+                                                        </div>  */}
                                                  
                                              
                                                             

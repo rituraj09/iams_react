@@ -87,7 +87,7 @@ if(loading)
 else{
   approveorderTable =[
    
-      approvedorders.slice(0,4).map((items)=>
+      approvedorders.slice(0,4).reverse().map((items)=>
     {
         
         return(
@@ -97,7 +97,7 @@ else{
                 <td>{sl=sl+1}</td>
                 <td>{items.branchname}</td>
                 <td>
-                        <Link to={`Vieworder/${items.id}`} className="btn btn-success btn-sm">View</Link>
+                        <Link to={`/administrator/BranchMasterView`} className="btn btn-success btn-sm"><BsZoomIn/></Link>
                     </td>
                
             </tr>
@@ -118,7 +118,7 @@ if(loading)
 else{
   Viewcategory_HTMLTABLE =[
 
-  categorylist.map((item)=>
+  categorylist.slice(0,4).reverse().map((item)=>
   {
 
       return(
@@ -131,7 +131,7 @@ else{
         <td> {item.branch}</td>   
         <td> {item.roleName}</td>   
         <td>
-                      <Link to={`Vieworder/${item.id}`} ><BsZoomIn/></Link>
+                      <Link to={`/administrator/UserView`} className="btn btn-success btn-sm" ><BsZoomIn/></Link>
                   </td>
              
           </tr>
@@ -149,9 +149,9 @@ else{
           <div className="row">
               <div className="col-lg-4 col-6">
                   <div className="card admingrad1 text-white mb-4">
-                      <div className="card-body"><h3>{itemCount.itemcount}</h3><p>Total Users</p> </div>
+                      <div className="card-body"><h3>{itemCount.itemcount}</h3><p>Total Items</p> </div>
                       <div className="card-footer d-flex align-items-center justify-content-between">
-                          <Link className="small text-white stretched-link" to={`/administrator/UserView`}>View Details</Link>
+                          <Link className="small text-white stretched-link" to={`/administrator/AllItemAdmin`}>View Details</Link>
                           <div className="large text-white"><FontAwesomeIcon icon={faArrowAltCircleRight} ></FontAwesomeIcon></div>
                       </div>
                   </div>
@@ -167,11 +167,11 @@ else{
                   </div>
               </div>
            
-              <div className="col-xl-4 col-md-6 mt-4">
+              <div className="col-xl-4 col-md-6">
                   <div className="card admingrad4 text-white mb-4">
-                      <div className="card-body"><h2><p>Create a User</p></h2> </div>
-                      <div className="card-footer d-flex align-items-center justify-content-between">
-                          <a className="small text-white stretched-link" href="#">Go</a>
+                      <div className="card-body"><h3>{apprOrderCount.approved_total_order}</h3><p>Total Users</p></div>
+                      <div className="card-footer d-flex align-items-center justify-content-between"> 
+                      <Link className="small text-white stretched-link" to={`/administrator/UserView`}>Go</Link>
                           <div className=" text-white"><FontAwesomeIcon icon={faArrowAltCircleRight} ></FontAwesomeIcon></div>
                       </div>
                   </div>
@@ -212,7 +212,7 @@ else{
                   <div className="card mb-4">
                       <div className="card-header">
                           <i className="fas fa-chart-bar me-1"></i>
-                         
+                         Branch :
                       </div>
                       <div className="card-body">
                       <table class="table table-striped">

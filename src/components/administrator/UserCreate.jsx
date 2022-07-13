@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import React from "react";
 import axios from "axios";
 import swal from "sweetalert";
 
 
 export default function UserCreate() {
-
+    const history = useHistory();
   const [role, setRole] = useState([]);
   const [designation, setDesignation] = useState([]);
   const [branch, setBranch] = useState([]);
@@ -77,7 +77,9 @@ const submit= (event) =>{
   axios.post(`api/createuser`, data).then(res =>{
       if(res.data.status === 200)
       {
-          swal('Success',res.data.message,"Success");
+
+          swal('Success',res.data.message,"success");
+          history.push(`/administrator/UserView`)
 
       }
 

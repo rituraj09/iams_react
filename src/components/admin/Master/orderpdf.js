@@ -225,7 +225,7 @@ const OrderpdfAdmin=(props)=>{
                     <td  > {items.subcatname}</td>  
                     <td  > {items.itemname}</td>  
                     <td >{items.description}</td> 
-                    <td width="">{items.quantity}</td> 
+                    <td width="">{items.finalquanity}</td> 
                  
                     </tr>
 )

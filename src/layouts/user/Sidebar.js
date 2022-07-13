@@ -22,7 +22,7 @@ const Sidebar = () => {
                  </Link>
 
                  <div className="sb-sidenav-menu-heading">View</div>
-                 <Link  to="/user/ItemsView" className="nav-link">
+                 <Link  to="/user/Allitems" className="nav-link">
                  <div className="sb-nav-link-icon"> <FontAwesomeIcon icon={faTachometerAlt}></FontAwesomeIcon> </div>
                  <div></div>All Items
                  </Link>

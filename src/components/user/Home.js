@@ -79,7 +79,7 @@ const itemcount = async () => {
   else{
     approveorderTable =[
   
-        approvedorders.map((items)=>
+        approvedorders.slice(0,5).reverse().map((items)=>
       {
   
           return(
@@ -88,7 +88,7 @@ const itemcount = async () => {
                   <td>{items.orderdate}</td>
                   <td>{items.branchname}</td>
                   <td>
-                          <Link to={`Vieworder/${items.id}`} className="btn btn-success btn-sm">View</Link>
+                          <Link to={`Viewfinalorder/${items.id}`} className="btn btn-success btn-sm">View</Link>
                       </td>
                  
               </tr>
@@ -101,6 +101,8 @@ const itemcount = async () => {
 
 
 let Viewcategory_HTMLTABLE ;
+let records
+
 if(loading)
 {
     return <h4> Loading...... </h4>
@@ -109,20 +111,27 @@ if(loading)
 else{
     Viewcategory_HTMLTABLE =[
 
-    categorylist.slice(0,4).map((items)=>
-    {
+    categorylist.slice(0,5).reverse().map((items)=>
+    {   
+        if(categorylist.id==0){
+             records = [<td>No records</td>]
+        }
+       
 
+
+        if(items){
         return(
             <tr key={items.orderno}>
                 <td>{items.orderno}</td>
                 <td>{items.orderdate}</td>
                 <td>{items.branchname}</td>
                 <td>
-                        <Link to={`Vieworder/${items.id}`} className="btn btn-success btn-sm">View</Link>
+                        <Link to={`PendingOrderItems/${items.id}`} className="btn btn-success btn-sm">View</Link>
                     </td>
                
             </tr>
-        )
+        )}
+     
     })]
 }
 
@@ -144,9 +153,9 @@ else{
         <div className="row">
             <div className="col-lg-3 col-6">
                 <div className="card admingrad1 text-white mb-4">
-                    <div className="card-body"><h3>{itemCount.itemcount}</h3><p>Draft Orders</p> </div>
+                    <div className="card-body"><h3>{itemCount.itemcount}</h3><p>Total Items</p> </div>
                     <div className="card-footer d-flex align-items-center justify-content-between">
-                        <Link className="small text-white stretched-link" to={`/admin/view-items`}>View Details</Link>
+                        <Link className="small text-white stretched-link" to={`/user/Allitems`}>View Details</Link>
                         <div className="large text-white"><FontAwesomeIcon icon={faArrowAltCircleRight} ></FontAwesomeIcon></div>
                     </div>
                 </div>
@@ -200,7 +209,7 @@ else{
                             </thead>
                             <tbody>                   
                         { Viewcategory_HTMLTABLE}
-
+                        {records}
                             </tbody>
                             </table>
                                         </div>
@@ -224,6 +233,7 @@ else{
                             </thead>
                             <tbody>                   
                             {approveorderTable}
+                            {records}
 
                             </tbody>
                             </table>

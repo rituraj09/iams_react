@@ -86,7 +86,7 @@ const itemcount = async () => {
   else{
     approveorderTable =[
   
-        approvedorders.map((items)=>
+        approvedorders.slice(5).reverse().map((items)=>
       {
   
           return(
@@ -106,6 +106,24 @@ const itemcount = async () => {
 
 
 
+let status1,status2;
+
+
+if(!categorylist.length){
+    status1 = [
+        <div className=" text-danger">NO RECORD FOUND</div>
+      ]
+            
+}
+
+if(!approvedorders.length){
+    status1 = [
+        <div className=" text-danger">NO RECORD FOUND</div>
+      ]
+            
+}
+  
+
 
 let Viewcategory_HTMLTABLE ;
 if(loading)
@@ -116,7 +134,7 @@ if(loading)
 else{
     Viewcategory_HTMLTABLE =[
 
-    categorylist.map((items)=>
+    categorylist.slice(0,4).reverse().map((items)=>
     {
 
         return(
@@ -158,7 +176,7 @@ else{
                                 <div className="card admingrad2 text-white mb-4">
                                     <div className="card-body"><h3>{apprOrderCount.approved_total_order}</h3><p>Total Approved Order</p> </div>
                                     <div className="card-footer d-flex align-items-center justify-content-between">
-                                        <a className="small text-white stretched-link" href="#">View Details</a>
+                                    <Link className="small text-white stretched-link" to={`/admin/approvedorder`}>View Details</Link>
                                         <div className=" text-white"><FontAwesomeIcon icon={faArrowAltCircleRight} ></FontAwesomeIcon></div>
                                     </div>
                                 </div>
@@ -167,7 +185,7 @@ else{
                                 <div className="card admingrad3 text-white mb-4">
                                     <div className="card-body"><h3>{pendingOrder.unapprovedcount}</h3> <p>Total Pending Order</p></div>
                                     <div className="card-footer d-flex align-items-center justify-content-between">
-                                        <a className="small text-white stretched-link"> View Details</a>
+                                    <Link className="small text-white stretched-link" to={`/admin/viewReq`}>View Details</Link>
                                         <div className=" text-white"><FontAwesomeIcon icon={faArrowAltCircleRight} ></FontAwesomeIcon></div>
                                     </div>
                                 </div>
@@ -176,7 +194,7 @@ else{
                                 <div className="card admingrad4 text-white mb-4">
                                     <div className="card-body"><h3>{completedOrder.total_completed_order}</h3> <p>Total Processed Order</p></div>
                                     <div className="card-footer d-flex align-items-center justify-content-between">
-                                        <a className="small text-white stretched-link" href="#">View Details</a>
+                                    <Link className="small text-white stretched-link" to={`/admin/ViewFinalStock`}>View Details</Link>
                                         <div className=" text-white"><FontAwesomeIcon icon={faArrowAltCircleRight} ></FontAwesomeIcon></div>
                                     </div>
                                 </div>
@@ -187,7 +205,7 @@ else{
                                 <div className="card mb-4">
                                     <div className="card-header">
                                         <i className="fas fa-chart-area me-1"></i>
-                                       Pending Orders
+                                       Pending Orders {status1}
                                     </div>
                                     <div className="card-body">
                                      <table class="table table-striped">
@@ -211,7 +229,7 @@ else{
                                 <div className="card mb-4">
                                     <div className="card-header">
                                         <i className="fas fa-chart-bar me-1"></i>
-                                        Approved Orders (Pending Stock Entry)
+                                        Approved Orders (Pending Stock Entry) {status2}
                                     </div>
                                     <div className="card-body">
                                     <table class="table table-striped">
@@ -235,15 +253,7 @@ else{
 
 
 
-                        <div className="card mb-4">
-                            <div className="card-header">
-                                <i className="fas fa-table me-1"></i>
-                                
-                            </div>
-                            <div className="card-body">
-                          
-                            </div>
-                        </div>
+                       
                     </div>
                 </main>
             

@@ -196,7 +196,7 @@ function EntryForm(){
               
                 <tr key={items.id}>
                     <td> {items.orderdate}</td>  
-                    <td>{items.itemid}</td>
+                    <td>{items.itemname}</td>
                     <td>{items.description}</td>
                     <td>{items.quantity}</td>
                     <td>
@@ -279,7 +279,7 @@ function EntryForm(){
 
                       
                       <label>Select Item</label>
-                  <select name="item_id" onChange={handleInput} value={EntryfromInput.item_id}   className="form-control">
+                  <select name="item_id" onChange={handleInput} value={EntryfromInput.item_id}   className="form-control" >
                       <option>select Item</option>
                           {
                               itemlist.map((itemss)=>{
@@ -296,14 +296,14 @@ function EntryForm(){
 
                     
                 <label>Description</label>
-                 <textarea name="description" className="form-control" rows="3" onChange={handleInput} value={EntryfromInput.description} >
+                 <textarea name="description" className="form-control" rows="3" onChange={handleInput} value={EntryfromInput.description} required >
 
                  </textarea>
               
 
                  <div className="form-group col-md-2 mt-3">
                 <label>Quantity</label>
-                <input type="text" name="Quantity" className="form-control" onChange={handleInput} value={EntryfromInput.Quantity} ></input>
+                <input type="text" name="Quantity" className="form-control" onChange={handleInput} value={EntryfromInput.Quantity} required ></input>
                  </div>
                  <br></br><br></br>
                  <button type="submit" className="btn btn-success btn-sm"> Add</button>
@@ -333,7 +333,7 @@ function EntryForm(){
                         <tr>
                            
                             <th>Date</th>
-                            <th>Item id</th>
+                            <th>Item Name</th>
                             <th>Description</th>
                             <th>Quantity</th>
                             <th>Delete</th>
@@ -349,14 +349,14 @@ function EntryForm(){
 
                 <div className="col-md-6">
                 <label>Remarks</label>
-                 <textarea name="remarks" className="form-control" rows="3" onChange={handleInput} value={ orderInput.remarks} >
+                 <textarea name="remarks" className="form-control" rows="3" onChange={handleInput} value={ orderInput.remarks} required >
 
                  </textarea>
                  <div className="form-group"> 
                                                             <div className="row mt-3">
                                                                 <div className="col-md-12"> 
-                                                                   <button type="button"  className="btn btn-sm btn-success ">     {ordersubmit}</button> 
-                                                                    <button type="button"  className="btn btn-sm btn-danger ml-3 ">   {saveasdraft}</button> 
+                                                                   <div >     {ordersubmit}</div> 
+                                                                   
                                                                    
                                                                 </div>    
                                                             </div>  

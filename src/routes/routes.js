@@ -49,7 +49,8 @@ import PendingOrders from "../components/user/PendingOrders";
 import PendingOrderItems from "../components/user/PendingOrderItems";
 import ReceivedOrders from "../components/user/ReceivedOrders";
 import ReceivedStock from "../components/user/ReceivedStock";
-
+import Allitems from "../components/user/Allitems";
+import AllItemAdmin from "../components/administrator/AllItemAdmin";
 
 
 const routes =[
@@ -96,6 +97,7 @@ const routes =[
     {path: '/user/PendingOrderItems/:id', exact: true, name:'PendingOrderItems', component : PendingOrderItems},
     {path: '/user/ReceivedOrders', exact: true, name:'ReceivedOrders', component:  ReceivedOrders   },
     {path: '/user/ReceivedStock/:id', exact: true, name:'ReceivedStock', component:  ReceivedStock   },
+    {path: '/user/Allitems', exact: true, name:'Allitems', component:  Allitems   },
 
     {path: '/administrator', exact: true, name:'administrator'},
     {path: '/administrator/Dashboard', exact: true, name:'AdminDashboard', component : AdminDashboard },
@@ -108,6 +110,7 @@ const routes =[
     {path: '/administrator/UserCreate', exact: true, name:'UserCreate', component : UserCreate },
     {path: '/administrator/UserView', exact: true, name:'UserView', component : UserView },
     {path: '/administrator/UserEdit/:id', exact: true, name:'UserEdit', component : UserEdit },
+    {path: '/administrator/AllItemAdmin/', exact: true, name:'AllItemAdmin', component : AllItemAdmin },
     
     
 ]; 

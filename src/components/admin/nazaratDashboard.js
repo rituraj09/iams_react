@@ -28,6 +28,15 @@ function NazaratDashboard(){
     });
 },[]);
 
+let status;
+
+
+if(!categorylist.length){
+    status = [
+        <div className=" text-danger">NO RECORD FOUND</div>
+      ]
+            
+}
 
 
 
@@ -49,6 +58,7 @@ let Viewcategory_HTMLTABLE ;
         else if(items.branchname.toLowerCase().includes(searchTerm.toLowerCase())){
             return items.branchname
         }
+    
     }).reverse().map((items)=>
     {
         if(loading)
@@ -96,8 +106,9 @@ return (
     <div className="card mt-4">
         <div className="card-header">
             <h4 className="text-center"> Order By Branch (Pending)
-    
+            {status}
             </h4>
+           
         </div>
         <div class="input-group flex-nowrap mt-4">
   <span class="input-group-text" id="addon-wrapping"><FontAwesomeIcon icon={faSearch}/></span>

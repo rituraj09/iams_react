@@ -11,6 +11,8 @@ function ViewFinalStockItems(props) {
     const [loading, setLoading] = useState(true);
     const [catInput, setCategory] =useState([]);
     const [orderDetails, setOrderDetails] =useState([]);
+    const [total, setTotal] =useState([]);
+
 
     // /////////////////////Modal Control//////////////////////
 
@@ -50,6 +52,23 @@ function ViewFinalStockItems(props) {
 },[props.match.params.id, history]);
 
 
+
+    useEffect(()=>{
+
+    const ids= props.match.params.id; 
+ 
+        axios.get(`/api/stockEntriesById/${ids}`).then(res=>{
+
+            if(res.data.status===200){
+                setTotal(res.data.grandtotal);
+            }
+
+        });
+
+},[props.match.params.id, history]);
+
+
+
 ///////////////////////////////////////////////////////////////////////////
  
 
@@ -74,11 +93,14 @@ function ViewFinalStockItems(props) {
     
 ///////////////////////////////////////////////////////////////////////////
 
+
  let stockdetails = [
     
     catInput.map((items,index)=> {
+                                
                                let status;
                                let button;
+                               
         if (items.status=="2") {
             status = <Badge className="col-md-9" bg="danger">Pending</Badge> ;
          
@@ -109,19 +131,19 @@ function ViewFinalStockItems(props) {
  ]
 
     
-
-
     return(
         <div className="container px-4">
+            <Link to ="/admin/ViewFinalStock" className=" btn btn-primary btn-sm float-end">Back</Link>
             <div className="card mt-4">
-                <div className="card-header">
+                
+                <div className="card-header" ref={componentRef}>
         <h2>Stocks:</h2>
-        <Link to ="/admin/ViewFinalStock" className=" btn btn-primary btn-sm float-end">Back</Link>
+        
         
       
-        <div className="card-body">
+        <div className="card-body" >
 
-            </div>
+        
             <table className="table">
 
             <thead className="table-green">
@@ -131,6 +153,7 @@ function ViewFinalStockItems(props) {
                             <th>Date</th> 
                             <th>Branch Name</th>  
                             <th>Remarks</th> 
+                            <th>Total Amount</th> 
                            
                         </tr>
                         </thead>
@@ -143,6 +166,7 @@ function ViewFinalStockItems(props) {
                                     <td>{item.orderdate}</td>
                                     <td>{item.branchname}</td>
                                     <td>{item.remarks}</td>   
+                                    <td>{total}</td>   
                                       
                                     </tr>
                                 )
@@ -154,7 +178,7 @@ function ViewFinalStockItems(props) {
                 </table>
 
     
-        </div>
+      
                
             
        
@@ -190,6 +214,9 @@ function ViewFinalStockItems(props) {
                
                </div>
     </div>
+    </div>
+    </div>
+    <button onClick={handlePrint} className="btn btn-primary float-end mt-3">  Print </button> 
   </div>
 
     )

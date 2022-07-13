@@ -68,11 +68,11 @@ categorylist.filter((item)=>{
   if(searchTerm==""){
       return item
   }
-  else if(item.branchname.toLowerCase().includes(searchTerm.toLowerCase())){
-      return item.branchname
+  else if(item.name.toLowerCase().includes(searchTerm.toLowerCase())){
+      return item.name
   }
 
-}).map((item)=>
+}).reverse().map((item)=>
 {
   if(loading)
   {
@@ -98,9 +98,7 @@ categorylist.filter((item)=>{
               <td>
                   <Link to={`/administrator/UserEdit/${item.id}`} className="btn btn-success btn-sm"><FontAwesomeIcon icon={faEdit}></FontAwesomeIcon></Link> 
               </td>
-              <td>
-              <button type = "button" onClick={()=>DeleteCat(item.id)} className="btn btn-danger btn-sm ml-2"> <FontAwesomeIcon icon={faTrash}></FontAwesomeIcon> </button>
-              </td>
+             
           </tr>
       ) 
   }  
@@ -110,7 +108,7 @@ categorylist.filter((item)=>{
     <nav aria-label="breadcrumb ">
         <ol className="breadcrumb p-2">
         <li className="breadcrumb-item"><Link  to="/administrator/dashboard"  >Home</Link></li>
-        <li className="breadcrumb-item active" aria-current="page">Branch</li>
+        <li className="breadcrumb-item active" aria-current="page">View User</li>
         </ol>
     </nav>
     <div className="container-fluid ">
@@ -120,10 +118,10 @@ categorylist.filter((item)=>{
                     <div className="card-body"> 
                         <ul className="nav nav-tabs" role="tablist">
                             <li className="nav-item">
-                            <Link to ="/administrator/BranchMaster" className="nav-link"  data-toggle="tab"   role="tab" aria-controls="home">Add</Link>
+                            <Link to ="/administrator/UserCreate" className="nav-link"  data-toggle="tab"   role="tab" aria-controls="home">Add</Link>
                             </li>
                             <li className="nav-item">
-                            <Link  to="/administrator/BranchMasterView" data-toggle="tab" className="nav-link active" role="tab" aria-controls="profile">View</Link>
+                            <a  data-toggle="tab" className="nav-link active" role="tab" aria-controls="profile">View</a>
                         
                             </li>
                         
@@ -150,7 +148,7 @@ categorylist.filter((item)=>{
                                                     <th>Branch</th> 
                                                     <th>Role</th> 
                                                     <th>Edit</th>
-                                                    <th>Delete</th>
+                                                  
                                                 </tr>
                                             </thead>
                                             <tbody>

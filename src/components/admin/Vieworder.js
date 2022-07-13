@@ -235,7 +235,7 @@ useEffect(()=>{
                             <th>Item</th>  
                             <th>Description</th> 
                             <th>Quantity</th>
-                            <th>Final Quantity</th>
+                            
                         </tr>
                         </thead>
                         <tbody>
@@ -250,7 +250,7 @@ useEffect(()=>{
                     <td > {items.catname}</td>  
                     <td > {items.itemname}</td>  
                     <td >{items.description}</td> 
-                    <td >{items.quantity}</td> 
+                  
                     <td >
                         <div className="input-group">
                             <button type = "button" onClick={()=>handleDecrement(items.id)} className="input-group-text"> - </button>

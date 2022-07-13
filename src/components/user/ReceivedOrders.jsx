@@ -67,7 +67,7 @@ let Viewcategory_HTMLTABLE ;
                 <td>{items.orderdate}</td>
                 <td>{items.branchname}</td>
                 <td>
-                        <Link to={`PendingOrderItems/${items.id}`} className="btn btn-success btn-sm">View <BsFillArrowRightCircleFill/></Link>
+                        <Link to={`ReceivedStock/${items.id}`} className="btn btn-success btn-sm">View <BsFillArrowRightCircleFill/></Link>
                     </td>
                
             </tr>
