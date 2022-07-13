@@ -31,15 +31,26 @@ const submit=(event)=>{
   })
 }
 
+const id= props.match.params.id; 
+let breadcrumb = [
+    <nav aria-label="breadcrumb ">
+      <ol className="breadcrumb p-2">
+      <li className="breadcrumb-item"><Link  to="/admin/dashboard"  >Home</Link></li>
+      <li className="breadcrumb-item"><Link  to="/admin/stockentry" >Orders</Link></li>
+      <li className="breadcrumb-item"><Link  to={`/admin/StockView/${id}`} >Stock List</Link></li>
+      <li className="breadcrumb-item active" aria-current="page">Billing-Details</li>
+      </ol>
+  </nav>
+]
+
+
+
   return (
     <>
+{breadcrumb}
 
-<nav aria-label="breadcrumb ">
-          <ol className="breadcrumb p-2">
-          <li className="breadcrumb-item"><Link  to="/admin/dashboard"  >Stock Items</Link></li>
-          <li className="breadcrumb-item active" aria-current="page">Entry</li>
-          </ol>
-      </nav>
+
+
       <div className="container-fluid ">
           <div className="row">
               <div className="col-md-6 mb-4">
@@ -87,7 +98,7 @@ const submit=(event)=>{
                                                 <div className="form-group"> 
                                                     <div className="row">
                                                         <div className="col-md-6">   
-                                                            <label className="control-label">CGST: </label><span className="text-danger">*</span> 
+                                                            <label className="control-label">SGST: </label><span className="text-danger">*</span> 
                                                         </div>
                                                         <div className="col-md-12"> 
                                                         <input type ="text" name="sgst" className="form-control mb-2"  value={stockInput.sgst} onChange={handleInput}  required/> 

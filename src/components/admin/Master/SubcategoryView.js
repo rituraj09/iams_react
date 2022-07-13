@@ -44,10 +44,7 @@ function Viewsub () {
 
 
     const DeleteCat=(id)=>{
-        subcategorylist.map((item)=>{
-            id=item.id;
-        })
-
+      
         
         swal({
             title: "Are you sure?",

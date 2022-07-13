@@ -10,7 +10,7 @@ export default function ApprovedOrder(props) {
     
 
     useEffect(()=>{
-    axios.get(`api/getfinalOrders`).then(res=>{
+    axios.get(`api/get-approvedorder-branchwise`).then(res=>{
 
         if(res.status === 200)
         {
@@ -18,7 +18,6 @@ export default function ApprovedOrder(props) {
         }
         
         setLoading(false);
-
     });
 },[]);
 

@@ -29,6 +29,7 @@ function ItemEdit(props) {
       setitem({...itemInput,[event.target.name]:event.target.value});
   }
 
+  console.log(itemInput.name);
  
   useEffect(()=>{
 
@@ -128,7 +129,7 @@ useEffect(()=>{
                                                             <label className="control-label"> Item Code :</label><span className="text-danger">*</span> 
                                                         </div>
                                                         <div className="col-md-12"> 
-                                                        <input type ="text" name="itemscode" className="form-control mb-2"   value={itemInput.itemcode}  onChange={handleInput} required /> 
+                                                        <input type ="text" name="itemcode" className="form-control mb-2"   value={itemInput.itemcode}  onChange={handleInput} required /> 
                                                         </div>
                                                     </div> 
                                                 </div>

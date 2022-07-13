@@ -1,6 +1,6 @@
 /* eslint-disable no-restricted-globals */
 import React,{useState,useEffect} from "react";
-import { Link,useHistory } from "react-router-dom";
+import { Link,useHistory,Redirect  } from "react-router-dom";
 import axios from 'axios';
 import swal from 'sweetalert';
 import { Modal, Button, Form } from 'react-bootstrap';
@@ -22,6 +22,7 @@ function Vieworder(props){
         orderDate:'',
         Supplier:'',
         signed:'',
+        error_list:[],
 
     });
 
@@ -164,6 +165,7 @@ useEffect(()=>{
     
 
 
+
        const placeOrder=(event)=>{
         event.preventDefault();
         const data = {
@@ -177,6 +179,8 @@ useEffect(()=>{
 
             if(res.data.status===200){
                 swal('Success',res.data.message,"Success");
+               history.push(`/admin/orderpdf/${id}`)
+
             }
             else if(res.data.status ===409){
                 swal('Error', res.data.message,"warning");
@@ -190,7 +194,7 @@ useEffect(()=>{
         <nav aria-label="breadcrumb ">
         <ol className="breadcrumb p-2">
         <li className="breadcrumb-item"><Link  to="/admin/dashboard"  >Home</Link></li>
-        <li className="breadcrumb-item"><Link  to="/admin/viewReq"  >View Orders</Link></li>
+        <li className="breadcrumb-item"><Link  to="/admin/viewReq"  >View Pending Orders</Link></li>
         <li className="breadcrumb-item active" aria-current="page">Ordered Items</li>
         </ol>
     </nav>
@@ -199,7 +203,7 @@ useEffect(()=>{
             
         <div className="card-header">
             <h4 className="text-center"> Order By Branch
-            <Link to ="/admin/viewReq" className=" btn btn-primary btn-sm float-end">Back</Link>
+            <Link to ="/admin/approvedorder" className=" btn btn-danger btn-sm float-end">Back</Link>
             </h4>
         </div>
         <div className="card-body">
@@ -322,6 +326,7 @@ useEffect(()=>{
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
               <Form.Label>Signed By</Form.Label>
               <Form.Select aria-label="Default select example" name="signed" onChange={handleInput} value={billInput.signed}>
+              <option value="">Select</option>
               <option value="DC">DC</option>
               <option value="ADC">ADC</option>
 

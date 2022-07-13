@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import React from "react";
 import axios from "axios";
 import swal from "sweetalert"; 
+import { BsFillTrashFill,BsSave2Fill } from "react-icons/bs";
 
 function Item()
 {
@@ -102,11 +103,25 @@ function Item()
             }
 
             else if(res.data.status ===409){
-                swal('Error', res.data.message,"warning");
+                swal('Error', res.data.message, "warning");
             }
             else if(res.data.status ===400){
-                swal('Check Input Data', "Error");
+                setItem({...itemInput, error_list:res.data.errors})
             }
+        })
+    }
+
+    const clear = ()=>{
+        setItem({
+            category_id:'',
+            subcatid:'',
+            asset_id:'',
+            itemscode:'',
+            name:'',
+            approverate:'',
+            initalStock:'',
+            remarks:'',
+            error_list:[],
         })
     }
  
@@ -151,12 +166,12 @@ function Item()
                                                         <div className="col-md-3">
                                                         <label className="form=label font-weight-bold">Category:</label><span className="text-danger font-weight-bold">*</span>  
                                                         
-                                                        <select name="category_id" onChange={(e)=>handlecategory(e)} value={itemInput.category_id}   className="form-select">
-                                                                <option>select Category</option>
+                                                        <select name="category_id" onChange={(e)=>handlecategory(e)} value={itemInput.category_id}   className="form-select" >
+                                                                <option >select Category</option>
                                                                 {
                                                                     categorylist.map((item)=>{
                                                                         return(
-                                                                        <option value={item.id} key={item.id}>{item.name}</option>
+                                                                        <option value={item.id} key={item.id} required>{item.name}</option>
                                                                         )
                                                                     })
                                                                 }    
@@ -185,6 +200,7 @@ function Item()
 
                                                             <div className="col-md-3"> 
                                                             <label className="control-label font-weight-bold">Asset Type:</label><span className="text-danger font-weight-bold">*</span> 
+                                                            <div><span className="text-danger">{itemInput.error_list.assettype}</span></div>
                                                             <select name="asset_id" onChange={handleInput} value={itemInput.asset_id}   className="form-select">   
                                                             <option>select Asset</option>
                                                             {
@@ -199,12 +215,14 @@ function Item()
 
                                                         <div className="col-md-4">  
                                                             <label className="control-label font-weight-bold"> Item Code :</label><span className="text-danger font-weight-bold">*</span> 
+                                                            <div><span className="text-danger">{itemInput.error_list.itemcode}</span></div>
                                                         <input type ="text" name="itemscode" className="form-control mb-2"   value={itemInput.itemscode}  onChange={handleInput} required /> 
                                                         </div>
 
                                    
                                                         <div className="col-md-4">   
                                                             <label className="control-label font-weight-bold">Item Name: </label><span className="text-danger font-weight-bold">*</span> 
+                                                            <div><span className="text-danger">{itemInput.error_list.name}</span></div>
                                                             <input type ="text" name="name" className="form-control mb-2"  value={itemInput.name}     onChange={handleInput} required />
                                                         </div> 
                                                     
@@ -213,14 +231,14 @@ function Item()
                                                   
                                                         <div className="col-md-2">   
                                                             <label className="control-label font-weight-bold">Approve Rate: </label><span className="text-danger font-weight-bold">*</span> 
-                                                   
+                                                            <div><span className="text-danger">{itemInput.error_list.approverate}</span></div>
                                                         <input type ="text" name="approverate" className="form-control mb-2"  value={itemInput.approverate} onChange={handleInput}  required/> 
                                                         </div> 
 
                                                         
                                                         <div className="col-3">   
                                                             <label className="control-label font-weight-bold">Inital Stock: </label><span className="text-danger font-weight-bold">*</span> 
-                                                   
+                                                            <div><span className="text-danger">{itemInput.error_list.assettype}</span></div>
                                                         <input type ="text" name="initalStock" className="form-control mb-2"  value={itemInput.initalStock} onChange={handleInput}  required/> 
                                                         </div> 
                                                  
@@ -234,9 +252,12 @@ function Item()
                                                              <textarea type ="text" name="remarks" className="form-control mb-2"  rows="5"   value={itemInput.remarks}  onChange={handleInput} required/> 
                                                         </div> 
 
-                                                        <div className="card-footer"> 
-                                                        <button type="submit" className="btn btn-primary mt-2"> Save</button>
-                                                        </div> 
+                                                        <div className="row"> 
+                                                        <div className="col-md-12">
+                                                        <button type="submit" className="btn btn-primary "> <BsSave2Fill/> Save</button>
+                                                        <button onClick={(clear)} className="btn btn-danger ml-4"> <BsFillTrashFill/> Clear</button>
+                                                        </div> </div>
+
                                
                                              
                                </form>

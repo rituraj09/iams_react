@@ -1,7 +1,6 @@
 import React,{useState,useEffect} from "react";
 import { Link } from "react-router-dom";
 import axios from 'axios';
-import Table from 'react-bootstrap/Table';
 import swal from 'sweetalert';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
@@ -28,14 +27,7 @@ import { faSearch, faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
         });
     },[]);
 
-
-
-
     const DeleteCat=(id)=>{
-
-        itemList.map((item)=>{
-            id=item.id;
-        })
 
         swal({
             title: "Are you sure?",
@@ -56,7 +48,6 @@ import { faSearch, faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
                         }   
                         setLoading(false);
                     });
-
 
                     swal("Success", res.data.message, "success");
 
@@ -116,7 +107,6 @@ return(
                                                       <th>Remarks</th>
                                                       <th>Approve-Rate</th> 
                                                       <th>Quantity-in</th> 
-                                                      
                                                       <th>Edit</th> 
                                                       <th>Delete</th> 
                                                      
@@ -132,12 +122,21 @@ return(
         else if(item.name.toLowerCase().includes(searchTerm.toLowerCase())){
             return item.name
         }
-
+        else if(item.itemcode.toLowerCase().includes(searchTerm.toLowerCase())){
+            return item.itemcode
+        }
+        else if(item.subcatname.toLowerCase().includes(searchTerm.toLowerCase())){
+            return item.subcatname
+        }
+        else if(item.catname.toLowerCase().includes(searchTerm.toLowerCase())){
+            return item.catname
+        }
+     
     })
                                               
                                               
                                               
-                                              .map((item, index)=>{
+    .reverse().map((item, index)=>{
                                 return(
                                     <tr>
                                     <td>{++index}</td>

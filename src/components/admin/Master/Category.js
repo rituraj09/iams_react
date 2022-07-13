@@ -2,9 +2,10 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import React from "react";
 import axios from "axios";
-import { useForm } from "react-hook-form";
 import swal from "sweetalert";
-//import http from '../../../http';
+
+import { BsFillTrashFill,BsSave2Fill } from "react-icons/bs";
+
 
 function Category()
 
@@ -14,13 +15,10 @@ function Category()
         catName:'',
         error_list:[],
     });
-
-    // const { register, handleSubmit, formState: { errors } } = useForm();
     
 
     const handleInput = (event)=>{
       event.persist();
-
         setCat({...catInputs,[event.target.name]:event.target.value})
     }
       
@@ -28,7 +26,7 @@ function Category()
 
 
     const submitCat = (event) =>{
-
+        event.preventDefault();
         
         const data ={
             name:catInputs.name,
@@ -40,14 +38,24 @@ function Category()
             {
                 swal('Success',res.data.message,"Success");
 
-                
+                setCat({
+                    name:'',
+                    error_list: '',
+        
+                })
               
             }
 
             else if(res.data.status === 400)
             {
                 setCat({...catInputs, error_list:res.data.errors})
-                swal('Error',"Error");
+                swal('Error',catInputs.error_list.name,'error')
+              
+            }
+
+            else if(res.data.status === 409)
+            {
+                swal('Error',res.data.message,'error')
             }
 
            
@@ -59,6 +67,8 @@ function Category()
     const clear = ()=>{
         setCat({
             name:'',
+            error_list: '',
+
         })
     }
 
@@ -95,25 +105,25 @@ function Category()
                                                     <form onSubmit={(submitCat)} id="CAT_Form" className="form-horizontal bucket-form">
                                                         <div className="form-group"> 
                                                             <div className="row">
-                                                            <div className="col-md-3">
+                                                            <div className="col-md-4">
                                                             <label className="control-label">Category Name :</label><span className="text-danger">*</span>
+                                                          <div>
+                                                          <span className="text-danger">{catInputs.error_list.name}</span>
+                                                          </div>
                                                             </div>
                                                                 <div className="col-md-12">
                                                                     <input  placeholder='Category Name'  type ="text" name="name" value={catInputs.name} onChange={handleInput}  className="form-control mb-2" 
-                                                                    
-                                                                    
-                                                                    // {...register("CategoryName", { required: true, maxLength: 10 })}
+                                     
                                                                     />
-                                                                    {/* {errors.CategoryName && <p>Category Name is not valid</p>} */}
-                                                                    
+                                                                 
                                                                 </div>    
                                                             </div>   
                                                         </div> 
                                                         <div className="form-group"> 
                                                             <div className="row">
                                                                 <div className="col-md-12"> 
-                                                                    <button type="button" onClick={(submitCat)} className="btn btn-sm btn-success "> Save</button> 
-                                                                    <button type="button" onClick={(clear)} className="btn btn-sm btn-danger ml-2 "> Cancel</button> 
+                                                                   <button type="button" onClick={(submitCat)} className="btn btn-sm btn-success ">  <BsSave2Fill/> Save</button> 
+                                                                    <button type="button" onClick={(clear)} className="btn btn-sm btn-danger ml-3 "> <BsFillTrashFill/> Clear</button> 
                                                                    
                                                                 </div>    
                                                             </div>  

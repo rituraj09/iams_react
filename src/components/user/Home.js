@@ -18,7 +18,7 @@ const Home = () => {
     
     
     useEffect(()=>{
-    axios.get(`api/getOrder`).then(res=>{
+    axios.get(`api/get-unapprovedorder-branchwise`).then(res=>{
 
         if(res.status === 200)
         {
@@ -50,12 +50,12 @@ const itemcount = async () => {
 
 
   const approvedOrderCount= async () => {
-    const { data } = await axios.get(`api/approvedordertot`);
+    const { data } = await axios.get(`api/get-approvedordercount-branchwise`);
     setapprOrderCount(data);
   };
 
   const PendingOrder= async () => {
-    const { data } = await axios.get(`api/unapprovedordertot`);
+    const { data } = await axios.get(`api/get-unapprovedordercount-branchwise`);
     setPendingOrder(data);
   };
 
@@ -65,7 +65,7 @@ const itemcount = async () => {
   };
   
   const approvedordersList= async () => {
-    const { data } = await axios.get(`api/approvedorders`);
+    const { data } = await axios.get(`api/get-approvedorder-branchwise`);
     setapprovedorders(data.ordermaster);
   };
   
@@ -154,27 +154,28 @@ else{
 
             <div className="col-xl-3 col-md-6">
                 <div className="card admingrad2 text-white mb-4">
-                    <div className="card-body"><h3>{apprOrderCount.approved_total_order}</h3><p>Total Approved Order</p> </div>
+                    <div className="card-body"><h3>{apprOrderCount.approved_order_count}</h3><p>Total Approved Order</p> </div>
                     <div className="card-footer d-flex align-items-center justify-content-between">
-                        <a className="small text-white stretched-link" href="#">View Details</a>
+                    <Link className="small text-white stretched-link" to={`/user/approved-order`}>View Details</Link>
                         <div className=" text-white"><FontAwesomeIcon icon={faArrowAltCircleRight} ></FontAwesomeIcon></div>
                     </div>
                 </div>
             </div>
             <div className="col-xl-3 col-md-6">
                 <div className="card admingrad3 text-white mb-4">
-                    <div className="card-body"><h3>{pendingOrder.unapprovedcount}</h3> <p>Total Pending Order</p></div>
+                    <div className="card-body"><h3>{pendingOrder.upcoming_order_count}</h3> <p>Total Pending Order</p></div>
                     <div className="card-footer d-flex align-items-center justify-content-between">
-                        <a className="small text-white stretched-link"> View Details</a>
+                    <Link className="small text-white stretched-link" to={`/user/PendingOrders`}>View Details</Link>
                         <div className=" text-white"><FontAwesomeIcon icon={faArrowAltCircleRight} ></FontAwesomeIcon></div>
                     </div>
                 </div>
             </div>
+            
             <div className="col-xl-3 col-md-6">
                 <div className="card admingrad4 text-white mb-4">
                     <div className="card-body"><h3>{completedOrder.total_completed_order}</h3> <p>Total Processed Order</p></div>
                     <div className="card-footer d-flex align-items-center justify-content-between">
-                        <a className="small text-white stretched-link" href="#">View Details</a>
+                    <Link className="small text-white stretched-link" to={`/user/ReceivedOrders`}>View Details</Link>
                         <div className=" text-white"><FontAwesomeIcon icon={faArrowAltCircleRight} ></FontAwesomeIcon></div>
                     </div>
                 </div>

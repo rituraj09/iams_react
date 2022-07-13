@@ -50,6 +50,11 @@ const Sidebar = () => {
                     <div className="sb-nav-link-icon"> <FontAwesomeIcon icon={faNotesMedical}></FontAwesomeIcon> </div> 
                        Stock Entry
                     </Link>
+
+                    <Link  to="/admin/ViewFinalStock" className="nav-link"> 
+                    <div className="sb-nav-link-icon"> <FontAwesomeIcon icon={faNotesMedical}></FontAwesomeIcon> </div> 
+                       View Final Orders
+                    </Link>
                    
                 </div>
             </div>

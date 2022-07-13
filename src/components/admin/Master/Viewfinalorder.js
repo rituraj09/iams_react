@@ -185,16 +185,37 @@ remarks:printInfo.remarks,
 
 
     return(
+        <>  <nav aria-label="breadcrumb ">
+        <ol className="breadcrumb p-2">
+        <li className="breadcrumb-item"><Link  to="/admin/dashboard"  >Home</Link></li>
+        <li className="breadcrumb-item"><Link  to="/admin/approvedorder"  >View Approved Orders</Link></li>
+        <li className="breadcrumb-item active" aria-current="page">Ordered Items</li>
+        
+        </ol>
+    </nav>
         <div className="container px-4">
             <div className="card mt-4">
                 <div className="card-header">
         <h2>View Order</h2>
-        <Link to ="/admin/viewfinalorder" className=" btn btn-primary btn-sm float-end">Back</Link>
+
+        <Link to ="/admin/approvedorder" className="btn btn-danger float-end">Back</Link>
+      
+        <div className="form-group"> 
+                                                            <div className="row">
+                                                                <div className="col-md-12"> 
+                                                                  
+                                                                <Link to ={`/admin/orderpdf/${id}`} className="btn btn-primary float-end">Generate Bill</Link>
+                                                                   
+                                                                </div>    
+                                                            </div>  
+                                                        </div>
         
       <div className="row">
     
+      
 
             <div className="col-lg-4 col-6">
+            
             <div className="card-body">
         {orderDetails.map((item)=>{
         return(<>
@@ -321,7 +342,7 @@ remarks:printInfo.remarks,
 
 
   </div>
-
+  </>
     )
 
 

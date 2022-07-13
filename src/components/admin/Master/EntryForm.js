@@ -7,7 +7,7 @@ import swal from "sweetalert";
 
  
 function EntryForm(){
-
+    const [loading, setLoading] = useState(true);
     const [categorylist, setCategorylist] = useState([]);
     const [subcategorylist, setSubategorylist] = useState([]);
     const [itemlist, setItemlist] = useState([]);
@@ -147,6 +147,41 @@ function EntryForm(){
         });
     },[ipadr,token]);
 
+// ///////////////////////////////////////////////
+
+    const itemdelete = (id) =>{
+
+        swal({
+            title: "Are you sure?",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+          })
+
+          .then((willDelete) => {
+            if (willDelete) {
+
+            axios.delete(`api/delete-temp/${id}`).then(res=>{
+                
+                if(res.data.status===200){
+                    swal("Success", res.data.temporders, "success");
+                    axios.get(`api/order-temp-list/${ipadr}/${token}`).then(res=>{ 
+                        if(res.status === 200)
+                        {
+                            setTemplist(res.data.temporders)
+                        } 
+                        setLoading(false);
+            
+                    });
+                    swal("Success", res.data.message, "success");
+                }
+            });
+        }
+    });
+
+    }
+
+
 
     let Viewcategory_HTMLTABLE; 
 
@@ -162,13 +197,8 @@ function EntryForm(){
                     <td>{items.itemid}</td>
                     <td>{items.description}</td>
                     <td>{items.quantity}</td>
-                    {
-                    /* <td>
-                        <Link to={`edit-category/${item.id}`} className="btn btn-success btn-sm">Edit</Link>
-                    </td>*/}
-
                     <td>
-                        <Link to={`delete-category/${items.id}`} className="btn btn-danger btn-sm">Delete</Link>
+                        <button onClick={()=>itemdelete(items.id)} className="btn btn-danger btn-sm">Delete</button>
                     </td> 
                 </tr>
 )
@@ -186,22 +216,20 @@ function EntryForm(){
         }
     
                         let ordersubmit;
-                        // let deleteall;
-                        // let saveasdraft;
+                        let saveasdraft;
 
                           if (templist.length) {
                             ordersubmit = [<form onSubmit={orders}><button type="submit"  className="btn btn-success btn-sm">Submit Order</button></form>]
-                            // deleteall = [<Link to={`edit-category/`} className="btn btn-success btn-sm">Save As Draft</Link>]
-                            // saveasdraft = [<Link to={`edit-category/`} className="btn btn-success btn-sm"> Delete All</Link>]
-                           }
-                        
+                            saveasdraft = [<Link to={`edit-category/`} className="btn btn-success btn-sm">Save As Draft</Link>]
+                           }                 
     return(
 
      
         <div className="container-fluid">
             <div className="row">
             <div className="col-md-4">
-          <h2>Requisition Form</h2> 
+          <h2>Requisition Form:</h2> 
+
         <form onSubmit={submit}>
         <div className="card">
         <div className="card p-3">
@@ -310,21 +338,19 @@ function EntryForm(){
                  <textarea name="remarks" className="form-control" rows="3" onChange={handleInput} value={ orderInput.remarks} >
 
                  </textarea>
-                 <div className="col-md-6 mt-3 ">
-                           {ordersubmit}
-                    </div>
-                          <br></br>
-
-                    <div className="col-md-6">
-                           {/* {deleteall} */}
-                    </div>
-              
-                    <br></br>
-                          
+                 <div className="form-group"> 
+                                                            <div className="row mt-3">
+                                                                <div className="col-md-12"> 
+                                                                   <button type="button"  className="btn btn-sm btn-success ">     {ordersubmit}</button> 
+                                                                    <button type="button"  className="btn btn-sm btn-danger ml-3 ">   {saveasdraft}</button> 
+                                                                   
+                                                                </div>    
+                                                            </div>  
+                                                        </div>
+                 
+                  
                 
-                    <div className="col-md-6">
-                           {/* {saveasdraft} */}
-                    </div>
+            
                  </div>
                
               

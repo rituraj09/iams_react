@@ -74,7 +74,7 @@ function Viewcategory (props) {
             return item.name
         }
 
-    }).map((item)=>
+    }).reverse().map((item)=>
     {
         if(loading)
         {

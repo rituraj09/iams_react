@@ -1,11 +1,10 @@
-/* eslint-disable no-restricted-globals */
 import React,{useState,useEffect,useRef} from "react";
 import { Link,useHistory } from "react-router-dom";
 import axios from 'axios';
 import swal from 'sweetalert';
 import { useReactToPrint  } from "react-to-print";
 import { Button } from "react-bootstrap";
-import "../../../assets/admin/css/print_bill.css"
+import "../../../assets/admin/css/print_bill.css";
 
 const OrderpdfAdmin=(props)=>{
 
@@ -19,6 +18,8 @@ const OrderpdfAdmin=(props)=>{
     const handlePrint = useReactToPrint ({
         content: () => componentRef.current,
       });
+
+     
 
     useEffect(()=>{
 
@@ -52,6 +53,7 @@ const OrderpdfAdmin=(props)=>{
     
                 if(res.data.status===200){
                     setOrderDetails(res.data.ordermaster);
+                   
                 }
     
                 else if(res.data.status===404)
@@ -68,21 +70,91 @@ const OrderpdfAdmin=(props)=>{
     
 ///////////////////////////////////////////////////////////////////////////
     
+    let Supplier;
+
+    Supplier=[
+        orderDetails.map((item)=>{
+            return(
+                <p>{item.supplier}</p>
+            )
+                
+            
+        })
+    ]
+
+    let orderNo;
+
+    orderNo=[
+        orderDetails.map((item)=>{
+            return(
+                item.actual_orderno
+            ) 
+        })
+    ]
+
+    let date;
+
+    date=[
+        orderDetails.map((item)=>{
+            return(
+                item.actual_orderdate
+            ) 
+        })
+    ]
+
+    let signedby;
+
+    signedby=[
+        orderDetails.map((item)=>{
+            if(item.signed_by==="DC")
+            return(
+                <>DEPUTY COMMISSIONER</>
+            ) 
+            else if(item.signed_by==="ADC"){
+               return( 
+               <>Addl DEPUTY COMMISSIONER</>
+               )
+            }
+        })
+    ]
+    const ids= props.match.params.id; 
+    let backbtn = [
+
+
+    <div className="row">
     
+ 
+    <div className="col-md-12 ">
+        <Link to={`/admin/viewReq`} className="btn btn- btn-danger ml-2 float-end">Back</Link>
+    </div>
+</div> 
 
 
+
+]
+
+    let breadcrumb=[
+        <nav aria-label="breadcrumb ">
+        <ol className="breadcrumb p-2">
+        <li className="breadcrumb-item"><Link  to="/admin/dashboard"  >Home</Link></li>
+        <li className="breadcrumb-item"><Link  to="/admin/approvedorder"  >View Approved Orders</Link></li>
+        <li className="breadcrumb-item"><Link  to={`/admin/Viewfinalorder/${ids}`}   >Ordered Items</Link></li>
+        <li className="breadcrumb-item active" aria-current="page">Generate Bill</li>
+        </ol>
+    
+    </nav>
+    ]
+   
     return(
 
         <> 
-        
-        
-        <Link to ="/admin/approvedorder" className=" btn btn-primary btn-sm float-end">Back</Link>
+       {breadcrumb}
+      
+      
+       <div className="container px-4" >
 
-        
+       {backbtn}
 
-
-        <button onClick={handlePrint} className="print__button">  Print </button> 
-        
         <div className="container px-4" ref={componentRef}>
 
 
@@ -99,14 +171,14 @@ const OrderpdfAdmin=(props)=>{
         </div>
       </center>
       <div class="subheading">
-        <p>No. GNZ.09/2022/</p>
-        <p>Dated Golaghat the 27 April, 2022</p>
+        <p>No. {orderNo}</p>
+        <p>Dated Golaghat the {date}</p>
       </div>
 
       <br />
       <div className="text">
         To, <br />
-        M/S- S. K. & Co, Golaghat
+       {Supplier}
         <br />
         <p>
             &emsp; &emsp; You are hereby requested to supply the under mentioned articles as per
@@ -125,42 +197,6 @@ const OrderpdfAdmin=(props)=>{
         
         
       <div>
-        <div  className="card-body">
-
-           
-            <table className="table">
-
-            <thead className="table-green">
-                        <tr>
-            
-                            <th>Order Id</th> 
-                            <th>Date</th> 
-                            <th>Branch Name</th>  
-                            <th>Remarks</th> 
-                            
-                        </tr>
-                        </thead>
-
-                        <tbody>
-                            {orderDetails.map((item)=>{
-                                return(
-                                    <tr>
-                                        
-                                    <td>{item.orderno}</td>
-                                    <td>{item.orderdate}</td>
-                                    <td>{item.branchname}</td>
-                                    <td>{item.remarks}</td>
-                                    </tr>
-                                )
-                            })}
-                           
-                           
-                        </tbody>
-
-                </table>
-
-    
-        </div>
                
             
        
@@ -202,20 +238,21 @@ const OrderpdfAdmin=(props)=>{
                </div>
                <br/>
       <div className="signature">
-        Addl./Deputy Commissioner <br />
-        I/C Nazarat, Golaghat
+        {signedby} <br />
+             Golaghat
       </div>
                </div>
               
     </div>
+    </div>
     
 </div>
+<button onClick={handlePrint} className="btn btn-primary float-end mt-3">  Print </button> 
 </div>
 
   </>
 
     )
-
 
 }
 

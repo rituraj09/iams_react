@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import React from "react";
 import axios from "axios";
 import swal from "sweetalert";
+import { BsFillTrashFill,BsSave2Fill } from "react-icons/bs";
 
 // api/savesub
 function Subcategory()
@@ -19,10 +20,7 @@ function Subcategory()
 
     const handleInput =(event)=>{
         event.persist();
-        // const re = /^[A-z\b]+$/;
-        // if (event.target.value === '' || re.test(event.target.value)){
-            setSubcategory({...subcategoryInput,[event.target.name]:event.target.value});
-        // }
+            setSubcategory({...subcategoryInput,[event.target.name]:event.target.value,});  
         
     }
 
@@ -57,14 +55,26 @@ const data ={
                 category_id:'',
                 name:'',
                 remarks:'',
-
+                error_list:'',
               })
             }
-            else if(res.data.status ===409){
-                swal('Error', res.data.message,'error')
+            else if(res.data.status ===400){
+                setSubcategory({...subcategoryInput, error_list:res.data.errors})
             }
         })
     }
+
+
+    const clear = ()=>{
+        setSubcategory({
+            category_id:'',
+            name:'',
+            error_list: '',
+            remarks:'',
+
+        })
+    }
+
 
     return (
         <> 
@@ -119,6 +129,7 @@ const data ={
                                                             <label className="control-label">Sub-Category Name:</label><span className="text-danger">*</span> 
                                                         </div>
                                                         <div className="col-md-12"> 
+                                                        <span className="text-danger">{subcategoryInput.error_list.name}</span>
                                                             <input type ="text" name="name"  value={subcategoryInput.name} onChange={handleInput} className="form-control" required/>
                                                         </div>
                                                     </div> 
@@ -131,8 +142,13 @@ const data ={
                                                         <div className="col-md-12"> 
                                                             <input type ="text" name="remarks" value={subcategoryInput.remarks} onChange={handleInput} className="form-control"/> 
                                                         </div>
+                                                        <div className="col-md-12 mt-3">
+                                                            <button type="submit" className="btn btn-success "><BsSave2Fill/> Save</button>
+                                                            <button type="clear" onClick={clear} className="btn btn- btn-danger ml-2"><BsFillTrashFill/>Clear</button>
+                                                        </div>
                                                         <div className="col-md-12">
-                                                            <button type="submit" className="btn btn-info mt-2"> Save</button>
+                                                            
+                                                         
                                                         </div>
                                                     </div> 
                                                 </div> 

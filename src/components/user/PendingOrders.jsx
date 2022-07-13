@@ -6,17 +6,15 @@ import { faSearch} from '@fortawesome/free-solid-svg-icons';
 import {BsFillArrowRightCircleFill } from "react-icons/bs";
 
 
-function NazaratDashboard(){
-
-
-    
+function PendingOrders() {
+ 
     const [loading, setLoading] = useState(true);
     const [categorylist, setCategorylist] = useState([]);
     const [searchTerm, setSearchTerm] = useState(''); 
     
 
     useEffect(()=>{
-    axios.get(`api/getOrder`).then(res=>{
+    axios.get(`api/get-unapprovedorder-branchwise`).then(res=>{
 
         if(res.status === 200)
         {
@@ -69,7 +67,7 @@ let Viewcategory_HTMLTABLE ;
                 <td>{items.orderdate}</td>
                 <td>{items.branchname}</td>
                 <td>
-                        <Link to={`Vieworder/${items.id}`} className="btn btn-success btn-sm">View <BsFillArrowRightCircleFill/></Link>
+                        <Link to={`PendingOrderItems/${items.id}`} className="btn btn-success btn-sm">View <BsFillArrowRightCircleFill/></Link>
                     </td>
                
             </tr>
@@ -95,7 +93,7 @@ return (
        
     <div className="card mt-4">
         <div className="card-header">
-            <h4 className="text-center"> Order By Branch (Pending)
+            <h4 className="text-center"> Pending Orders
     
             </h4>
         </div>
@@ -130,4 +128,5 @@ return (
     
 
 }
-export default NazaratDashboard
+
+export default PendingOrders

@@ -1,12 +1,14 @@
 import React,{useState,useEffect} from "react";
 import { Link } from "react-router-dom";
 import axios from 'axios';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSearch} from '@fortawesome/free-solid-svg-icons';
 
 
 export default function StockEntry() {
   const [loading, setLoading] = useState(true);
   const [categorylist, setCategorylist] = useState();
+  const [searchTerm, setSearchTerm] = useState(''); 
   
 
   useEffect(()=>{
@@ -34,7 +36,21 @@ if(loading)
 else{
   Viewcategory_HTMLTABLE =[
 
-  categorylist.map((items)=>
+    categorylist.filter((items)=>
+    {
+        if(searchTerm==""){
+            return items
+        }
+        else if(items.orderno.toLowerCase().includes(searchTerm.toLowerCase())){
+            return items.orderno
+        }
+        else if(items.orderdate.toLowerCase().includes(searchTerm.toLowerCase())){
+            return items.orderdate
+        }
+        else if(items.branchname.toLowerCase().includes(searchTerm.toLowerCase())){
+            return items.branchname
+        }
+    }).reverse().map((items)=>
   {
 
       return(
@@ -70,10 +86,15 @@ return (
      
   <div className="card mt-4">
       <div className="card-header">
-          <h4 className="text-center"> Order By Branch
+          <h4 className="text-center"> Order By Branch (Pending Stock Entry) 
   
           </h4>
       </div>
+      <div class="input-group flex-nowrap mt-4">
+  <span class="input-group-text" id="addon-wrapping"><FontAwesomeIcon icon={faSearch}/></span>
+  <input type="search" class="form-control form-control-lg " placeholder="Type your keywords here..."  onChange={event=>{setSearchTerm(event.target.value)}}></input>
+</div>
+
 
       <div className="card-body">
       <table class="table table-striped">

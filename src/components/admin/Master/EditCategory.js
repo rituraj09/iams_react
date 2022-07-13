@@ -3,6 +3,7 @@ import React,{useState,useEffect} from "react";
 import { Link,useHistory } from "react-router-dom";
 import axios from 'axios';
 import swal from 'sweetalert';
+import { BsFillTrashFill,BsFillPencilFill } from "react-icons/bs";
 
 
 
@@ -107,8 +108,7 @@ function EditCategory(props){
                                                         <div className="form-group"> 
                                                             <div className="row">
                                                                 <div className="col-md-12"> 
-                                                                    <button type="submit"  className="btn btn-info btn-sm"> Update</button> 
-    
+                                                                    <button type="submit"  className="btn btn-primary btn-sm"><BsFillPencilFill/> Update</button> 
                                                                     <Link  to="/admin/view-category" className="btn btn-sm btn-danger ml-2"  >Cancel</Link>
                                                                 </div>    
                                                             </div>  

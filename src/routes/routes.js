@@ -31,6 +31,26 @@ import Vieworderold from "../components/admin/vieworder_old";
 import Editstockdata from "../components/admin/Editstockdata";
 import AdminDashboard from "../components/administrator/Dashboard";
 import Register from "../components/frontend/auth/Register";
+import BranchMaster from "../components/administrator/BranchMaster";
+import BranchMasterEdit from "../components/administrator/BranchMasterEdit";
+import BranchMasterView from "../components/administrator/BranchMasterView";
+import DesignationCreate from "../components/administrator/DesignationCreate";
+import DesignationEdit from "../components/administrator/DesignationEdit";
+import DesignationView from "../components/administrator/DesignationView";
+import RoleMaster from "../components/administrator/RoleMaster";
+import RoleMasterEdit from "../components/administrator/RoleMasterEdit";
+import RoleMasterView from "../components/administrator/RoleMasterView";
+import UserCreate from "../components/administrator/UserCreate";
+import UserEdit from "../components/administrator/UserEdit";
+import UserView from "../components/administrator/UserView.jsx";
+import ViewFinalStock from "../components/admin/ViewFinalStock";
+import ViewFinalStockItems from "../components/admin/ViewFinalStockItems";
+import PendingOrders from "../components/user/PendingOrders";
+import PendingOrderItems from "../components/user/PendingOrderItems";
+import ReceivedOrders from "../components/user/ReceivedOrders";
+import ReceivedStock from "../components/user/ReceivedStock";
+
+
 
 const routes =[
     {path: '/admin', exact: true, name:'Admin'},
@@ -56,14 +76,14 @@ const routes =[
     {path: '/admin/StockView/Editstockdata/:id', exact: true, name:'Editstockdata', component : Editstockdata     },
     {path: '/admin/pop', exact: true, name:'ModalDialog', component : ModalDialog     },
     {path: '/admin/Vieworderold', exact: true, name:'Vieworderold', component : Vieworderold     },
-
-
+    {path: '/admin/ViewFinalStock', exact: true, name:'ViewFinalStock', component : ViewFinalStock     },
+    {path: '/admin/ViewFinalStockItems/:id', exact: true, name:'ViewFinalStockItems', component : ViewFinalStockItems     },
 
     {path: '/admin/viewReq', exact: true, name:'NazaratDashboard', component : NazaratDashboard  },
     {path: '/admin/Vieworder/:id', exact: true, name:'Vieworder', component:  Vieworder   }, 
     {path: '/admin/edit-item/:id', exact: true, name:'itemEdit', component:  itemEdit   }, 
     {path: '/user/EntryForm', exact: true, name:'EntryForm', component:  EntryForm   },
-
+    {path: '/user/PendingOrders', exact: true, name:'PendingOrders', component:  PendingOrders   },
 
     {path: '/user', exact: true, name:'User'},
     {path: '/user/home', exact: true, name:'Home', component : Home },
@@ -73,9 +93,22 @@ const routes =[
     {path: '/user/services', exact: true, name:'Services', component : Services     },
     {path: '/user/Viewfinalorder/:id', exact: true, name:'Viewfinalorder', component : Viewfinalorder     },
     {path: '/user/orderpdf/:id', exact: true, name:'Orderpdf', component : Orderpdf     },
+    {path: '/user/PendingOrderItems/:id', exact: true, name:'PendingOrderItems', component : PendingOrderItems},
+    {path: '/user/ReceivedOrders', exact: true, name:'ReceivedOrders', component:  ReceivedOrders   },
+    {path: '/user/ReceivedStock/:id', exact: true, name:'ReceivedStock', component:  ReceivedStock   },
 
     {path: '/administrator', exact: true, name:'administrator'},
     {path: '/administrator/Dashboard', exact: true, name:'AdminDashboard', component : AdminDashboard },
+    {path: '/administrator/BranchMaster', exact: true, name:'BranchMaster', component : BranchMaster },
+    {path: '/administrator/BranchMasterView', exact: true, name:'BranchMasterView', component : BranchMasterView },
+    {path: '/administrator/BranchMasterEdit/:id', exact: true, name:'BranchMasterEdit', component : BranchMasterEdit },
+    {path: '/administrator/DesignationCreate', exact: true, name:'DesignationCreate', component : DesignationCreate },
+    {path: '/administrator/BranchMasterView', exact: true, name:'BranchMasterView', component : BranchMasterView },
+    {path: '/administrator/DesignationView', exact: true, name:'DesignationView', component : DesignationView },
+    {path: '/administrator/UserCreate', exact: true, name:'UserCreate', component : UserCreate },
+    {path: '/administrator/UserView', exact: true, name:'UserView', component : UserView },
+    {path: '/administrator/UserEdit/:id', exact: true, name:'UserEdit', component : UserEdit },
+    
     
 ]; 
 

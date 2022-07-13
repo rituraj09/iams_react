@@ -20,6 +20,8 @@ const Orderpdf=(props)=>{
         content: () => componentRef.current,
       });
 
+     
+
     useEffect(()=>{
 
     const ids= props.match.params.id; 
@@ -52,6 +54,7 @@ const Orderpdf=(props)=>{
     
                 if(res.data.status===200){
                     setOrderDetails(res.data.ordermaster);
+                   
                 }
     
                 else if(res.data.status===404)
@@ -116,7 +119,10 @@ const Orderpdf=(props)=>{
         })
     ]
 
-
+    useEffect(()=>
+    {
+      handlePrint();
+    },[]);
     return(
 
         <> 
