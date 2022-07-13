@@ -13,10 +13,10 @@ function DesignationView() {
   const [searchTerm, setSearchTerm] = useState(''); 
 
   useEffect(()=>{
-  axios.get(`api/get-all-users`).then(res=>{ 
+  axios.get(`api/getdesignations`).then(res=>{ 
       if(res.status === 200)
       {
-          setCategorylist(res.data.users)
+          setCategorylist(res.data.designations)
       } 
       setLoading(false);
 
@@ -88,12 +88,8 @@ categorylist.filter((item)=>{
   return(
           <tr key={item.id}>
               <td>{sl=sl+1}</td>
-              <td> {item.name}</td>   
-              <td> {item.email}</td>   
-              <td> {item.mobile}</td>   
-              <td> {item.designationName}</td>   
-              <td> {item.branch}</td>   
-              <td> {item.roleName}</td>   
+              <td> {item.designame}</td>   
+     
 
               <td>
                   <Link to={`/administrator/UserEdit/${item.id}`} className="btn btn-success btn-sm"><FontAwesomeIcon icon={faEdit}></FontAwesomeIcon></Link> 
@@ -142,11 +138,7 @@ categorylist.filter((item)=>{
                                                 <tr>
                                                     <th>Sl. No.</th>
                                                     <th>Name</th> 
-                                                    <th>Email</th> 
-                                                    <th>Phone</th> 
-                                                    <th>Designation</th> 
-                                                    <th>Branch</th> 
-                                                    <th>Role</th> 
+                                          
                                                     <th>Edit</th>
                                                   
                                                 </tr>

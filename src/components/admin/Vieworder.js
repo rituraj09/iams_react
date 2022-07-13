@@ -151,6 +151,7 @@ useEffect(()=>{
    
    
        const submitOrder =()=> {
+        
         axios.post(`api/initialstock/${id}`)
         axios.put(`api/updateOrderMaster/${id}`).then(res=>{
             

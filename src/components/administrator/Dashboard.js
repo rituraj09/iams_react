@@ -7,7 +7,7 @@ import axios, { Axios } from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleDot, faTachometerAlt, faArrowAltCircleRight ,faNotesMedical } from '@fortawesome/free-solid-svg-icons'
 import {BsZoomIn } from "react-icons/bs";
-
+import { Helmet } from 'react-helmet';
 
 
 
@@ -45,7 +45,7 @@ useEffect(()=>{
   itemcount();
   approvedOrderCount();
   PendingOrder();
-  Processedorder();
+  totaluser();
   approvedordersList();
   // initialstock();
 },[]);
@@ -67,10 +67,12 @@ const PendingOrder= async () => {
   setPendingOrder(data);
 };
 
-const Processedorder= async () => {
-  const { data } = await axios.get(`api/completedovedordertot`);
+const totaluser= async () => {
+  const { data } = await axios.get(`api/totaluser`);
   setcompletedOrder(data);
 };
+
+
 
 const approvedordersList= async () => {
   const { data } = await axios.get(`api/branchlist`);
@@ -138,9 +140,19 @@ else{
       )
   })]
 }
- return(
-  <div className="container-fluid">
 
+
+const name = localStorage.getItem('auth_name')
+
+
+
+ return(
+<>
+
+
+
+  <div className="container-fluid">
+<h4 className="mt-3">Hi, {name}</h4>
 
   <main>
       <div className="container-fluid px-5">
@@ -169,7 +181,7 @@ else{
            
               <div className="col-xl-4 col-md-6">
                   <div className="card admingrad4 text-white mb-4">
-                      <div className="card-body"><h3>{apprOrderCount.approved_total_order}</h3><p>Total Users</p></div>
+                      <div className="card-body"><h3>{completedOrder.total_user_count}</h3><p>Total Users</p></div>
                       <div className="card-footer d-flex align-items-center justify-content-between"> 
                       <Link className="small text-white stretched-link" to={`/administrator/UserView`}>Go</Link>
                           <div className=" text-white"><FontAwesomeIcon icon={faArrowAltCircleRight} ></FontAwesomeIcon></div>
@@ -242,7 +254,7 @@ else{
 
 </div>
   
-
+</>
  )
   
 }

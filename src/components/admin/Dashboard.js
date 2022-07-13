@@ -151,11 +151,11 @@ else{
     })]
 }
 
-
+const name = localStorage.getItem('auth_name')
 
     return (
         <div className="container-fluid">
-
+<h4 className="mt-3">Hi, {name}</h4>
 
                 <main>
                     <div className="container-fluid px-5">

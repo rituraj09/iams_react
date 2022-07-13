@@ -136,13 +136,7 @@ function Home() {
                                         }
 
                                     </div>
-                                    <div className="form-group mb-3"> 
-
-                                        <Link to="#" >
-                                            Forget your password?
-                                        </Link>
-
-                                    </div>
+                                  
                                 </form>
                             </div>
                         </div>

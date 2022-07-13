@@ -6,7 +6,6 @@ import swal from "sweetalert";
 
 function DesignationCreate() {
 
-  const [categorylist, setCategorylist] = useState([]);
   const [subcategoryInput, setSubcategory ] = useState({
 
       category_id:'',
@@ -22,16 +21,6 @@ function DesignationCreate() {
       
   }
 
-  useEffect(()=>{
-      axios.get(`api/categories`).then(res=>{
-          if(res.data.status ===200){
-              setCategorylist(res.data.categories);
-          }
-
-      });
-  },[]);
-
-  
 
   const submitSubcategory=(event)=>{
       event.preventDefault();
@@ -39,19 +28,19 @@ function DesignationCreate() {
  
 const data ={
   
-  branchname:subcategoryInput.name,
+  designame:subcategoryInput.name,
  
 }
          
       
       
-      axios.post(`api/createbranch`,data).then(res=>{
+      axios.post(`api/createdesignation`,data).then(res=>{
           if(res.data.status === 200)
           {
               swal('Success',res.data.message,'success');
             setSubcategory({
               
-              branchname:'',
+                name:'',
             
 
             })

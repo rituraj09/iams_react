@@ -81,7 +81,7 @@ function Item()
             name:itemInput.name,
             remarks:itemInput.remarks,
             approverate:itemInput.approverate,
-            quantity:0, 
+            quantity:itemInput.initalStock, 
         }
         console.log(itemInput);  
     
@@ -101,6 +101,7 @@ function Item()
                     initalStock:'',
                     remarks:'',
                         })
+
             }
 
             else if(res.data.status ===409){
@@ -238,11 +239,11 @@ function Item()
                                                         </div> 
 
                                                         
-                                                        {/* <div className="col-3">   
+                                                        <div className="col-3">   
                                                             <label className="control-label font-weight-bold">Inital Stock: </label><span className="text-danger font-weight-bold">*</span> 
                                                             <div><span className="text-danger">{itemInput.error_list.assettype}</span></div>
                                                         <input type ="text" name="initalStock" className="form-control mb-2"  value={itemInput.initalStock} onChange={handleInput}  required/> 
-                                                        </div>  */}
+                                                        </div> 
                                                  
                                              
                                                             

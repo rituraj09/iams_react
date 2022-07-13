@@ -51,6 +51,7 @@ import ReceivedOrders from "../components/user/ReceivedOrders";
 import ReceivedStock from "../components/user/ReceivedStock";
 import Allitems from "../components/user/Allitems";
 import AllItemAdmin from "../components/administrator/AllItemAdmin";
+import PresentStocks from "../components/admin/PresentStocks";
 
 
 const routes =[
@@ -79,13 +80,14 @@ const routes =[
     {path: '/admin/Vieworderold', exact: true, name:'Vieworderold', component : Vieworderold     },
     {path: '/admin/ViewFinalStock', exact: true, name:'ViewFinalStock', component : ViewFinalStock     },
     {path: '/admin/ViewFinalStockItems/:id', exact: true, name:'ViewFinalStockItems', component : ViewFinalStockItems     },
-
+    {path: '/admin/PresentStocks/', exact: true, name:'PresentStocks', component : PresentStocks     },
     {path: '/admin/viewReq', exact: true, name:'NazaratDashboard', component : NazaratDashboard  },
     {path: '/admin/Vieworder/:id', exact: true, name:'Vieworder', component:  Vieworder   }, 
     {path: '/admin/edit-item/:id', exact: true, name:'itemEdit', component:  itemEdit   }, 
+
+
     {path: '/user/EntryForm', exact: true, name:'EntryForm', component:  EntryForm   },
     {path: '/user/PendingOrders', exact: true, name:'PendingOrders', component:  PendingOrders   },
-
     {path: '/user', exact: true, name:'User'},
     {path: '/user/home', exact: true, name:'Home', component : Home },
     {path: '/user/approved-order', exact: true, name:'ApprovedOrder', component : ApprovedOrder },
@@ -110,7 +112,7 @@ const routes =[
     {path: '/administrator/UserCreate', exact: true, name:'UserCreate', component : UserCreate },
     {path: '/administrator/UserView', exact: true, name:'UserView', component : UserView },
     {path: '/administrator/UserEdit/:id', exact: true, name:'UserEdit', component : UserEdit },
-    {path: '/administrator/AllItemAdmin/', exact: true, name:'AllItemAdmin', component : AllItemAdmin },
+    {path: '/administrator/AllItemAdmin/:id', exact: true, name:'AllItemAdmin', component : AllItemAdmin },
     
     
 ]; 

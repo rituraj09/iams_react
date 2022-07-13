@@ -4,6 +4,7 @@ import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch} from '@fortawesome/free-solid-svg-icons';
 import {BsFillArrowRightCircleFill } from "react-icons/bs";
+import { Modal, Button, Badge } from 'react-bootstrap';
 
 
 function NazaratDashboard(){
@@ -60,6 +61,7 @@ let Viewcategory_HTMLTABLE ;
         }
     
     }).reverse().map((items)=>
+    
     {
         if(loading)
         {
@@ -73,11 +75,15 @@ let Viewcategory_HTMLTABLE ;
         }
         else{
 
+            if(items.status == "1"){
+                status = <Badge pill bg="danger" text="">Order Pending</Badge>
+            }
         return(
             <tr key={items.orderno}>
                 <td>{items.orderno}</td>
                 <td>{items.orderdate}</td>
                 <td>{items.branchname}</td>
+                <td>{status}</td>
                 <td>
                         <Link to={`Vieworder/${items.id}`} className="btn btn-success btn-sm">View <BsFillArrowRightCircleFill/></Link>
                     </td>
@@ -106,7 +112,7 @@ return (
     <div className="card mt-4">
         <div className="card-header">
             <h4 className="text-center"> Order By Branch (Pending)
-            {status}
+      
             </h4>
            
         </div>
@@ -122,6 +128,7 @@ return (
     <th>ID</th>
     <th>Date</th>
     <th>Branch Name</th>
+    <th>Status</th>
     <th>View</th>
 </tr>
 </thead>
