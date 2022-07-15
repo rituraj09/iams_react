@@ -73,7 +73,14 @@ function ViewFinalStock() {
     })]
   }
   
-  
+  let status1,status2;
+
+
+    if(!categorylist.length){
+        status1 = [
+            <div className=" text-danger text-center">NO RECORD FOUND</div>
+          ]      
+    }
   
   /////////////////////////////////////////////////////////////////////////
   return (
@@ -92,6 +99,7 @@ function ViewFinalStock() {
   <div className="card mt-4">
       <div className="card-header">
           <h4 className="text-center"> View Final Orders
+          {status1}
           </h4>
       </div>
       <div class="input-group flex-nowrap mt-4">

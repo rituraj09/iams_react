@@ -85,7 +85,15 @@ let Viewcategory_HTMLTABLE ;
         }
     })]
 
+    let status1,status2;
 
+
+    if(!categorylist.length){
+        status1 = [
+            <div className=" text-danger text-center">NO RECORD FOUND</div>
+          ]
+                
+    }
 /////////////////////////////////////////////////////////////////////////
 
 return (
@@ -104,6 +112,7 @@ return (
     <div className="card mt-4">
         <div className="card-header">
             <h4  className="text-center"> Order By Branch (Approved)
+            {status1}
             <nav class="navbar navbar-light bg-light">
 
             <div class="input-group flex-nowrap mt-4">

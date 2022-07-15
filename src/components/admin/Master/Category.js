@@ -27,41 +27,52 @@ function Category()
 
     const submitCat = (event) =>{
         event.preventDefault();
+          swal({
+            title: "Are you sure?",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+          })
+
+          .then((willDelete) => {
+            if (willDelete) {
+                const data ={
+                    name:catInputs.name,
+                }
         
-        const data ={
-            name:catInputs.name,
-        }
-
-
-        axios.post(`api/savecat`, data).then(res =>{
-            if(res.data.status === 200)
-            {
-                swal('Success',res.data.message,"Success");
-
-                setCat({
-                    name:'',
-                    error_list: '',
         
-                })
-              
+                axios.post(`api/savecat`, data).then(res =>{
+                    if(res.data.status === 200)
+                    {
+                        swal('Success',res.data.message,"Success");
+        
+                        setCat({
+                            name:'',
+                            error_list: '',
+                
+                        })
+                      
+                    }
+        
+                    else if(res.data.status === 400)
+                    {
+                        setCat({...catInputs, error_list:res.data.errors})
+                        swal('Error',catInputs.error_list.name,'error')
+                      
+                    }
+        
+                    else if(res.data.status === 409)
+                    {
+                        swal('Error',res.data.message,'error')
+                    }
+        
+                   
+                });
             }
-
-            else if(res.data.status === 400)
-            {
-                setCat({...catInputs, error_list:res.data.errors})
-                swal('Error',catInputs.error_list.name,'error')
-              
-            }
-
-            else if(res.data.status === 409)
-            {
-                swal('Error',res.data.message,'error')
-            }
-
-           
         });
+  
             
-     
+        
     } 
 
     const clear = ()=>{

@@ -93,6 +93,16 @@ let Viewcategory_HTMLTABLE ;
         }
     })]
 
+    let status1,status2;
+
+
+if(!categorylist.length){
+    status1 = [
+        <div className=" text-danger">NO RECORD FOUND</div>
+      ]
+            
+}
+
 
 /////////////////////////////////////////////////////////////////////////
 
@@ -114,7 +124,7 @@ return (
             <h4 className="text-center"> Order By Branch (Pending)
       
             </h4>
-           
+           <div className="text-center" >{status1}</div>
         </div>
         <div class="input-group flex-nowrap mt-4">
   <span class="input-group-text" id="addon-wrapping"><FontAwesomeIcon icon={faSearch}/></span>

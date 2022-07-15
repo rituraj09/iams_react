@@ -37,31 +37,43 @@ function Subcategory()
 
     const submitSubcategory=(event)=>{
         event.preventDefault();
+        swal({
+            title: "Are you sure?",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+          })
 
+          .then((willDelete) => {
+            if (willDelete) {
+                const data ={
+                    catid:subcategoryInput.category_id,
+                    name:subcategoryInput.name,
+                    remarks:subcategoryInput.remarks,
+                }
+                           
+                        
+                        
+                        axios.post(`api/savesub`,data).then(res=>{
+                            if(res.data.status === 200)
+                            {
+                                swal('Success',res.data.message,'success');
+                              setSubcategory({
+                                category_id:'',
+                                name:'',
+                                remarks:'',
+                                error_list:'',
+                              })
+                            }
+                            else if(res.data.status ===400){
+                                setSubcategory({...subcategoryInput, error_list:res.data.errors})
+                            }
+                        })
+                
+            }
+        });
    
-const data ={
-    catid:subcategoryInput.category_id,
-    name:subcategoryInput.name,
-    remarks:subcategoryInput.remarks,
-}
-           
-        
-        
-        axios.post(`api/savesub`,data).then(res=>{
-            if(res.data.status === 200)
-            {
-                swal('Success',res.data.message,'success');
-              setSubcategory({
-                category_id:'',
-                name:'',
-                remarks:'',
-                error_list:'',
-              })
-            }
-            else if(res.data.status ===400){
-                setSubcategory({...subcategoryInput, error_list:res.data.errors})
-            }
-        })
+
     }
 
 

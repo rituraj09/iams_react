@@ -67,7 +67,15 @@ else{
   })]
 }
 
+let status1,status2;
 
+
+if(!categorylist.length){
+    status1 = [
+        <div className=" text-danger text-center">NO RECORD FOUND</div>
+      ]
+            
+}
 
 /////////////////////////////////////////////////////////////////////////
 
@@ -87,7 +95,7 @@ return (
   <div className="card mt-4">
       <div className="card-header">
           <h4 className="text-center"> Order By Branch (Pending Stock Entry) 
-  
+              {status1}
           </h4>
       </div>
       <div class="input-group flex-nowrap mt-4">

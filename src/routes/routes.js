@@ -112,7 +112,7 @@ const routes =[
     {path: '/administrator/UserCreate', exact: true, name:'UserCreate', component : UserCreate },
     {path: '/administrator/UserView', exact: true, name:'UserView', component : UserView },
     {path: '/administrator/UserEdit/:id', exact: true, name:'UserEdit', component : UserEdit },
-    {path: '/administrator/AllItemAdmin/:id', exact: true, name:'AllItemAdmin', component : AllItemAdmin },
+    {path: '/administrator/AllItemAdmin/', exact: true, name:'AllItemAdmin', component : AllItemAdmin },
     
     
 ]; 

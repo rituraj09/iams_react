@@ -161,7 +161,7 @@ const submit= (event) =>{
                                                         <select name="role"  value={userInput.role}  onChange={handleInput}  className="form-select" >
                                                                 <option >select Role</option>
                                                                 {
-                                                                    role.slice( 1, ).map((item)=>{
+                                                                    role.map((item)=>{
                                                                         return(
                                                                         <option value={item.id} key={item.id} required>{item.rolename}</option>
                                                                         )

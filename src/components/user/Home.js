@@ -113,7 +113,7 @@ else{
 
     categorylist.slice(0,5).reverse().map((items)=>
     {   
-        if(categorylist.id==0){
+        if(categorylist.id===0){
              records = [<td>No records</td>]
         }
        

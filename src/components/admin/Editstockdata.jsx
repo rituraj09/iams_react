@@ -14,21 +14,38 @@ function Editstockdata(props) {
 
 const submit=(event)=>{
 
+
   const id= props.match.params.id; 
   event.preventDefault(); 
-  const data ={
-      cgst:stockInput.cgst,
-      sgst:stockInput.sgst,
-      billno:stockInput.billno,
-      billdate:stockInput.billdate,
-      supplierrate:stockInput.supplierrate,
-      supply_on:stockInput.supplyon,
 
-  } 
-  axios.put(`api/Stock-entry-final/${id}`,data).then(res=>{ 
-      swal("Success",res.data.message,"success");
-      history.goBack();
+  swal({
+    title: "Are you sure?",
+    icon: "warning",
+    buttons: true,
+    dangerMode: true,
   })
+
+  .then((willDelete) => {
+    if (willDelete) {
+        const data ={
+            cgst:stockInput.cgst,
+            sgst:stockInput.sgst,
+            billno:stockInput.billno,
+            billdate:stockInput.billdate,
+            supplierrate:stockInput.supplierrate,
+            supply_on:stockInput.supplyon,
+      
+        } 
+        axios.put(`api/Stock-entry-final/${id}`,data).then(res=>{ 
+            swal("Success",res.data.message,"success");
+            history.goBack();
+        })
+
+    }
+});
+
+
+ 
 }
 
 const id= props.match.params.id; 

@@ -86,7 +86,7 @@ const itemcount = async () => {
   else{
     approveorderTable =[
   
-        approvedorders.slice(5).reverse().map((items)=>
+        approvedorders.slice(0,5).reverse().map((items)=>
       {
   
           return(

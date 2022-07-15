@@ -30,8 +30,7 @@ function Navbar() {
                     <FontAwesomeIcon icon={faUser}></FontAwesomeIcon> 
                     </Link>
                     <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                        <li><Link className="dropdown-item" to="#!">Settings</Link></li>
-                        <li><Link className="dropdown-item" to="#!">Activity Log</Link></li>
+                      
                         <li><hr className="dropdown-divider" /></li>
                         <li><button type="submit" className="dropdown-item" onClick={logoutSubmit} to="/">Logout</button></li>
                     </ul>

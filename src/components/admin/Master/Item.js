@@ -72,45 +72,58 @@ function Item()
 
     
     const submitItem=(event)=>{
+
     event.preventDefault();
+    swal({
+        title: "Are you sure?",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      })
 
-    const data ={
-            subcatid:itemInput.subcategory_id,
-            assettype:itemInput.asset_id,
-            itemcode:itemInput.itemscode,
-            name:itemInput.name,
-            remarks:itemInput.remarks,
-            approverate:itemInput.approverate,
-            quantity:itemInput.initalStock, 
-        }
-        console.log(itemInput);  
+      .then((willDelete) => {
+        if (willDelete) {
+            const data ={
+                subcatid:itemInput.subcategory_id,
+                assettype:itemInput.asset_id,
+                itemcode:itemInput.itemscode,
+                name:itemInput.name,
+                remarks:itemInput.remarks,
+                approverate:itemInput.approverate,
+                quantity:"0", 
+            }
+            console.log(itemInput);  
+        
+            axios.post(`api/saveitem`,data).then(res=>{
     
-        axios.post(`api/saveitem`,data).then(res=>{
+                if(res.data.status === 200)
+                {
+                    
+                    swal('Success',res.data.message,'success');
+                    history.push(`/admin/view-items`)   
+                    setItem({
+                        subcategory_id:'',
+                        assettype:'',
+                        itemscode:'',
+                        name:'',
+                        approverate:'',
+                        initalStock:'',
+                        remarks:'',
+                            })
+    
+                }
+    
+                else if(res.data.status ===409){
+                    swal('Error', res.data.message, "warning");
+                }
+                else if(res.data.status ===400){
+                    setItem({...itemInput, error_list:res.data.errors})
+                }
+            })
+        }
+    });
 
-            if(res.data.status === 200)
-            {
-                
-                swal('Success',res.data.message,'success');
-                history.push(`/admin/view-items`)   
-                setItem({
-                    subcategory_id:'',
-                    assettype:'',
-                    itemscode:'',
-                    name:'',
-                    approverate:'',
-                    initalStock:'',
-                    remarks:'',
-                        })
-
-            }
-
-            else if(res.data.status ===409){
-                swal('Error', res.data.message, "warning");
-            }
-            else if(res.data.status ===400){
-                setItem({...itemInput, error_list:res.data.errors})
-            }
-        })
+   
     }
 
     const clear = ()=>{
@@ -239,11 +252,11 @@ function Item()
                                                         </div> 
 
                                                         
-                                                        <div className="col-3">   
+                                                        {/* <div className="col-3">   
                                                             <label className="control-label font-weight-bold">Inital Stock: </label><span className="text-danger font-weight-bold">*</span> 
                                                             <div><span className="text-danger">{itemInput.error_list.assettype}</span></div>
                                                         <input type ="text" name="initalStock" className="form-control mb-2"  value={itemInput.initalStock} onChange={handleInput}  required/> 
-                                                        </div> 
+                                                        </div>  */}
                                                  
                                              
                                                             

@@ -91,9 +91,6 @@ categorylist.filter((item)=>{
               <td> {item.designame}</td>   
      
 
-              <td>
-                  <Link to={`/administrator/UserEdit/${item.id}`} className="btn btn-success btn-sm"><FontAwesomeIcon icon={faEdit}></FontAwesomeIcon></Link> 
-              </td>
              
           </tr>
       ) 
@@ -139,7 +136,7 @@ categorylist.filter((item)=>{
                                                     <th>Sl. No.</th>
                                                     <th>Name</th> 
                                           
-                                                    <th>Edit</th>
+                                                  
                                                   
                                                 </tr>
                                             </thead>

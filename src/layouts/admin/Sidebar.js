@@ -56,10 +56,10 @@ const Sidebar = () => {
                        View Final Orders
                     </Link>
 
-                    <Link  to="/admin/PresentStocks" className="nav-link"> 
+                    {/* <Link  to="/admin/PresentStocks" className="nav-link"> 
                     <div className="sb-nav-link-icon"> <FontAwesomeIcon icon={faNotesMedical}></FontAwesomeIcon> </div> 
                        Present Stock Record
-                    </Link>
+                    </Link> */}
                    
                 </div>
             </div>

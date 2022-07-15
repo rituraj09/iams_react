@@ -210,6 +210,17 @@ function EntryForm(){
 
         const orders = (event)=>{
             event.preventDefault()
+             swal({
+            title: "Are you sure?",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+          })
+
+          .then((willDelete) => {
+            if (willDelete) {
+
+          
             const data = {
                 remarks : orderInput.remarks ,
             }
@@ -227,6 +238,8 @@ function EntryForm(){
                 }
                  
             })
+        }
+    });
         }
     
                         let ordersubmit;

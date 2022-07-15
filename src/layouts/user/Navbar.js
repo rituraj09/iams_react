@@ -38,8 +38,7 @@ function Navbar(props) {
                             {props.email}
                         </Link></li>
                         <li><hr className="dropdown-divider" /></li>
-                        <li><Link className="dropdown-item" to="#!">Settings</Link></li>
-                        <li><Link className="dropdown-item" to="#!">Activity Log</Link></li>
+                        
                         <li><hr className="dropdown-divider" /></li>
                         <li><button type="submit" className="dropdown-item" onClick={logoutSubmit} to="/">Logout</button></li>
                     </ul>
